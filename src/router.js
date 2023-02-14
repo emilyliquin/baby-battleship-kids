@@ -17,6 +17,10 @@ import DemographicSurvey from '@/components/pages/DemographicSurveyPage.vue'
 import Captcha from '@/components/pages/CaptchaPage.vue'
 import Instructions from '@/components/pages/InstructionsPage.vue'
 import Exp from '@/components/pages/ExpPage.vue'
+import VidAutoAdvance from '@/components/pages/VidAutoAdvance.vue'
+import VidClickArrow from '@/components/pages/VidClickArrow.vue'
+import VidClickImage from '@/components/pages/VidClickImage.vue'
+
 import Task1 from '@/components/pages/Task1Page.vue'
 import Task2 from '@/components/pages/Task2Page.vue'
 import Debrief from '@/components/pages/DebriefPage.vue'
@@ -79,47 +83,53 @@ timeline.pushSeqRoute({
   component: Consent,
 })
 
-// demographic survery
-timeline.pushSeqRoute({
-  path: '/demograph',
-  name: 'demograph',
-  component: DemographicSurvey,
-  // beforeEnter: (to, from) => {
-  //   // before loading this route, identify the user
-  //   const smilestore = useSmileStore()
-  //   if (!smilestore.isKnownUser) {
-  //     console.log('not known')
-  //     smilestore.setKnown() // set new user and add document
-  //   }
-  // },
-})
+// // demographic survery
+// timeline.pushSeqRoute({
+//   path: '/demograph',
+//   name: 'demograph',
+//   component: DemographicSurvey,
+//   // beforeEnter: (to, from) => {
+//   //   // before loading this route, identify the user
+//   //   const smilestore = useSmileStore()
+//   //   if (!smilestore.isKnownUser) {
+//   //     console.log('not known')
+//   //     smilestore.setKnown() // set new user and add document
+//   //   }
+//   // },
+// })
 
-// windowsizer
-timeline.pushSeqRoute({
-  path: '/windowsizer',
-  name: 'windowsizer',
-  component: WindowSizer,
-})
+// // windowsizer
+// timeline.pushSeqRoute({
+//   path: '/windowsizer',
+//   name: 'windowsizer',
+//   component: WindowSizer,
+// })
 
-// captcha
-timeline.pushSeqRoute({
-  path: '/captcha',
-  name: 'captcha',
-  component: Captcha,
-})
+// // captcha
+// timeline.pushSeqRoute({
+//   path: '/captcha',
+//   name: 'captcha',
+//   component: Captcha,
+// })
 
-// instructions
-timeline.pushSeqRoute({
-  path: '/instructions',
-  name: 'instructions',
-  component: Instructions,
-})
+// // instructions
+// timeline.pushSeqRoute({
+//   path: '/instructions',
+//   name: 'instructions',
+//   component: Instructions,
+// })
 
 // main experiment
 timeline.pushSeqRoute({
-  path: '/exp',
-  name: 'exp',
-  component: Exp,
+  path: '/vidautoadvance',
+  name: 'vidautoadvance',
+  component: VidAutoAdvance,
+})
+
+timeline.pushSeqRoute({
+  path: '/vidclickimage',
+  name: 'vidclickimage',
+  component: VidClickImage,
 })
 
 // randomized block of tasks
