@@ -15,19 +15,33 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
+const props = defineProps(["vid_name"])
 
+const emit = defineEmits(["nextVid"])
 
-function finish(goto) { 
+function next_trial() { 
     // smilestore.saveData()
-    if(goto) router.push(goto)
+    emit('nextVid')
 }
+
 </script>
 
 <template>
     <div class="page">
-        <h1 class="title is-3">Experiment</h1>
-        <video id="testvid" src="../../assets/audio_prac_1.webm" autoplay @ended="finish(next())"></video>
+        <video class="kidvid" autoplay @ended="next_trial()">
+            <source :src="'./' + vid_name + '.webm'" >
+            <source :src="'./' + vid_name + '.mp4'" >
+            <p>Sorry, we're experiencing technical difficulties! Please contact the researcher to let them know.</p>
+        </video>
         <hr>
-        <button class="button is-success is-light is-large" id='finish' @click="finish(next())"><FAIcon icon="fa-solid fa-arrow-right" /></button>
+        <button class="button is-success is-light is-large" id='finish' @click="next_trial()"><FAIcon icon="fa-solid fa-arrow-right" /></button>
     </div>
 </template>
+
+<style scoped>
+.kidvid {
+    width: 800px;
+    height: 450px;
+  
+}
+</style>

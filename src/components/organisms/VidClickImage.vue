@@ -9,13 +9,6 @@ import appconfig from '@/config'
 import seedrandom from 'seedrandom'
 
 
-onMounted(() => {
-    window.addEventListener('mousemove', update)
-})
-
-onUnmounted(() => window.removeEventListener('mousemove', update))
-
-
 const router = useRouter()
 const route = useRoute()
 const smilestore = useSmileStore()
@@ -24,6 +17,11 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
+const props = defineProps(["vid_name"])
+
+const emit = defineEmits(["nextVid"])
+
+
 function showButtons(){
     const collection = document.getElementsByClassName("overlay");
     for (let i = 0; i < collection.length; i++) {
@@ -31,22 +29,27 @@ function showButtons(){
     }
 }
 
-function finish(goto, choice) { 
+function next_trial(choice) { 
     // smilestore.saveData()
     // TODO: add something to save what was clicked
-    if(goto) router.push(goto)
+    emit('nextVid')
 }
 
 </script>
 
 <template>
     <div class="page">
-        <div class="overlay" id="l" @click="finish(next(), 'l')" hidden></div>
-        <div class="overlay" id="m" @click="finish(next(), 'm')" hidden></div>
-        <div class="overlay" id="r" @click="finish(next(), 'r')" hidden></div>
-        <video class="kidvid" id="testvid" src="../../assets/cc_colors_2_attempt1.webm" autoplay controls @ended="showButtons()"></video>
+        <div class="overlay" id="l" @click="next_trial('l')" hidden></div>
+        <div class="overlay" id="m" @click="next_trial('m')" hidden></div>
+        <div class="overlay" id="r" @click="next_trial('r')" hidden></div>
+        <video class="kidvid" autoplay @ended="showButtons()">
+            <source :src="'./' + vid_name + '.webm'" >
+            <source :src="'./' + vid_name + '.mp4'" >
+            <p>Sorry, we're experiencing technical difficulties! Please contact the researcher to let them know.</p>
+        </video>    
+
         <hr>
-        <button class="button is-success is-light is-large" id='finish' @click="finish(next(), '')"><FAIcon icon="fa-solid fa-arrow-right" /></button>
+        <button class="button is-success is-light is-large" id='finish' @click="next_trial('')"><FAIcon icon="fa-solid fa-arrow-right" /></button>
     </div>
 </template>
 

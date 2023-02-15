@@ -17,9 +17,8 @@ import DemographicSurvey from '@/components/pages/DemographicSurveyPage.vue'
 import Captcha from '@/components/pages/CaptchaPage.vue'
 import Instructions from '@/components/pages/InstructionsPage.vue'
 import Exp from '@/components/pages/ExpPage.vue'
-import VidAutoAdvance from '@/components/pages/VidAutoAdvance.vue'
-import VidClickArrow from '@/components/pages/VidClickArrow.vue'
-import VidClickImage from '@/components/pages/VidClickImage.vue'
+import PracticeTrials from '@/components/pages/PracticeTrials.vue'
+import MainTrials from '@/components/pages/MainTrials.vue'
 
 import Task1 from '@/components/pages/Task1Page.vue'
 import Task2 from '@/components/pages/Task2Page.vue'
@@ -28,6 +27,7 @@ import Thanks from '@/components/pages/ThanksPage.vue'
 import Config from '@/components/pages/ConfigPage.vue'
 import Withdraw from '@/components/pages/WithdrawPage.vue'
 import WindowSizer from '@/components/pages/WindowSizerPage.vue'
+
 // add new routes here.  generally these will be things in components/pages/[something].vue
 
 // 2. Define some routes to the timeline
@@ -119,18 +119,21 @@ timeline.pushSeqRoute({
 //   component: Instructions,
 // })
 
-// main experiment
 timeline.pushSeqRoute({
-  path: '/vidautoadvance',
-  name: 'vidautoadvance',
-  component: VidAutoAdvance,
+  path: '/main',
+  name: 'main',
+  component: MainTrials,
 })
 
+
+// main experiment
 timeline.pushSeqRoute({
-  path: '/vidclickimage',
-  name: 'vidclickimage',
-  component: VidClickImage,
+  path: '/practice',
+  name: 'practice',
+  component: PracticeTrials,
 })
+
+
 
 // randomized block of tasks
 timeline.pushRandRoute({
