@@ -50,6 +50,7 @@ export default defineStore('smilestore', {
       recruitment_service: 'web', // fake
       recruitment_info: {}, // empty
       browser_data: [], // empty
+      time_data: [],
       demographic_form: {}, // empty
       withdraw: false, // false
       withdraw_data: {}, // empty
@@ -138,6 +139,9 @@ export default defineStore('smilestore', {
       if (this.local.docRef) {
         this.setDBConnected()
       }
+    },
+    saveTiming(page, time) {
+      this.data.time_data.push({page, time})
     },
     async loadData() {
       let data

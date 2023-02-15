@@ -17,7 +17,7 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
-const props = defineProps(["vid_name"])
+const props = defineProps(["vid_name", "attempt", "correct"])
 
 const emit = defineEmits(["nextVid"])
 
@@ -32,7 +32,11 @@ function showButtons(){
 function next_trial(choice) { 
     // smilestore.saveData()
     // TODO: add something to save what was clicked
+    if(choice === props.correct){
+        emit('nextVid', true,  props.attempt)
+    }
     emit('nextVid')
+    
 }
 
 </script>

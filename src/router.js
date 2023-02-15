@@ -19,6 +19,7 @@ import Instructions from '@/components/pages/InstructionsPage.vue'
 import Exp from '@/components/pages/ExpPage.vue'
 import PracticeTrials from '@/components/pages/PracticeTrials.vue'
 import MainTrials from '@/components/pages/MainTrials.vue'
+import FeatureChecks from '@/components/pages/FeatureChecks.vue'
 
 import Task1 from '@/components/pages/Task1Page.vue'
 import Task2 from '@/components/pages/Task2Page.vue'
@@ -119,21 +120,28 @@ timeline.pushSeqRoute({
 //   component: Instructions,
 // })
 
-timeline.pushSeqRoute({
-  path: '/main',
-  name: 'main',
-  component: MainTrials,
-})
+
 
 
 // main experiment
+
+timeline.pushSeqRoute({
+  path: '/features',
+  name: 'features',
+  component: FeatureChecks,
+})
+
 timeline.pushSeqRoute({
   path: '/practice',
   name: 'practice',
   component: PracticeTrials,
 })
 
-
+timeline.pushSeqRoute({
+  path: '/main',
+  name: 'main',
+  component: MainTrials,
+})
 
 // randomized block of tasks
 timeline.pushRandRoute({

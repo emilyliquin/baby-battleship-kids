@@ -1,5 +1,5 @@
 <script setup>
-import { ref, reactive, shallowRef } from 'vue'
+import { ref, reactive, shallowRef, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata' // get access to the global store
@@ -42,12 +42,17 @@ const pages = [
 {comp: VidAutoAdvance, args:{id: 17, vid_name: "trial_mixing"}},
 {comp: VidClickArrow, args:{id: 18, vid_name: "mt6_1"}},
 {comp: VidAutoAdvance, args:{id: 19, vid_name: "mt6_2"}},
+{comp: VidAutoAdvance, args:{id: 20, vid_name: "end"}},
 ]
 
 let page_indx = 0
 
 const currentTab = shallowRef(pages[page_indx])
 
+let start_time
+onMounted(() => {
+    start_time = Date.now()
+})
 
 function next_trial(goto) {
     page_indx += 1
@@ -60,10 +65,6 @@ function next_trial(goto) {
 }
 
 
-function finish(goto) { 
-    // smilestore.saveData()
-    if(goto) router.push(goto)
-}
 </script>
 
 <template>
