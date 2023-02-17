@@ -17,7 +17,7 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
-const props = defineProps(["vid_name", "attempt", "correct"])
+const props = defineProps(["vid_name", "attempt", "correct", "clickOptions"])
 
 const emit = defineEmits(["nextVid"])
 
@@ -27,6 +27,10 @@ function showButtons(){
     for (let i = 0; i < collection.length; i++) {
         collection[i].removeAttribute("hidden")
     }
+}
+
+function getStyle(option){
+    return { height: `${option.height  }px`, width: `${option.width  }px`, marginTop: `${option.margin_top  }px`, marginLeft: `${option.margin_left  }px`}
 }
 
 function next_trial(choice) { 
@@ -39,13 +43,14 @@ function next_trial(choice) {
     
 }
 
+
+
+
 </script>
 
 <template>
     <div class="page">
-        <div class="overlay" id="l" @click="next_trial('l')" hidden></div>
-        <div class="overlay" id="m" @click="next_trial('m')" hidden></div>
-        <div class="overlay" id="r" @click="next_trial('r')" hidden></div>
+        <div v-for="option in clickOptions" class="overlay" :key="option.option_id" :id="option.option_id" @click="next_trial(option.option_id)" :style="getStyle(option)" > </div>
         <video class="kidvid" autoplay @ended="showButtons()">
             <source :src="'./' + vid_name + '.webm'" >
             <source :src="'./' + vid_name + '.mp4'" >
@@ -86,6 +91,7 @@ function next_trial(choice) {
     opacity:0;
     border:1px solid black;
     z-index:99;
+    left: 50%;
 }
 .overlay:hover {
     opacity:0.3;
@@ -95,7 +101,6 @@ function next_trial(choice) {
     height:200px;
     width:200px;
     margin-top: 125px;
-    left: 50%;
     margin-left: -380px;
 }
 

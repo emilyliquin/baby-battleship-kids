@@ -22,17 +22,25 @@ const { next, prev } = useTimelineStepper()
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
 
+const fullClickOptions = [{option_id: "l", height: "200", width: "200", margin_top: "125", margin_left: "-380"},
+{option_id: "m", height: "200", width: "200", margin_top: "125", margin_left: "-100"},
+{option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "180"}]
+
+const clickOptionsL = [{option_id: "l", height: "200", width: "200", margin_top: "125", margin_left: "-380"}]
+const clickOptionsM = [{option_id: "m", height: "200", width: "200", margin_top: "125", margin_left: "-100"}]
+const clickOptionsR = [{option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "180"}]
+
 const pages = [{comp: VidClickArrow, args:{id: 1, vid_name: "audio_prac_1"}}, 
 {comp: VidClickArrow, args:{id: 2, vid_name: "audio_prac_2"}},
-{comp: VidClickImage, args:{id: 3, vid_name: "cc_colors_1_attempt1", attempt: 1, correct: "m"}},
-{comp: VidClickImage, args:{id: 4, vid_name: "cc_colors_1_attempt2", attempt: 2, correct: "m" }},
-{comp: VidClickImage, args:{id: 5, vid_name: "cc_colors_1_attempt3", attempt: 3, correct: "m" }},
-{comp: VidClickImage, args:{id: 6, vid_name: "cc_colors_2_attempt1", attempt: 1, correct: "l"}},
-{comp: VidClickImage, args:{id: 7, vid_name: "cc_colors_2_attempt2", attempt: 2, correct: "l"}},
-{comp: VidClickImage, args:{id: 8, vid_name: "cc_colors_2_attempt3", attempt: 3, correct: "l"}},
-{comp: VidClickImage, args:{id: 9, vid_name: "cc_colors_3_attempt1", attempt: 1, correct: "r"}},
-{comp: VidClickImage, args:{id: 10, vid_name: "cc_colors_3_attempt2", attempt: 2, correct: "r"}},
-{comp: VidClickImage, args:{id: 11, vid_name: "cc_colors_3_attempt3", attempt: 3, correct: "r"}},
+{comp: VidClickImage, args:{id: 3, vid_name: "cc_colors_1_attempt1", attempt: 1, correct: "m", clickOptions: fullClickOptions}},
+{comp: VidClickImage, args:{id: 4, vid_name: "cc_colors_1_attempt2", attempt: 2, correct: "m", clickOptions: fullClickOptions }},
+{comp: VidClickImage, args:{id: 5, vid_name: "cc_colors_1_attempt3", attempt: 3, correct: "m" , clickOptions: clickOptionsM}},
+{comp: VidClickImage, args:{id: 6, vid_name: "cc_colors_2_attempt1", attempt: 1, correct: "l", clickOptions: fullClickOptions}},
+{comp: VidClickImage, args:{id: 7, vid_name: "cc_colors_2_attempt2", attempt: 2, correct: "l", clickOptions: fullClickOptions}},
+{comp: VidClickImage, args:{id: 8, vid_name: "cc_colors_2_attempt3", attempt: 3, correct: "l", clickOptions: clickOptionsL}},
+{comp: VidClickImage, args:{id: 9, vid_name: "cc_colors_3_attempt1", attempt: 1, correct: "r", clickOptions: fullClickOptions}},
+{comp: VidClickImage, args:{id: 10, vid_name: "cc_colors_3_attempt2", attempt: 2, correct: "r", clickOptions: fullClickOptions}},
+{comp: VidClickImage, args:{id: 11, vid_name: "cc_colors_3_attempt3", attempt: 3, correct: "r", clickOptions: clickOptionsR}},
 ]
 
 let page_indx = 0
