@@ -16,6 +16,8 @@ smilestore.global.status_bar_text_color = '#000'
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
+console.log(route.params.service)
+
 function finish(goto) { 
     // smilestore.saveData()
     if(goto) router.push(goto)
@@ -26,11 +28,16 @@ function finish(goto) {
 <template>
     <div class="page">
         <br><br><br>
+        <div v-if="route.params.service === 'panda'">
+            <img src="@/assets/start_page.png" width="500">
+        </div>
+        <div v-else>
         <img src="@/assets/brain.svg" width="220">
         <h1 class="title is-3">Please help us understand the mind!</h1>
         <p>
             Take part in a short experiment where you play a game for money.
         </p>
+        </div>
         <br>
         <button class="button is-warning" id='finish' @click="finish(next())">I'm ready! &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></button>
     </div>

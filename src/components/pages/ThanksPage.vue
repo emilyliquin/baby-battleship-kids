@@ -100,6 +100,12 @@ clipboard.on('success', (e) => {
                 Your data have been successfully recorded and you can close this window or navigate to another page.
             </p>
         </div>
+        <div class="payment" v-if="smilestore.recruitmentService=='panda'">
+            <p>
+                <h1 class="title is-3">Thanks for your contribution to science!</h1>
+                Instructions about saving and uploading video go here.
+            </p>
+        </div>
     </div>
 </template>
 

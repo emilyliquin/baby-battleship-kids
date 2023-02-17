@@ -10,7 +10,8 @@ const smilestore = useSmileStore()
 
 const seed = ref(smilestore.getSeedID)
 
-const urls = {prolific: "/#/welcome/prolific/?PROLIFIC_PID=XXXX&STUDY_ID=XXXX&SESSION_ID=XXXXX",
+const urls = {panda: "/#/welcome/panda/?ID=XXXX",
+prolific: "/#/welcome/prolific/?PROLIFIC_PID=XXXX&STUDY_ID=XXXX&SESSION_ID=XXXXX",
 cloudResearch: "/#/welcome/cloudresearch/?assignmentId=123RVWYBAZW00EXAMPLE456RVWYBAZW00EXAMPLE&hitId=123RVWYBAZW00EXAMPLE&turkSubmitTo=https://www.mturk.com/&workerId=AZ3456EXAMPLE",
 amt: "/#/mturk/?assignmentId=123RVWYBAZW00EXAMPLE456RVWYBAZW00EXAMPLE&hitId=123RVWYBAZW00EXAMPLE&turkSubmitTo=https://www.mturk.com/&workerId=AZ3456EXAMPLE",
 citizenScience: "/#/welcome/citizensci/?CITIZEN_ID=XXXXX&CITIZEN_STUDY_ID=123RVWYBAZW00EXAMPLE&CITIZEN_SESSION_ID=AZ3456EXAMPLE",
@@ -59,6 +60,12 @@ function refresh(){
                 Please choose how you would like to test your application.
                 You can choose between these options:
                 <br>
+                <hr>
+                <h3 class="title is-5">PANDA</h3>
+                  <p class="is-size-6">
+                  <a href="https://discoveriesonline.org/" target="_new">PANDA</a> is a platform for online experiments with children.
+                  </p>
+                  <a :href="urls['panda']" class="button is-link is-small" id='panda_tester'>Random Fake PANDA User &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
                 <hr>
                 <h3 class="title is-5">Prolific.ac</h3>
                   <p class="is-size-6">
