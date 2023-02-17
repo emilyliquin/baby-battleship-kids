@@ -35,7 +35,8 @@ const name = ref('enter your name')
 
 <template>
     <div class="page">
-        <div class="pagecontent">
+        Consent goes here
+        <!-- <div class="pagecontent">
             <div class="has-background-light  bumper">
                 <div class="columns">
                     <div class="column">
@@ -73,7 +74,10 @@ const name = ref('enter your name')
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
+        <button class="button is-success " id='finish'  @click="finish(next())">
+                                Let's start &nbsp;<FAIcon icon="fa-solid fa-arrow-right" />
+                            </button>
     </div>
 </template>
 
