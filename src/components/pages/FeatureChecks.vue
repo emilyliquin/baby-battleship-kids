@@ -22,26 +22,51 @@ const { next, prev } = useTimelineStepper()
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
 
-const fullClickOptions = [{option_id: "l", height: "200", width: "200", margin_top: "125", margin_left: "-380"},
+const fullClickOptions3 = [{option_id: "l", height: "200", width: "200", margin_top: "125", margin_left: "-380"},
 {option_id: "m", height: "200", width: "200", margin_top: "125", margin_left: "-100"},
 {option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "180"}]
 
-const clickOptionsL = [{option_id: "l", height: "200", width: "200", margin_top: "125", margin_left: "-380"}]
-const clickOptionsM = [{option_id: "m", height: "200", width: "200", margin_top: "125", margin_left: "-100"}]
-const clickOptionsR = [{option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "180"}]
+const clickOptionsL3 = [{option_id: "l", height: "200", width: "200", margin_top: "125", margin_left: "-380"}]
+const clickOptionsM3 = [{option_id: "m", height: "200", width: "200", margin_top: "125", margin_left: "-100"}]
+const clickOptionsR3 = [{option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "180"}]
 
-const pages = [{comp: VidClickArrow, args:{id: 1, vid_name: "audio_prac_1"}}, 
-{comp: VidClickArrow, args:{id: 2, vid_name: "audio_prac_2"}},
-{comp: VidClickImage, args:{id: 3, vid_name: "cc_colors_1_attempt1", attempt: 1, correct: "m", clickOptions: fullClickOptions}},
-{comp: VidClickImage, args:{id: 4, vid_name: "cc_colors_1_attempt2", attempt: 2, correct: "m", clickOptions: fullClickOptions }},
-{comp: VidClickImage, args:{id: 5, vid_name: "cc_colors_1_attempt3", attempt: 3, correct: "m" , clickOptions: clickOptionsM}},
-{comp: VidClickImage, args:{id: 6, vid_name: "cc_colors_2_attempt1", attempt: 1, correct: "l", clickOptions: fullClickOptions}},
-{comp: VidClickImage, args:{id: 7, vid_name: "cc_colors_2_attempt2", attempt: 2, correct: "l", clickOptions: fullClickOptions}},
-{comp: VidClickImage, args:{id: 8, vid_name: "cc_colors_2_attempt3", attempt: 3, correct: "l", clickOptions: clickOptionsL}},
-{comp: VidClickImage, args:{id: 9, vid_name: "cc_colors_3_attempt1", attempt: 1, correct: "r", clickOptions: fullClickOptions}},
-{comp: VidClickImage, args:{id: 10, vid_name: "cc_colors_3_attempt2", attempt: 2, correct: "r", clickOptions: fullClickOptions}},
-{comp: VidClickImage, args:{id: 11, vid_name: "cc_colors_3_attempt3", attempt: 3, correct: "r", clickOptions: clickOptionsR}},
-]
+
+let pages = [{comp: VidClickArrow, args:{vid_name: "audio_prac_1"}}, 
+{comp: VidClickArrow, args:{vid_name: "audio_prac_2"}}]
+
+
+const colorTrialsShuffle = random.shuffle([[{comp: VidClickImage, args:{vid_name: "cc_colors_1_attempt1", attempt: 1, correct: "m", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_colors_1_attempt2", attempt: 2, correct: "m", clickOptions: fullClickOptions3 }},
+{comp: VidClickImage, args:{vid_name: "cc_colors_1_attempt3", attempt: 3, correct: "m" , clickOptions: clickOptionsM3}}], 
+[{comp: VidClickImage, args:{vid_name: "cc_colors_2_attempt1", attempt: 1, correct: "l", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_colors_2_attempt2", attempt: 2, correct: "l", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_colors_2_attempt3", attempt: 3, correct: "l", clickOptions: clickOptionsL3}}],
+[{comp: VidClickImage, args:{vid_name: "cc_colors_3_attempt1", attempt: 1, correct: "r", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_colors_3_attempt2", attempt: 2, correct: "r", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_colors_3_attempt3", attempt: 3, correct: "r", clickOptions: clickOptionsR3}}]])
+
+const legTrialsShuffle = random.shuffle([[{comp: VidClickImage, args:{vid_name: "cc_legs_1_attempt1", attempt: 1, correct: "r", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_legs_1_attempt2", attempt: 2, correct: "r", clickOptions: fullClickOptions3 }},
+{comp: VidClickImage, args:{vid_name: "cc_legs_1_attempt3", attempt: 3, correct: "r" , clickOptions: clickOptionsR3}}], 
+[{comp: VidClickImage, args:{vid_name: "cc_legs_2_attempt1", attempt: 1, correct: "m", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_legs_2_attempt2", attempt: 2, correct: "m", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_legs_2_attempt3", attempt: 3, correct: "m", clickOptions: clickOptionsM3}}],
+[{comp: VidClickImage, args:{vid_name: "cc_legs_3_attempt1", attempt: 1, correct: "l", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_legs_3_attempt2", attempt: 2, correct: "l", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_legs_3_attempt3", attempt: 3, correct: "l", clickOptions: clickOptionsL3}}]])
+
+// TO DO: change to two options
+const headTrialsShuffle = random.shuffle([[{comp: VidClickImage, args:{vid_name: "cc_head_1_attempt1", attempt: 1, correct: "l", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_head_1_attempt2", attempt: 2, correct: "l", clickOptions: fullClickOptions3 }},
+{comp: VidClickImage, args:{vid_name: "cc_head_1_attempt3", attempt: 3, correct: "l" , clickOptions: clickOptionsR3}}], 
+[{comp: VidClickImage, args:{vid_name: "cc_head_2_attempt1", attempt: 1, correct: "r", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_head_2_attempt2", attempt: 2, correct: "r", clickOptions: fullClickOptions3}},
+{comp: VidClickImage, args:{vid_name: "cc_head_2_attempt3", attempt: 3, correct: "r", clickOptions: clickOptionsM3}}]])
+
+const allTrials = random.shuffle([colorTrialsShuffle, legTrialsShuffle, headTrialsShuffle])
+
+pages.push(allTrials)
+pages = pages.flat(3)
 
 let page_indx = 0
 
@@ -77,6 +102,6 @@ function finish(goto) {
 <template>
     <div class="page">
         
-        <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.id" @next-vid="next_trial"></component>
+        <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.vid_name" @next-vid="next_trial"></component>
      </div>
 </template>
