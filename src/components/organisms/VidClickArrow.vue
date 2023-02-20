@@ -19,6 +19,13 @@ const props = defineProps(["vid_name"])
 
 const emit = defineEmits(["nextVid"])
 
+function highlightNext(){
+    const button = document.getElementById("finishp")
+    button.classList.add("is-success")
+    button.classList.remove('is-light');
+    document.getElementById("buttontext").classList.toggle("fa")
+}
+
 function next_trial() { 
     // smilestore.saveData()
     emit('nextVid')
@@ -28,13 +35,13 @@ function next_trial() {
 
 <template>
     <div class="page">
-        <video class="kidvid" autoplay>
+        <video class="kidvid" autoplay @ended="highlightNext()">
             <source :src="'./' + vid_name + '.webm'" >
             <source :src="'./' + vid_name + '.mp4'" >
             <p>Sorry, we're experiencing technical difficulties! Please contact the researcher to let them know.</p>
         </video>        
         <hr>
-        <button class="button is-success is-light is-large" id='finish' @click="next_trial()"><FAIcon icon="fa-solid fa-arrow-right" /></button>
+        <button class="button is-light is-large" id='finishp' @click="next_trial()"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
     </div>
 </template>
 
@@ -44,4 +51,8 @@ function next_trial() {
     height: 450px;
   
 }
+
+.fa {color: rgb(166, 165, 165);}
+
+
 </style>

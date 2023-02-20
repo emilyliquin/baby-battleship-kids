@@ -50,7 +50,7 @@ function next_trial(choice) {
 
 <template>
     <div class="page">
-        <div v-for="option in clickOptions" class="overlay" :key="option.option_id" :id="option.option_id" @click="next_trial(option.option_id)" :style="getStyle(option)" > </div>
+        <div v-for="option in clickOptions" class="overlay" :key="option.option_id" :id="option.option_id" @click="next_trial(option.option_id)" :style="getStyle(option)" hidden> </div>
         <video class="kidvid" autoplay @ended="showButtons()">
             <source :src="'./' + vid_name + '.webm'" >
             <source :src="'./' + vid_name + '.mp4'" >
@@ -58,7 +58,8 @@ function next_trial(choice) {
         </video>    
 
         <hr>
-        <button class="button is-success is-light is-large" id='finish' @click="next_trial('')"><FAIcon icon="fa-solid fa-arrow-right" /></button>
+        <button class="button is-light is-large" id='finishp' @click="next_trial('')"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
+
     </div>
 </template>
 
@@ -70,20 +71,7 @@ function next_trial(choice) {
   
 }
 
-.area {
-    background:#fff;
-    display:block;
-    height:450px;
-    opacity:0.5;
-    position:absolute;
-    width:400px;
-}
-#area2 {
-    left:400px;
-}
-#area1:hover, #area2:hover {
-    opacity:0.2;
-}
+.fa {color: rgb(166, 165, 165);}
 
 .overlay{
     position:absolute;
