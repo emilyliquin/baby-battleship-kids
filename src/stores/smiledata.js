@@ -27,6 +27,9 @@ export default defineStore('smilestore', {
       seedActive: true,
       seedID: '',
       seedSet: false,
+      cc_page: 0,
+      prac_page: 0,
+      main_page: 0,
     }, localStorage, { mergeDefaults: true }),
     global: {
       // ephemeral state, resets on browser refresh
@@ -56,7 +59,7 @@ export default defineStore('smilestore', {
       withdraw: false, // false
       withdraw_data: {}, // empty
       route_order: [],
-      conditions: {}
+      conditions: {},
     },
     config: appconfig,
   }),
@@ -71,7 +74,10 @@ export default defineStore('smilestore', {
     searchParams: (state) => state.global.search_params,
     recruitmentService: (state) => state.data.recruitment_service,
     isSeedSet: (state) => state.local.seedSet,
-    getSeedID: (state) => state.local.seedID
+    getSeedID: (state) => state.local.seedID,
+    getPageCC: (state) => state.local.cc_page,
+    getPagePrac: (state) => state.local.prac_page,
+    getPageMain: (state) => state.local.main_page,
   },
 
   actions: {
@@ -128,6 +134,15 @@ export default defineStore('smilestore', {
     },
     setCondition(name, cond) {
       this.data.conditions[name] = cond
+    },
+    incrementPage(page, amount){
+      this.local[page] += amount
+      return this.local[page] 
+    },
+    resetPages(){
+      this.local.cc_page = 0
+      this.local.prac_page = 0
+      this.local.main_page = 0
     },
     async setKnown() {
       this.local.knownUser = true

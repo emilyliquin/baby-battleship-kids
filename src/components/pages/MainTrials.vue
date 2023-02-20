@@ -59,7 +59,7 @@ const pagesShuffled = random.shuffle(pagesNested)
 const pages = pagesShuffled.flat()
 pages.splice(9, 0, {comp: VidClickArrow, args:{id: 10, vid_name: "interim_6"}});
 
-let page_indx = 0
+const page_indx = smilestore.getPageMain
 
 const currentTab = shallowRef(pages[page_indx])
 
@@ -69,12 +69,12 @@ onMounted(() => {
 })
 
 function next_trial(goto) {
-    page_indx += 1
-    if (page_indx >= pages.length) {
+    const newpage = smilestore.incrementPage("main_page", 1)
+    if (newpage >= pages.length) {
       smilestore.saveTiming('main', Date.now() - start_time)
         if(goto) router.push(goto)
     } else {
-        currentTab.value = pages[page_indx]
+        currentTab.value = pages[newpage]
     }
 }
 

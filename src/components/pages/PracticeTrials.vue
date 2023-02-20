@@ -21,24 +21,25 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
-// #todo
-const headOpts2 = [{option_id: "square", height: "50", width: "50", margin_top: "48", margin_left: "173"},
-{option_id: "circle", height: "50", width: "50", margin_top: "48", margin_left: "255"}]
 
-const headOpts3 = [{option_id: "square", height: "50", width: "50", margin_top: "48", margin_left: "173"},
-{option_id: "circle", height: "50", width: "50", margin_top: "48", margin_left: "255"}]
+const headOpts2 = [{option_id: "square", height: "50", width: "50", margin_top: "45", margin_left: "-64"},
+{option_id: "circle", height: "50", width: "50", margin_top: "45", margin_left: "17"}]
 
-const legOpts2 = [{option_id: "l1", height: "50", width: "40", margin_top: "175", margin_left: "-78"},
-{option_id: "l2", height: "50", width: "40", margin_top: "175", margin_left: "-35"},
-{option_id: "l3", height: "50", width: "50", margin_top: "175", margin_left: "15"}]
+const headOpts3 = [{option_id: "square", height: "50", width: "50", margin_top: "45", margin_left: "170"},
+{option_id: "circle", height: "50", width: "50", margin_top: "45", margin_left: "252"}]
 
-const legOpts3 = [{option_id: "l1", height: "50", width: "40", margin_top: "175", margin_left: "142"},
-{option_id: "l2", height: "50", width: "40", margin_top: "175", margin_left: "185"},
-{option_id: "l3", height: "50", width: "50", margin_top: "175", margin_left: "235"}]
+const legOpts2 = [{option_id: "l1", height: "50", width: "40", margin_top: "175", margin_left: "-73"},
+{option_id: "l2", height: "50", width: "40", margin_top: "175", margin_left: "-30"},
+{option_id: "l3", height: "50", width: "50", margin_top: "175", margin_left: "18"}]
+
+const legOpts3 = [{option_id: "l1", height: "50", width: "40", margin_top: "175", margin_left: "160"},
+{option_id: "l2", height: "50", width: "40", margin_top: "175", margin_left: "204"},
+{option_id: "l3", height: "50", width: "50", margin_top: "175", margin_left: "252"}]
 
 
 
 const pages = []
+
 
 pages.push({comp: VidAutoAdvance, args:{vid_name: "game_intro"}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: "first_mixing"}})
@@ -47,6 +48,7 @@ const trialOrder = random.shuffle([1, 2, 3])
 const trial1 = trialOrder[0]
 const trial2 = trialOrder[1]
 const trial3 = trialOrder[2]
+
 
 // add trial 1
 pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial1}_hint`}})
@@ -95,8 +97,7 @@ pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_reveal`}})
 pages.push({comp: VidClickArrow, args:{vid_name: `interim_3`}})
 
 
-
-let page_indx = 0
+const page_indx = smilestore.getPagePrac
 
 const currentTab = shallowRef(pages[page_indx])
 
@@ -105,13 +106,15 @@ onMounted(() => {
     start_time = Date.now()
 })
 
+
+
 function next_trial(goto) {
-    page_indx += 1
-    if (page_indx >= pages.length) {
+    const newpage = smilestore.incrementPage("prac_page", 1)
+    if (newpage >= pages.length) {
       smilestore.saveTiming('practice', Date.now() - start_time)
         if(goto) router.push(goto)
     } else {
-        currentTab.value = pages[page_indx]
+        currentTab.value = pages[newpage]
     }
 }
 

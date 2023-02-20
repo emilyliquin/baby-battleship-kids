@@ -76,7 +76,7 @@ const allTrials = random.shuffle([colorTrialsShuffle, legTrialsShuffle, headTria
 pages.push(allTrials)
 pages = pages.flat(3)
 
-let page_indx = 0
+const page_indx = smilestore.getPageCC
 
 const currentTab = shallowRef(pages[page_indx])
 
@@ -86,16 +86,17 @@ onMounted(() => {
 })
 
 function next_trial(success, attempt_num) {
+    let newpage = page_indx
     if(success){
-        page_indx += (3-attempt_num)
+        newpage = smilestore.incrementPage("cc_page", 3-attempt_num)
     } else {
-        page_indx += 1
+        newpage = smilestore.incrementPage("cc_page", 1)
     }
-    if (page_indx >= pages.length) {
-      smilestore.saveTiming('practice', Date.now() - start_time)
+    if (newpage >= pages.length) {
+      smilestore.saveTiming('cc', Date.now() - start_time)
         if(next()) router.push(next())
     } else {
-        currentTab.value = pages[page_indx]
+        currentTab.value = pages[newpage]
     }
 }
 
