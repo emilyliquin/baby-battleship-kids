@@ -59,6 +59,14 @@ export function processQuery(query, service) {
       study_id: urlParams.CITIZEN_STUDY_ID,
       session_id: urlParams.CITIZEN_SESSION_ID,
     })
+  } else if (
+    service === 'panda' &&
+    urlParams.ID
+  ) {
+    console.log('Panda mode')
+    smilestore.setRecruitmentService(service, {
+      panda_id: urlParams.ID
+    })
   } else {
     // console.log('const { next, prev } = useTimelineStepper() mode')
   }

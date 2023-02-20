@@ -58,13 +58,13 @@ function submitWithdraw() {
                 <img src="@/assets/nyu.png" width="90">
             </a>
             <div class="navbar-item" >
-                <p class="is-size-7 studyinfo">Study: {{ smilestore.config.code_name }}<br>Version: {{ smilestore.config.github.last_commit_hash }}</p>
+                <p v-if="smilestore.config.mode==='development'" class="is-size-7 studyinfo">Study: {{ smilestore.config.code_name }}<br>Version: {{ smilestore.config.github.last_commit_hash }}</p>
             </div>
         </div>
         <div id="navbarBasicExample" class="navbar-menu is-active">
             <div class="navbar-end">
                 <div class="navbar-item" >
-                    <div class="buttons" v-if="smilestore.data.withdraw !== true">
+                    <!-- <div class="buttons" v-if="smilestore.data.withdraw !== true">
                         <button class="button is-info is-small is-light" v-if="smilestore.isConsented" @click="toggleConsent()">
                             <FAIcon icon="magnifying-glass" />&nbsp;&nbsp;View consent
                         </button>
@@ -74,7 +74,7 @@ function submitWithdraw() {
                         <button class="button is-warning is-small is-light" @click="toggleReport()" v-if="false">
                             <FAIcon icon="hand" />&nbsp;&nbsp;Report issue
                         </button>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

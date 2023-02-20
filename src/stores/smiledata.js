@@ -44,6 +44,7 @@ export default defineStore('smilestore', {
     },
     data: {
       // syncs with firestore
+      docRef: null,
       trial_num: 0, // not being updated correctly
       consented: false,
       done: false,
@@ -132,7 +133,7 @@ export default defineStore('smilestore', {
       this.local.knownUser = true
       this.local.partNum = await updateExperimentCounter('participants')
       this.local.docRef = await createDoc(this.data, this.local.seedID, this.local.partNum)
-
+      this.data.docRef = this.local.docRef
       // assign conditions, with id number for randomization
       // this.assignConds(this.local.partNum)
 

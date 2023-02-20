@@ -32,7 +32,8 @@ const clickOptionsR3 = [{option_id: "r", height: "200", width: "200", margin_top
 
 
 let pages = [{comp: VidClickArrow, args:{vid_name: "audio_prac_1"}}, 
-{comp: VidClickArrow, args:{vid_name: "audio_prac_2"}}]
+{comp: VidClickArrow, args:{vid_name: "audio_prac_2"}},
+{comp: VidAutoAdvance, args:{vid_name: "cc_intro"}}]
 
 
 const colorTrialsShuffle = random.shuffle([[{comp: VidClickImage, args:{vid_name: "cc_colors_1_attempt1", attempt: 1, correct: "m", clickOptions: fullClickOptions3}},
