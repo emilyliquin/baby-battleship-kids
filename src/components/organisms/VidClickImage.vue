@@ -22,14 +22,14 @@ const props = defineProps(["vid_name", "attempt", "correct", "clickOptions"])
 const emit = defineEmits(["nextVid"])
 
 
-const showmodal = ref(false) // reactive
-function toggleModal() {
-    showmodal.value=!showmodal.value  // have to use .value in <script> when using ref()
-    // document.getElementById('kidvid')
-    if(showmodal.value === false){
-        document.getElementById("kidvid").play();
-    }
-}
+// const showmodal = ref(false) // reactive
+// function toggleModal() {
+//     showmodal.value=!showmodal.value  // have to use .value in <script> when using ref()
+//     // document.getElementById('kidvid')
+//     if(showmodal.value === false){
+//         document.getElementById("kidvid").play();
+//     }
+// }
 
 let start_time
 let end_time
@@ -37,15 +37,15 @@ let end_time
 onMounted(() => {
     start_time = Date.now()
 
-    if(smilestore.local.page_visited === -1) {
-    // The cookie doesn't exist. Create it now
-        smilestore.local.page_visited = 1;
-    }
-    else {
-        // Not the first visit, so alert
-        console.log("refreshed")
-        toggleModal()
-    }
+    // if(smilestore.local.page_visited === -1) {
+    // // The cookie doesn't exist. Create it now
+    //     smilestore.local.page_visited = 1;
+    // }
+    // else {
+    //     // Not the first visit, so alert
+    //     console.log("refreshed")
+    //     toggleModal()
+    // }
   })
 
 function showButtons(){
@@ -89,12 +89,12 @@ function next_trial(choice) {
         </video>    
 
         <!-- modal for refresh page -->
-        <div class="modal" :class="{'is-active': showmodal}">
+        <!-- <div class="modal" :class="{'is-active': showmodal}">
         <div class="modal-background"></div>
         <div class="modal-content">
             <button class="button is-success is-large" @click="toggleModal()">Click here to keep going</button>
         </div>
-        </div>
+        </div> -->
 
         <hr>
         <button class="button is-light is-large" id='finishp' @click="next_trial('')"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
