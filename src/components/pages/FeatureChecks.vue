@@ -31,6 +31,13 @@ const clickOptionsM3 = [{option_id: "m", height: "200", width: "200", margin_top
 const clickOptionsR3 = [{option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "180"}]
 
 
+const fullClickOptions2 = [{option_id: "l", height: "200", width: "200", margin_top: "125", margin_left: "-275"},
+{option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "75"}]
+
+const clickOptionsL2 = [{option_id: "l", height: "200", width: "200", margin_top: "125", margin_left: "-275"}]
+const clickOptionsR2 = [{option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "75"}]
+
+
 let pages = [{comp: VidClickArrow, args:{vid_name: "audio_prac_1"}}, 
 {comp: VidClickArrow, args:{vid_name: "audio_prac_2"}},
 {comp: VidAutoAdvance, args:{vid_name: "cc_intro"}}]
@@ -57,12 +64,12 @@ const legTrialsShuffle = random.shuffle([[{comp: VidClickImage, args:{vid_name: 
 {comp: VidClickImage, args:{vid_name: "cc_legs_3_attempt3", attempt: 3, correct: "l", clickOptions: clickOptionsL3}}]])
 
 // TO DO: change to two options
-const headTrialsShuffle = random.shuffle([[{comp: VidClickImage, args:{vid_name: "cc_head_1_attempt1", attempt: 1, correct: "l", clickOptions: fullClickOptions3}},
-{comp: VidClickImage, args:{vid_name: "cc_head_1_attempt2", attempt: 2, correct: "l", clickOptions: fullClickOptions3 }},
-{comp: VidClickImage, args:{vid_name: "cc_head_1_attempt3", attempt: 3, correct: "l" , clickOptions: clickOptionsR3}}], 
-[{comp: VidClickImage, args:{vid_name: "cc_head_2_attempt1", attempt: 1, correct: "r", clickOptions: fullClickOptions3}},
-{comp: VidClickImage, args:{vid_name: "cc_head_2_attempt2", attempt: 2, correct: "r", clickOptions: fullClickOptions3}},
-{comp: VidClickImage, args:{vid_name: "cc_head_2_attempt3", attempt: 3, correct: "r", clickOptions: clickOptionsM3}}]])
+const headTrialsShuffle = random.shuffle([[{comp: VidClickImage, args:{vid_name: "cc_head_1_attempt1", attempt: 1, correct: "l", clickOptions: fullClickOptions2}},
+{comp: VidClickImage, args:{vid_name: "cc_head_1_attempt2", attempt: 2, correct: "l", clickOptions: fullClickOptions2 }},
+{comp: VidClickImage, args:{vid_name: "cc_head_1_attempt3", attempt: 3, correct: "l" , clickOptions: clickOptionsR2}}], 
+[{comp: VidClickImage, args:{vid_name: "cc_head_2_attempt1", attempt: 1, correct: "r", clickOptions: fullClickOptions2}},
+{comp: VidClickImage, args:{vid_name: "cc_head_2_attempt2", attempt: 2, correct: "r", clickOptions: fullClickOptions2}},
+{comp: VidClickImage, args:{vid_name: "cc_head_2_attempt3", attempt: 3, correct: "r", clickOptions: clickOptionsL2}}]])
 
 const allTrials = random.shuffle([colorTrialsShuffle, legTrialsShuffle, headTrialsShuffle])
 
