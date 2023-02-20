@@ -60,7 +60,6 @@ function next_trial() {
 </script>
 
 <template>
-    <div class="page">
         <video class="kidvid" id="kidvid" autoplay @ended="highlightNext()">
             <source :src="'./' + vid_name + '.webm'" >
             <source :src="'./' + vid_name + '.mp4'" >
@@ -80,8 +79,7 @@ function next_trial() {
         
         <hr>
         <button class="button is-light is-large" id='finishp' @click="next_trial()"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
-    </div>
-</template>
+ </template>
 
 <style scoped>
 .kidvid {

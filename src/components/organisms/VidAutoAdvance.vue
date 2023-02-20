@@ -1,4 +1,5 @@
 <script setup>
+import {ref, onMounted} from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata' // get access to the global store
@@ -50,7 +51,6 @@ function next_trial() {
 </script>
 
 <template>
-    <div class="page">
         <video class="kidvid" id="kidvid" autoplay @ended="next_trial()">
             <source :src="'./' + vid_name + '.webm'" >
             <source :src="'./' + vid_name + '.mp4'" >
@@ -67,7 +67,6 @@ function next_trial() {
 
         <hr>
         <button class="button is-light is-large" id='finishp' @click="next_trial()"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
-    </div>
 </template>
 
 <style scoped>

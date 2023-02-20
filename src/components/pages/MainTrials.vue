@@ -58,6 +58,7 @@ const pagesShuffled = random.shuffle(pagesNested)
 
 const pages = pagesShuffled.flat()
 pages.splice(9, 0, {comp: VidClickArrow, args:{id: 10, vid_name: "interim_6"}});
+pages.push({comp:VidAutoAdvance, args:{vid_name:"end"}})
 
 const page_indx = smilestore.getPageMain
 
@@ -69,6 +70,7 @@ onMounted(() => {
 })
 
 function next_trial(goto) {
+    smilestore.local.page_visited = -1
     const newpage = smilestore.incrementPage("main_page", 1)
     if (newpage >= pages.length) {
       smilestore.saveTiming('main', Date.now() - start_time)

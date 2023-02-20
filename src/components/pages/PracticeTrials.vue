@@ -56,45 +56,48 @@ console.log(questions[trial1])
 // add trial 1
 pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial1}_hint`}})
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_question_first`, reminderText: `Say <b>"${questions[trial1]}"</b>, then click the arrow.`}})
-if(trial1 === 1){
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_1`, clickOptions: headOpts3}})
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_2`, clickOptions: legOpts2}})
-} else if(trial1 === 2) {
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess`, clickOptions: headOpts3}})
-} else {
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_1`, clickOptions: legOpts3}})
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_2`, clickOptions: headOpts2}})
-}
+// if(trial1 === 1){
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_1`, clickOptions: headOpts3}})
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_2`, clickOptions: legOpts2}})
+// } else if(trial1 === 2) {
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess`, clickOptions: headOpts3}})
+// } else {
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_1`, clickOptions: legOpts3}})
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_2`, clickOptions: headOpts2}})
+// }
+pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial1}_answer`}})
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_reveal`}})
 
 // add trial 2
 pages.push({comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial2}_hint`}})
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_question`, reminderText: `Say <b>"${questions[trial2]}"</b>, then click the arrow.`}})
-if(trial2 === 1){
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_1`, clickOptions: headOpts3}})
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_2`, clickOptions: legOpts2}})
-} else if(trial2 === 2) {
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess`, clickOptions: headOpts3}})
-} else {
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_1`, clickOptions: legOpts3}})
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_2`, clickOptions: headOpts2}})
-}
+// if(trial2 === 1){
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_1`, clickOptions: headOpts3}})
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_2`, clickOptions: legOpts2}})
+// } else if(trial2 === 2) {
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess`, clickOptions: headOpts3}})
+// } else {
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_1`, clickOptions: legOpts3}})
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_2`, clickOptions: headOpts2}})
+// }
+pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial2}_answer`}})
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_reveal`}})
 
 // add trial 3
 pages.push({comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial3}_hint`}})
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_question`, reminderText: `Say <b>"${questions[trial3]}"</b>, then click the arrow.`}})
-if(trial3 === 1){
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_1`, clickOptions: headOpts3}})
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_2`, clickOptions: legOpts2}})
-} else if(trial3 === 2) {
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess`, clickOptions: headOpts3}})
-} else {
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_1`, clickOptions: legOpts3}})
-    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_2`, clickOptions: headOpts2}})
-}
+// if(trial3 === 1){
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_1`, clickOptions: headOpts3}})
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_2`, clickOptions: legOpts2}})
+// } else if(trial3 === 2) {
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess`, clickOptions: headOpts3}})
+// } else {
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_1`, clickOptions: legOpts3}})
+//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_2`, clickOptions: headOpts2}})
+// }
+pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial3}_answer`}})
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_reveal`}})
 
 pages.push({comp: VidClickArrow, args:{vid_name: `interim_3`}})
@@ -112,6 +115,7 @@ onMounted(() => {
 
 
 function next_trial(goto) {
+    smilestore.local.page_visited = -1
     const newpage = smilestore.incrementPage("prac_page", 1)
     if (newpage >= pages.length) {
       smilestore.saveTiming('practice', Date.now() - start_time)
