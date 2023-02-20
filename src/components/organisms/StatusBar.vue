@@ -18,7 +18,7 @@ const email = ref('')
 function prefill_email() {
     let emailval = ''
     if(smilestore.data.recruitment_service==='prolific') {
-        emailval = `${ smilestore.data.recruitment_info.prolific_id  }@email.prolific.co`
+        emailval = `${ smilestore.private_data.recruitment_info.prolific_id  }@email.prolific.co`
         
     }
     return emailval

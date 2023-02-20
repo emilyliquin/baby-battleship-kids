@@ -31,8 +31,8 @@ const emit = defineEmits(["nextVid"])
 //     }
 // }
 
-let start_time
-let end_time
+let start_time = 0 
+let end_time = 0
 
 onMounted(() => {
     start_time = Date.now()

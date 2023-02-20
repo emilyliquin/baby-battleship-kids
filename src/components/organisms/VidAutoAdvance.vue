@@ -29,7 +29,7 @@ const emit = defineEmits(["nextVid"])
 //     }
 // }
 
-let start_time
+let start_time = 0
 
 onMounted(() => {
     start_time = Date.now()

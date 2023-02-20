@@ -53,15 +53,17 @@ export default defineStore('smilestore', {
       consented: false,
       done: false,
       recruitment_service: 'web', // fake
-      recruitment_info: {}, // empty
       browser_data: [], // empty
       time_data: [],
       demographic_form: {}, // empty
       withdraw: false, // false
-      withdraw_data: {}, // empty
       route_order: [],
       conditions: {},
       vid_data: [],
+    },
+    private_data: {
+      recruitment_info: {},
+      withdraw_data: {}
     },
     config: appconfig,
   }),
@@ -124,7 +126,7 @@ export default defineStore('smilestore', {
     },
     setRecruitmentService(service, info) {
       this.data.recruitment_service = service
-      this.data.recruitment_info = info
+      this.private_data.recruitment_info = info
     },
     autofill() {
       if (this.dev.page_provides_autofill) {
@@ -152,7 +154,7 @@ export default defineStore('smilestore', {
     async setKnown() {
       this.local.knownUser = true
       this.local.partNum = await updateExperimentCounter('participants')
-      this.local.docRef = await createDoc(this.data, this.local.seedID, this.local.partNum)
+      this.local.docRef = await createDoc(this.data, this.private_data, this.local.seedID, this.local.partNum)
       this.data.docRef = this.local.docRef
       // assign conditions, with id number for randomization
       // this.assignConds(this.local.partNum)

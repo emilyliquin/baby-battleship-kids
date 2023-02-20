@@ -48,7 +48,7 @@ export const loadDoc = async (docid) => {
   return undefined
 }
 
-export const createDoc = async (data, seedid, partnum) => {
+export const createDoc = async (data, private_data, seedid, partnum) => {
   try {
     const expRef = doc(db, mode, appconfig.project_ref)
     await setDoc(
@@ -80,17 +80,19 @@ export const createDoc = async (data, seedid, partnum) => {
     // however, we'll still check to make sure the record doesn't already exist. If it does, we append override, but any additional overrides with same id and participant will overwrite the data
     if (docSnap.exists()) {
       await setDoc(doc(db, `${mode}/${appconfig.project_ref}/temp/`, `${fulldocid  }-override`), data);
+      await setDoc(doc(db, `${mode}/${appconfig.project_ref}/temp/${fulldocid}-override/private/`, "private_data"), private_data)
       console.log('Document written with ID: ', `${fulldocid  }-override`)
       return `${fulldocid  }-override`
     }
     // otherwise, we create a document with the specified docID 
       await setDoc(doc(db, `${mode}/${appconfig.project_ref}/temp/`, fulldocid), data);
+
+      await setDoc(doc(db, `${mode}/${appconfig.project_ref}/temp/${fulldocid}/private/`, "private_data"), private_data)
       console.log('Document written with ID: ', fulldocid)
       return fulldocid
     
   } catch (e) {
-    console.log("trying to write", db, `${mode}/${appconfig.project_ref}/temp/`, data)
-    console.error('Error adding document: ', e)
+    console.log('Error adding document: ', e)
     return null
   }
 }

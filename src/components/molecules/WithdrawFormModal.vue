@@ -21,7 +21,7 @@ const forminfo = reactive({
 
 function withdraw() {
     smilestore.data.withdraw=true
-    smilestore.data.withdraw_data = forminfo
+    smilestore.private_data.withdraw_data = forminfo
     emit('submit-withdraw')
 }
 
