@@ -30,6 +30,7 @@ export default defineStore('smilestore', {
       cc_page: 0,
       prac_page: 0,
       main_page: 0,
+      page_visited: -1,
     }, localStorage, { mergeDefaults: true }),
     global: {
       // ephemeral state, resets on browser refresh

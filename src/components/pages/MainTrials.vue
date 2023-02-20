@@ -23,34 +23,34 @@ if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
 
 const pages1 = [
-{comp: VidAutoAdvance, args:{id: 1, vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{id: 2, vid_name: "mt1_1"}},
-{comp: VidClickArrow, args:{id: 3, vid_name: "mt1_2"}},
+{comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
+{comp: VidClickArrow, args:{vid_name: "mt1_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt1_2"}},
 ]
 const pages2 = [
-{comp: VidAutoAdvance, args:{id: 4, vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{id: 5, vid_name: "mt2_1"}},
-{comp: VidClickArrow, args:{id: 6, vid_name: "mt2_2"}},
+{comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
+{comp: VidClickArrow, args:{vid_name: "mt2_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt2_2"}},
 ]
 const pages3 = [
-{comp: VidAutoAdvance, args:{id: 7, vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{id: 8, vid_name: "mt3_1"}},
-{comp: VidClickArrow, args:{id: 9, vid_name: "mt3_2"}},
+{comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
+{comp: VidClickArrow, args:{vid_name: "mt3_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt3_2"}},
 ]
 const pages4 = [
-{comp: VidAutoAdvance, args:{id: 10, vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{id: 11, vid_name: "mt4_1"}},
-{comp: VidClickArrow, args:{id: 12, vid_name: "mt4_2"}},
+{comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
+{comp: VidClickArrow, args:{vid_name: "mt4_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt4_2"}},
 ]
 const pages5 = [
-{comp: VidAutoAdvance, args:{id: 13, vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{id: 14, vid_name: "mt5_1"}},
-{comp: VidClickArrow, args:{id: 15, vid_name: "mt5_2"}},
+{comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
+{comp: VidClickArrow, args:{vid_name: "mt5_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt5_2"}},
 ]
 const pages6 = [
-{comp: VidAutoAdvance, args:{id: 16, vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{id: 17, vid_name: "mt6_1"}},
-{comp: VidClickArrow, args:{id: 18, vid_name: "mt6_2"}},
+{comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
+{comp: VidClickArrow, args:{vid_name: "mt6_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt6_2"}},
 ]
 
 const pagesNested = [pages1, pages2, pages3, pages4, pages5, pages6]
@@ -84,6 +84,6 @@ function next_trial(goto) {
 <template>
     <div class="page">
         
-        <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.id" @next-vid="next_trial(next())"></component>
+        <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.vid_name" @next-vid="next_trial(next())"></component>
      </div>
 </template>

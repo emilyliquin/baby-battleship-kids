@@ -22,6 +22,30 @@ const props = defineProps(["vid_name", "attempt", "correct", "clickOptions"])
 const emit = defineEmits(["nextVid"])
 
 
+const showmodal = ref(false) // reactive
+function toggleModal() {
+    showmodal.value=!showmodal.value  // have to use .value in <script> when using ref()
+    // document.getElementById('kidvid')
+    if(showmodal.value === false){
+        document.getElementById("kidvid").play();
+    }
+}
+
+onMounted(() => {
+    if(smilestore.local.page_visited === -1) {
+    // The cookie doesn't exist. Create it now
+        smilestore.local.page_visited = 1;
+    }
+    else {
+        // Not the first visit, so alert
+        console.log("refreshed")
+        toggleModal()
+    }
+  })
+
+
+
+
 function showButtons(){
     const collection = document.getElementsByClassName("overlay");
     for (let i = 0; i < collection.length; i++) {
@@ -34,6 +58,7 @@ function getStyle(option){
 }
 
 function next_trial(choice) { 
+    smilestore.local.page_visited = -1
     // smilestore.saveData()
     // TODO: add something to save what was clicked
     if(choice === props.correct){
@@ -51,11 +76,19 @@ function next_trial(choice) {
 <template>
     <div class="page">
         <div v-for="option in clickOptions" class="overlay" :key="option.option_id" :id="option.option_id" @click="next_trial(option.option_id)" :style="getStyle(option)" hidden> </div>
-        <video class="kidvid" autoplay @ended="showButtons()">
+        <video class="kidvid" id="kidvid" autoplay @ended="showButtons()">
             <source :src="'./' + vid_name + '.webm'" >
             <source :src="'./' + vid_name + '.mp4'" >
             <p>Sorry, we're experiencing technical difficulties! Please contact the researcher to let them know.</p>
         </video>    
+
+        <!-- modal for refresh page -->
+        <div class="modal" :class="{'is-active': showmodal}">
+        <div class="modal-background"></div>
+        <div class="modal-content">
+            <button class="button is-success is-large" @click="toggleModal()">Click here to keep going</button>
+        </div>
+        </div>
 
         <hr>
         <button class="button is-light is-large" id='finishp' @click="next_trial('')"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>

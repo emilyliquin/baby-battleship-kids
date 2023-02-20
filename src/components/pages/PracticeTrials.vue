@@ -49,10 +49,13 @@ const trial1 = trialOrder[0]
 const trial2 = trialOrder[1]
 const trial3 = trialOrder[2]
 
+const questions = ["", "What shape is the blue monster's head?", "Is the red monster's head the same shape as the blue monster's head?", "How many monsters have one leg?"]
+
+console.log(questions[trial1])
 
 // add trial 1
 pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial1}_hint`}})
-pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_question_first`}})
+pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_question_first`, reminderText: `Say <b>"${questions[trial1]}"</b>, then click the arrow.`}})
 if(trial1 === 1){
     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_1`, clickOptions: headOpts3}})
     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_2`, clickOptions: legOpts2}})
@@ -67,7 +70,7 @@ pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_reveal`}})
 // add trial 2
 pages.push({comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial2}_hint`}})
-pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_question`}})
+pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_question`, reminderText: `Say <b>"${questions[trial2]}"</b>, then click the arrow.`}})
 if(trial2 === 1){
     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_1`, clickOptions: headOpts3}})
     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_2`, clickOptions: legOpts2}})
@@ -82,7 +85,7 @@ pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_reveal`}})
 // add trial 3
 pages.push({comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial3}_hint`}})
-pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_question`}})
+pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_question`, reminderText: `Say <b>"${questions[trial3]}"</b>, then click the arrow.`}})
 if(trial3 === 1){
     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_1`, clickOptions: headOpts3}})
     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_2`, clickOptions: legOpts2}})
