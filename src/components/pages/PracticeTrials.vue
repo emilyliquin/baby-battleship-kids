@@ -38,25 +38,61 @@ const legOpts3 = [{option_id: "l1", height: "50", width: "40", margin_top: "175"
 
 
 
-const pages = [
-{comp: VidClickImage, args:{id: 13, vid_name: "pt3_answerguess_1", clickOptions: legOpts3}},
-{comp: VidAutoAdvance, args:{id: 1, vid_name: "game_intro"}}, 
-{comp: VidAutoAdvance, args:{id: 2, vid_name: "first_mixing"}},
-{comp: VidClickArrow, args:{id: 3, vid_name: "pt1_hintquestion"}},
-{comp: VidClickImage, args:{id: 4, vid_name: "pt1_answerguess_1", clickOptions: headOpts3}},
-{comp: VidClickImage, args:{id: 5, vid_name: "pt1_answerguess_2", clickOptions: legOpts2}},
-{comp: VidClickArrow, args:{id: 6, vid_name: "pt1_reveal"}},
-{comp: VidAutoAdvance, args:{id: 7, vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{id: 8, vid_name: "pt2_hintquestion"}},
-{comp: VidClickImage, args:{id: 9, vid_name: "pt2_answerguess", clickOptions: headOpts3}},
-{comp: VidClickArrow, args:{id: 10, vid_name: "pt2_reveal"}},
-{comp: VidAutoAdvance, args:{id: 11, vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{id: 12, vid_name: "pt3_hintquestion"}},
+const pages = []
 
-{comp: VidClickImage, args:{id: 14, vid_name: "pt3_answerguess_2"}},
-{comp: VidClickArrow, args:{id: 15, vid_name: "pt3_reveal"}},
-{comp: VidClickArrow, args:{id: 16, vid_name: "interim_3"}}
-]
+pages.push({comp: VidAutoAdvance, args:{vid_name: "game_intro"}})
+pages.push({comp: VidAutoAdvance, args:{vid_name: "first_mixing"}})
+
+const trialOrder = random.shuffle([1, 2, 3])
+const trial1 = trialOrder[0]
+const trial2 = trialOrder[1]
+const trial3 = trialOrder[2]
+
+// add trial 1
+pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial1}_hint`}})
+pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_question_first`}})
+if(trial1 === 1){
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_1`, clickOptions: headOpts3}})
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_2`, clickOptions: legOpts2}})
+} else if(trial1 === 2) {
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess`, clickOptions: headOpts3}})
+} else {
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_1`, clickOptions: legOpts3}})
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_2`, clickOptions: headOpts2}})
+}
+pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_reveal`}})
+
+// add trial 2
+pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial2}_hint`}})
+pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_question`}})
+if(trial2 === 1){
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_1`, clickOptions: headOpts3}})
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_2`, clickOptions: legOpts2}})
+} else if(trial2 === 2) {
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess`, clickOptions: headOpts3}})
+} else {
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_1`, clickOptions: legOpts3}})
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_2`, clickOptions: headOpts2}})
+}
+pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_reveal`}})
+
+// add trial 3
+pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial3}_hint`}})
+pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_question`}})
+if(trial3 === 1){
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_1`, clickOptions: headOpts3}})
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_2`, clickOptions: legOpts2}})
+} else if(trial3 === 2) {
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess`, clickOptions: headOpts3}})
+} else {
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_1`, clickOptions: legOpts3}})
+    pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_2`, clickOptions: headOpts2}})
+}
+pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_reveal`}})
+
+pages.push({comp: VidClickArrow, args:{vid_name: `interim_3`}})
+
+
 
 let page_indx = 0
 
@@ -83,6 +119,6 @@ function next_trial(goto) {
 <template>
     <div class="page">
         
-        <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.id" @next-vid="next_trial(next())"></component>
+        <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.vid_name" @next-vid="next_trial(next())"></component>
      </div>
 </template>
