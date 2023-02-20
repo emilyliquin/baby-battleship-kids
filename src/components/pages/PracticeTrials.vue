@@ -63,6 +63,7 @@ if(trial1 === 1){
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_reveal`}})
 
 // add trial 2
+pages.push({comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial2}_hint`}})
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_question`}})
 if(trial2 === 1){
@@ -77,6 +78,7 @@ if(trial2 === 1){
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_reveal`}})
 
 // add trial 3
+pages.push({comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial3}_hint`}})
 pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_question`}})
 if(trial3 === 1){
