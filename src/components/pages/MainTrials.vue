@@ -56,8 +56,8 @@ const pages6 = [
 const pagesNested = [pages1, pages2, pages3, pages4, pages5, pages6]
 const pagesShuffled = random.shuffle(pagesNested)
 
-let pages = pagesShuffled.flat()
-pages = pages.splice(9, 0, {comp: VidClickArrow, args:{id: 10, vid_name: "interim_6"}});
+const pages = pagesShuffled.flat()
+pages.splice(9, 0, {comp: VidClickArrow, args:{id: 10, vid_name: "interim_6"}});
 
 let page_indx = 0
 
