@@ -30,8 +30,12 @@ function toggleModal() {
     }
 }
 
+let start_time
+let end_time
 
 onMounted(() => {
+    start_time = Date.now()
+
     if(smilestore.local.page_visited === -1) {
     // The cookie doesn't exist. Create it now
         smilestore.local.page_visited = 1;
@@ -43,7 +47,9 @@ onMounted(() => {
     }
   })
 
+
 function highlightNext(){
+    end_time =  Date.now()
     const button = document.getElementById("finishp")
     button.classList.add("is-success")
     button.classList.remove('is-light');
@@ -51,9 +57,15 @@ function highlightNext(){
     document.getElementById("reminder").style.visibility = ""
 }
 
+
+
 function next_trial() { 
     smilestore.local.page_visited = -1
-    // smilestore.saveData()
+
+    const vidData = {video: props.vid_name, reminder: props.reminderText, vid_start: start_time, vid_end: end_time, trial_end: Date.now()}
+    smilestore.saveVidData(vidData)
+    smilestore.saveData()
+
     emit('nextVid')
 }
 

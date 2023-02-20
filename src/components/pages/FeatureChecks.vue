@@ -102,11 +102,6 @@ function next_trial(success, attempt_num) {
 }
 
 
-
-function finish(goto) { 
-    // smilestore.saveData()
-    if(goto) router.push(goto)
-}
 </script>
 
 <template>

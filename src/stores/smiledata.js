@@ -61,6 +61,7 @@ export default defineStore('smilestore', {
       withdraw_data: {}, // empty
       route_order: [],
       conditions: {},
+      vid_data: [],
     },
     config: appconfig,
   }),
@@ -132,6 +133,9 @@ export default defineStore('smilestore', {
     },
     saveDemographicForm(data) {
       this.data.demographic_form = data
+    },
+    saveVidData(data) {
+      this.data.vid_data.push(data)
     },
     setCondition(name, cond) {
       this.data.conditions[name] = cond

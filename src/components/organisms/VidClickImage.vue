@@ -31,7 +31,12 @@ function toggleModal() {
     }
 }
 
+let start_time
+let end_time
+
 onMounted(() => {
+    start_time = Date.now()
+
     if(smilestore.local.page_visited === -1) {
     // The cookie doesn't exist. Create it now
         smilestore.local.page_visited = 1;
@@ -43,10 +48,8 @@ onMounted(() => {
     }
   })
 
-
-
-
 function showButtons(){
+    end_time =  Date.now()
     const collection = document.getElementsByClassName("overlay");
     for (let i = 0; i < collection.length; i++) {
         collection[i].removeAttribute("hidden")
@@ -57,11 +60,15 @@ function getStyle(option){
     return { height: `${option.height  }px`, width: `${option.width  }px`, marginTop: `${option.margin_top  }px`, marginLeft: `${option.margin_left  }px`}
 }
 
+
 function next_trial(choice) { 
     smilestore.local.page_visited = -1
-    // smilestore.saveData()
-    // TODO: add something to save what was clicked
+
+    const vidData = {video: props.vid_name, attempt: props.attempt, correct_choice: props.correct, choice, vid_start: start_time, vid_end: end_time, trial_end: Date.now()}
+    smilestore.saveVidData(vidData)
+
     if(choice === props.correct){
+        smilestore.saveData()
         emit('nextVid', true,  props.attempt)
     }
     emit('nextVid')

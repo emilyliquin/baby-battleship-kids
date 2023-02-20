@@ -29,8 +29,11 @@ function toggleModal() {
     }
 }
 
+let start_time
 
 onMounted(() => {
+    start_time = Date.now()
+
     if(smilestore.local.page_visited === -1) {
     // The cookie doesn't exist. Create it now
         smilestore.local.page_visited = 1;
@@ -42,9 +45,15 @@ onMounted(() => {
     }
   })
 
+
+
 function next_trial() { 
     smilestore.local.page_visited = -1
-    // smilestore.saveData()
+
+    const vidData = {video: props.vid_name, vid_start: start_time, vid_end: Date.now(), trial_end: Date.now()}
+    smilestore.saveVidData(vidData)
+    smilestore.saveData()
+
     emit('nextVid')
 }
 
