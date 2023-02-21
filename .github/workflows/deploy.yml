@@ -116,7 +116,7 @@ jobs:
       - name: Expose secret information to the Vite environment
         env:
           SECRET_APP_CONFIG: ${{ secrets.SECRET_APP_CONFIG }}
-          SECRET_ENV_FILE: 'env/.env.local'
+          SECRET_ENV_FILE: 'env/.env.local.secret'
         run: |
           echo "------"
           echo $SECRET_APP_CONFIG | base64 --decode > $SECRET_ENV_FILE
