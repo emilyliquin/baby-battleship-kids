@@ -31,7 +31,7 @@ const name = ref('enter your name')
 
 <template>
     <div class="page">
-        Consent goes here
+        <p> Click the arrow button to start the game! </p>
         <!-- <div class="pagecontent">
             <div class="has-background-light  bumper">
                 <div class="columns">
