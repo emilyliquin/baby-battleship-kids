@@ -121,13 +121,13 @@ jobs:
         id: dotenv_github
         uses: falti/dotenv-action@v0.2.8
         with:
-          path: './env/.env.git.local'
+          path: 'env/.env.git.local'
 
       - name: Load the general config dotenv file
         id: dotenv_config
         uses: falti/dotenv-action@v0.2.8
         with:
-          path: './env/.env.local'
+          path: 'env/.env.local'
 
       # echo all the environment variables
       - name: echo the environment variables

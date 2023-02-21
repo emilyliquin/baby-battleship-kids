@@ -132,7 +132,7 @@ jobs:
         id: dotenv_config
         uses: falti/dotenv-action@v0.2.8
         with:
-          path: './env/.env.local'
+          path: 'env/.env.local'
 
       # echo all the environment variables
       - name: echo the environment variables
