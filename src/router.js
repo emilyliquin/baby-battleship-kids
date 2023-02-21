@@ -155,30 +155,30 @@ timeline.pushSeqRoute({
   },
 })
 
-// randomized block of tasks
-timeline.pushRandRoute({
-  path: '/task1',
-  name: 'task1',
-  component: Task1,
-  meta: { rand: 'group1' }
-})
+// // randomized block of tasks
+// timeline.pushRandRoute({
+//   path: '/task1',
+//   name: 'task1',
+//   component: Task1,
+//   meta: { rand: 'group1' }
+// })
 
-timeline.pushRandRoute({
-  path: '/task2',
-  name: 'task2',
-  component: Task2,
-  meta: { rand: 'group1' }
-})
-// extra step: must resolve the random routes before going back to sequential routes
-timeline.resolveRandRoutes('group1')
+// timeline.pushRandRoute({
+//   path: '/task2',
+//   name: 'task2',
+//   component: Task2,
+//   meta: { rand: 'group1' }
+// })
+// // extra step: must resolve the random routes before going back to sequential routes
+// timeline.resolveRandRoutes('group1')
 
 
-// debriefing form
-timeline.pushSeqRoute({
-  path: '/debrief',
-  name: 'debrief',
-  component: Debrief,
-})
+// // debriefing form
+// timeline.pushSeqRoute({
+//   path: '/debrief',
+//   name: 'debrief',
+//   component: Debrief,
+// })
 
 // thanks/submit page
 timeline.pushSeqRoute({
