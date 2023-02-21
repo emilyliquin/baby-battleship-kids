@@ -16,11 +16,6 @@ smilestore.global.status_bar_text_color = '#000'
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
-if (!smilestore.isKnownUser) {
-        // console.log('not known')
-        smilestore.setKnown() // set new user and add document
-    }
-
 function finish(goto) { 
     // smilestore.saveData()
     if(goto) router.push(goto)
