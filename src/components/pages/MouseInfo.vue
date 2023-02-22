@@ -23,24 +23,12 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
-/// ////////// TO DO: EDIT CHOICES HERE ////////////
-
-const choices = [{option_id: "yes", height: "200", width: "200", margin_top: "125", margin_left: "-200"},
-{option_id: "no", height: "200", width: "200", margin_top: "125", margin_left: "200"}]
+/// //////// TO DO: EDIT PAGES HERE ////////////
+const pages = []
 
 /// /////////////////////////////////////////////
 
-
-/// ////////// TO DO: EDIT PAGES HERE ////////////
-
-const pages = [{comp: VidClickArrow, args:{vid_name: "rachelintro"}},
-    {comp: ImageClickArrow, args:{img_name: "consent1.jpeg"}}]
-
-/// /////////////////////////////////////////////
-
-
-
-const page_indx = smilestore.getPageConsent
+const page_indx = smilestore.getPageMouseInfo
 
 const currentTab = shallowRef(pages[page_indx])
 
@@ -51,14 +39,14 @@ onMounted(() => {
 
 function next_trial(goto) {
     smilestore.local.page_visited = -1
-    const newpage = smilestore.incrementPage("consent_page", 1)
+    const newpage = smilestore.incrementPage("mouseinfo_page", 1)
     if (newpage >= pages.length) {
         if (!smilestore.isKnownUser) {
         // console.log('not known')
         smilestore.setKnown() // set new user and add document
     }
     smilestore.setConsented()
-      smilestore.saveTiming('consent', Date.now() - start_time)
+      smilestore.saveTiming('mouseinfo', Date.now() - start_time)
         if(goto) router.push(goto)
     } else {
         currentTab.value = pages[newpage]

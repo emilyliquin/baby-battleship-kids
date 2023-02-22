@@ -30,6 +30,9 @@ export default defineStore('smilestore', {
       cc_page: 0,
       prac_page: 0,
       main_page: 0,
+      intro_page: 0,
+      consent_page:0,
+      mouseinfo_page: 0,
       page_visited: -1,
     }, localStorage, { mergeDefaults: true }),
     global: {
@@ -82,6 +85,10 @@ export default defineStore('smilestore', {
     getPageCC: (state) => state.local.cc_page,
     getPagePrac: (state) => state.local.prac_page,
     getPageMain: (state) => state.local.main_page,
+    getPageIntro: (state) => state.local.intro_page,
+    getPageConsent: (state) => state.local.consent_page,
+    getPageMouseInfo: (state) => state.local.mouseinfo_page,
+
   },
 
   actions: {

@@ -12,17 +12,13 @@ import { v4 as uuidv4 } from 'uuid';
 import RecruitmentChooser from '@/components/pages/RecruitmentChooserPage.vue'
 import MTurk from '@/components/pages/MTurkRecruitPage.vue'
 import Advertisement from '@/components/pages/AdvertisementPage.vue'
+import Intro from '@/components/pages/IntroPage.vue'
 import Consent from '@/components/pages/ConsentPage.vue'
+import MouseInfo from '@/components/pages/MouseInfo.vue'
 import DemographicSurvey from '@/components/pages/DemographicSurveyPage.vue'
-import Captcha from '@/components/pages/CaptchaPage.vue'
-import Instructions from '@/components/pages/InstructionsPage.vue'
-import Exp from '@/components/pages/ExpPage.vue'
 import PracticeTrials from '@/components/pages/PracticeTrials.vue'
 import MainTrials from '@/components/pages/MainTrials.vue'
 import FeatureChecks from '@/components/pages/FeatureChecks.vue'
-
-import Task1 from '@/components/pages/Task1Page.vue'
-import Task2 from '@/components/pages/Task2Page.vue'
 import Debrief from '@/components/pages/DebriefPage.vue'
 import Thanks from '@/components/pages/ThanksPage.vue'
 import Config from '@/components/pages/ConfigPage.vue'
@@ -71,10 +67,17 @@ timeline.pushSeqRoute({
   path: '/welcome/:service',
   name: 'welcome_referred',
   component: Advertisement,
-  meta: { next: 'consent', allowDirectEntry: true }, // override what is next
+  meta: { next: 'intro', allowDirectEntry: true }, // override what is next
   beforeEnter: (to) => {
     processQuery(to.query, to.params.service)
   },
+})
+
+// intro
+timeline.pushSeqRoute({
+  path: '/intro',
+  name: 'intro',
+  component: Intro,
 })
 
 // consent
@@ -82,6 +85,13 @@ timeline.pushSeqRoute({
   path: '/consent',
   name: 'consent',
   component: Consent,
+})
+
+// mouseinfo
+timeline.pushSeqRoute({
+  path: '/info',
+  name: 'info',
+  component: MouseInfo,
 })
 
 // // demographic survery
