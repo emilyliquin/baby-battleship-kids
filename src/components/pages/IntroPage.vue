@@ -25,7 +25,7 @@ if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
 /// ////////// TO DO: EDIT CHOICES HERE ////////////
 
-const choices = [{option_id: "1", height: "200", width: "200", margin_top: "125", margin_left: "-300"},
+const choices = [{option_id: "1", height: "150", width: "150", margin_top: "285", margin_left: "-300"},
 {option_id: "2", height: "200", width: "200", margin_top: "125", margin_left: "-150"},
 {option_id: "3", height: "200", width: "200", margin_top: "125", margin_left: "50"},
 {option_id: "4", height: "200", width: "200", margin_top: "125", margin_left: "250"}]
@@ -35,7 +35,8 @@ const choices = [{option_id: "1", height: "200", width: "200", margin_top: "125"
 
 /// ////////// TO DO: EDIT PAGES HERE ////////////
 
-const pages = [{comp: ImageClickArrow, args:{img_name: "threepoints.png"}}]
+const pages = [{comp: ImageClickArrow, args:{img_name: "threepoints.png"}},
+{comp: VidClickImage, args:{vid_name: "soundcheck", clickOptions: choices}}]
 
 /// /////////////////////////////////////////////
 
