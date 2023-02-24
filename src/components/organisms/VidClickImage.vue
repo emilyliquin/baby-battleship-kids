@@ -81,7 +81,7 @@ function next_trial(choice) {
 </script>
 
 <template>
-        <div v-for="option in clickOptions" class="overlay" :key="option.option_id" :id="option.option_id" @click="next_trial(option.option_id)" :style="getStyle(option)" hidden> </div>
+        <div v-for="option in clickOptions" class="overlay" :key="option.option_id" :id="option.option_id" @click="next_trial(option.option_id)" :style="getStyle(option)"> </div>
         <video class="kidvid" id="kidvid" autoplay @ended="showButtons()">
             <source :src="'./' + vid_name + '.webm'" >
             <source :src="'./' + vid_name + '.mp4'" >

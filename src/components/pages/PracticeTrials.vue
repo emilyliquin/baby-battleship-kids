@@ -42,65 +42,23 @@ const pages = []
 
 
 pages.push({comp: VidAutoAdvance, args:{vid_name: "game_intro"}})
-pages.push({comp: VidAutoAdvance, args:{vid_name: "first_mixing"}})
+pages.push({comp: VidAutoAdvance, args:{vid_name: "practice_game"}})
+pages.push({comp: VidAutoAdvance, args:{vid_name: "question_rules"}})
 
-const trialOrder = random.shuffle([1, 2, 3])
-const trial1 = trialOrder[0]
-const trial2 = trialOrder[1]
-const trial3 = trialOrder[2]
+// example questions
+const questionOrder = random.shuffle([1, 2, 3, 4])
+const q1 = questionOrder[0]
+const q2 = questionOrder[1]
+const q3 = questionOrder[2]
+const q4 = questionOrder[3]
 
-const questions = ["", "What shape is the blue monster's head?", "Is the red monster's head the same shape as the blue monster's head?", "How many monsters have one leg?"]
+pages.push({comp: VidAutoAdvance, args:{vid_name: `exq${q1}_first`}})
+pages.push({comp: VidAutoAdvance, args:{vid_name: `exq${q2}`}})
+pages.push({comp: VidAutoAdvance, args:{vid_name: `exq${q3}`}})
+pages.push({comp: VidAutoAdvance, args:{vid_name: `exq${q4}`}})
 
-console.log(questions[trial1])
-
-// add trial 1
-pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial1}_hint`}})
-pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_question_first`, reminderText: `Say <b>"${questions[trial1]}"</b>, then click the arrow.`}})
-// if(trial1 === 1){
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_1`, clickOptions: headOpts3}})
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_2`, clickOptions: legOpts2}})
-// } else if(trial1 === 2) {
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess`, clickOptions: headOpts3}})
-// } else {
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_1`, clickOptions: legOpts3}})
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial1}_answerguess_2`, clickOptions: headOpts2}})
-// }
-pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial1}_answer`}})
-pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial1}_reveal`}})
-
-// add trial 2
-pages.push({comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}})
-pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial2}_hint`}})
-pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_question`, reminderText: `Say <b>"${questions[trial2]}"</b>, then click the arrow.`}})
-// if(trial2 === 1){
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_1`, clickOptions: headOpts3}})
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_2`, clickOptions: legOpts2}})
-// } else if(trial2 === 2) {
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess`, clickOptions: headOpts3}})
-// } else {
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_1`, clickOptions: legOpts3}})
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial2}_answerguess_2`, clickOptions: headOpts2}})
-// }
-pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial2}_answer`}})
-pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial2}_reveal`}})
-
-// add trial 3
-pages.push({comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}})
-pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial3}_hint`}})
-pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_question`, reminderText: `Say <b>"${questions[trial3]}"</b>, then click the arrow.`}})
-// if(trial3 === 1){
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_1`, clickOptions: headOpts3}})
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_2`, clickOptions: legOpts2}})
-// } else if(trial3 === 2) {
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess`, clickOptions: headOpts3}})
-// } else {
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_1`, clickOptions: legOpts3}})
-//     pages.push({comp: VidClickImage, args:{vid_name: `pt${trial3}_answerguess_2`, clickOptions: headOpts2}})
-// }
-pages.push({comp: VidAutoAdvance, args:{vid_name: `pt${trial3}_answer`}})
-pages.push({comp: VidClickArrow, args:{vid_name: `pt${trial3}_reveal`}})
-
-pages.push({comp: VidClickArrow, args:{vid_name: `interim_3`}})
+// end of practice
+pages.push({comp: VidClickArrow, args:{vid_name: "practice_end"}})
 
 
 const page_indx = smilestore.getPagePrac
