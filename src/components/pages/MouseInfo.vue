@@ -24,7 +24,9 @@ const { next, prev } = useTimelineStepper()
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
 /// //////// TO DO: EDIT PAGES HERE ////////////
-const pages = []
+const pages = [{comp: VidClickArrow, args:{vid_name: "mouse_info"}},
+    {comp: VidClickArrow, args:{vid_name: "lets_get_started"}}
+]
 
 /// /////////////////////////////////////////////
 

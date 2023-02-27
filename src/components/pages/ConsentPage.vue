@@ -25,8 +25,8 @@ if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
 /// ////////// TO DO: EDIT CHOICES HERE ////////////
 
-const choices = [{option_id: "yes", height: "200", width: "200", margin_top: "125", margin_left: "-200"},
-{option_id: "no", height: "200", width: "200", margin_top: "125", margin_left: "200"}]
+const choices = [{option_id: "yes", height: "100", width: "150", margin_top: "300", margin_left: "-175"},
+{option_id: "no", height: "100", width: "150", margin_top: "300", margin_left: "25"}]
 
 /// /////////////////////////////////////////////
 
@@ -34,8 +34,17 @@ const choices = [{option_id: "yes", height: "200", width: "200", margin_top: "12
 /// ////////// TO DO: EDIT PAGES HERE ////////////
 
 const pages = [{comp: VidClickArrow, args:{vid_name: "rachelintro"}},
-    {comp: ImageClickArrow, args:{img_name: "consent1.jpeg"}}]
-
+    {comp: ImageClickArrow, args:{img_name: "consent1.jpeg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent2.jpeg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent3.jpeg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent4.jpeg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent5.jpeg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent6.jpeg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent7.jpeg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent8.jpeg"}},
+    {comp: VidClickImage, args:{vid_name: "consent_child_video", clickOptions: choices}}
+]
+    
 /// /////////////////////////////////////////////
 
 
