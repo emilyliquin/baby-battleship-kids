@@ -24,6 +24,9 @@ import Thanks from '@/components/pages/ThanksPage.vue'
 import Config from '@/components/pages/ConfigPage.vue'
 import Withdraw from '@/components/pages/WithdrawPage.vue'
 import WindowSizer from '@/components/pages/WindowSizerPage.vue'
+import EndTask from '@/components/pages/EndTask.vue'
+import ParentForm from '@/components/pages/ParentForm.vue'
+import UploadVideo from '@/components/pages/UploadVideo.vue'
 
 // add new routes here.  generally these will be things in components/pages/[something].vue
 
@@ -164,6 +167,30 @@ timeline.pushSeqRoute({
     smilestore.local.page_visited = -1
   },
 })
+
+
+timeline.pushSeqRoute({
+  path: '/endtask',
+  name: 'endtask',
+  component: EndTask,
+
+})
+
+timeline.pushSeqRoute({
+  path: '/parentform',
+  name: 'parentform',
+  component: ParentForm,
+
+})
+
+timeline.pushSeqRoute({
+  path: '/uploadvideo',
+  name: 'uploadvideo',
+  component: UploadVideo,
+
+})
+
+
 
 // // randomized block of tasks
 // timeline.pushRandRoute({
