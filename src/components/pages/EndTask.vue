@@ -38,7 +38,7 @@ if(route.meta.progress) smilestore.global.progress = route.meta.progress
 // const pages = [{comp: ImageClickArrow, args:{img_name: "threepoints.png"}},
 // {comp: VidClickImage, args:{vid_name: "soundcheck", clickOptions: choices}}]
 
-const pages = [{comp: VidClickArrow, args:{vid_name: "task_end"}}]
+const pages = [{comp: VidClickArrow, args:{vid_name: "taskend"}}]
 /// /////////////////////////////////////////////
 
 
