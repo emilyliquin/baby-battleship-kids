@@ -65,13 +65,13 @@ function finish(goto) {
                                      :options="['Facebook Ad','Facebook Post','Twitter','Instagram','Podcast Ad','Reddit','Other parenting message board or forum','www.kidconcepts.org','Direct email or personal contact','Childrens Museum of Manhattan','Prolific','Other']"
                                      v-model="forminfo.source"
                             />       
-                            <Formkit type="radio"
+                            <FormKit type="radio"
                                      label="Language"
                                      help="What is the primary language you use to speak to your child at home?"
                                      :options="['English','Spanish','Mandarin','Other']"
                                      v-model="forminfo.language"
                             />  
-                            <Formkit type="textarea"
+                            <FormKit type="textarea"
                                      label="Questions/Comments"
                                      placeholder="If you have any questions or comments about this study, please note them here."
                                      rows="10"
