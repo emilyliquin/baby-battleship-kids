@@ -22,9 +22,9 @@ if(route.meta.progress) smilestore.global.progress = route.meta.progress
 const forminfo = reactive({
     video_permission: '',
     source: '',
-    // add other two here
+    language: '',
+    comments: '',
 })
-
 
 
 let start_time
@@ -46,39 +46,36 @@ function finish(goto) {
     <div class="page">
         <div class="formcontent">
             <h3 class="is-size-4 has-text-weight-bold">Parent Form</h3>
-
-
                         <div class="box is-shadowless formbox">
                             <FormKit type="radio" 
-                                     label="Choose your permission"
-                                     placeholder="Enter your age"
+                                     label="Privacy Settings"
+                                     help="Please choose your privacy settings for your video."
+                                     :options="{
+                                        PANDA: 'I prefer for my video to remain accessible only to PANDA researchers and never shared with other researchers.'
+                                        Databrary: 'I give permission to share the material from this session with authorized researchers in a secure data library called Databrary.'
+                                        DatabraryExpanded: 'I give permission to share the material from this session with authorized data researchers in a secure data library called Databrary, and for authorized Databrary researchers to show selected video excerpts and images from recordings of this session for scientific presentations and informational/educational purposes, but never for commerical purposes.'
+                                     }"
                                      v-model="forminfo.video_permission"
                                     value="0"  
                                     step="1"  
                             />     
-                                     <!-- Man, Woman, Non-binary/Genderqueer, Other, Prefer not to specify (required) -->
-                            <FormKit type="select"
-                                     label="Gender"
-                                     name="gender"
-                                     placeholder="Select an option"
-                                     :options="['Man', 'Woman', 'Non-binary/Genderqueer', 'Other', 'Prefer not to specify']"
-                                     validation="required"
-                                     v-model="forminfo.source" />
-                            <FormKit type="select"
-                                     label="Are you able to speak and understand English?"
-                                     name="english"
-                                     v-model="forminfo.fluent_english"
-                                     placeholder="Select an option"
-                                     validation="required"
-                                     :options="['Yes', 'No', 'Prefer not to specify']"/>  
                             <FormKit type="checkbox"
-                                     label="Which best describes your race/ethnicity?"
-                                     name="race"
-                                     v-model="forminfo.race"
-                                     validation="required"
-                                     help="Select one or more"
-                                     :options="['Asian', 'Black/African American', 'Hispanic/Latinx', 'Middle Eastern/North African', 'Native American/Alaska Native/First Nations', 'Pacific Islander/Native Hawaiian', 'White', 'Prefer not to specify']"/>
-
+                                     label=""
+                                     help="Please let us know how you found us."
+                                     :options="['Facebook Ad','Facebook Post','Twitter','Instagram','Podcast Ad','Reddit','Other parenting message board or forum','www.kidconcepts.org','Direct email or personal contact','Childrens Museum of Manhattan','Prolific','Other']"
+                                     v-model="forminfo.source"
+                            />       
+                            <Formkit type="radio"
+                                     label="Language"
+                                     help="What is the primary language you use to speak to your child at home?"
+                                     :options="['English','Spanish','Mandarin','Other']"
+                                     v-model="forminfo.language"
+                            />  
+                            <Formkit type="textarea"
+                                     label="Questions/Comments"
+                                     placeholder="If you have any questions or comments about this study, please note them here."
+                                     rows="10"
+                            />
                             <hr>              
                             <div class="has-text-right">
                             <button class="button is-warning" id='finish' @click="finish(next())">continue &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></button>
