@@ -51,8 +51,8 @@ function finish(goto) {
                                      label="Privacy Settings"
                                      help="Please choose your privacy settings for your video."
                                      :options="{
-                                        PANDA: 'I prefer for my video to remain accessible only to PANDA researchers and never shared with other researchers.'
-                                        Databrary: 'I give permission to share the material from this session with authorized researchers in a secure data library called Databrary.'
+                                        PANDA: 'I prefer for my video to remain accessible only to PANDA researchers and never shared with other researchers.',
+                                        Databrary: 'I give permission to share the material from this session with authorized researchers in a secure data library called Databrary.',
                                         DatabraryExpanded: 'I give permission to share the material from this session with authorized data researchers in a secure data library called Databrary, and for authorized Databrary researchers to show selected video excerpts and images from recordings of this session for scientific presentations and informational/educational purposes, but never for commerical purposes.'
                                      }"
                                      v-model="forminfo.video_permission"
@@ -60,7 +60,7 @@ function finish(goto) {
                                     step="1"  
                             />     
                             <FormKit type="checkbox"
-                                     label=""
+                                     label="Hearing About Us"
                                      help="Please let us know how you found us."
                                      :options="['Facebook Ad','Facebook Post','Twitter','Instagram','Podcast Ad','Reddit','Other parenting message board or forum','www.kidconcepts.org','Direct email or personal contact','Childrens Museum of Manhattan','Prolific','Other']"
                                      v-model="forminfo.source"
