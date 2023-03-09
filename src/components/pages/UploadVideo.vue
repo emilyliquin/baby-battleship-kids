@@ -42,7 +42,7 @@ const pages = [{comp: VidClickArrow, args:{vid_name: "uploadvid"}}]
 /// /////////////////////////////////////////////
 
 
-const page_indx = smilestore.getPageIntro
+const page_indx = smilestore.getPageUpload
 
 const currentTab = shallowRef(pages[page_indx])
 
@@ -53,9 +53,9 @@ onMounted(() => {
 
 function next_trial(goto) {
     smilestore.local.page_visited = -1
-    const newpage = smilestore.incrementPage("intro_page", 1)
+    const newpage = smilestore.incrementPage("upload_page", 1)
     if (newpage >= pages.length) {
-      smilestore.saveTiming('intro', Date.now() - start_time)
+      smilestore.saveTiming('upload', Date.now() - start_time)
         if(goto) router.push(goto)
     } else {
         currentTab.value = pages[newpage]

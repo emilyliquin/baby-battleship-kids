@@ -22,7 +22,9 @@ if(route.meta.progress) smilestore.global.progress = route.meta.progress
 const forminfo = reactive({
     video_permission: '',
     source: '',
+    source_other: '',
     language: '',
+    language_other: '',
     comments: '',
 })
 
@@ -33,48 +35,57 @@ onMounted(() => {
 })
 
 function finish(goto) { 
-    smilestore.saveTiming("demographic", Date.now()-start_time)
-    smilestore.saveDemographicForm(forminfo);
+    console.log(forminfo)
+    smilestore.saveTiming("parentform", Date.now()-start_time)
+    smilestore.saveParentForm(forminfo);
     smilestore.saveData()
     if(smilestore.config.mode=='development') smilestore.removePageAutofill()
     if(goto) router.push(goto)
 }
+
 </script>
 
 
 <template>
     <div class="page">
         <div class="formcontent">
-            <h3 class="is-size-4 has-text-weight-bold">Parent Form</h3>
+            <h3 class="is-size-4 has-text-weight-bold">Parent Questions</h3>
                         <div class="box is-shadowless formbox">
                             <FormKit type="radio" 
-                                     label="Privacy Settings"
-                                     help="Please choose your privacy settings for your video."
+                                     label="Please choose your privacy settings."
                                      :options="{
                                         PANDA: 'I prefer for my video to remain accessible only to PANDA researchers and never shared with other researchers.',
                                         Databrary: 'I give permission to share the material from this session with authorized researchers in a secure data library called Databrary.',
                                         DatabraryExpanded: 'I give permission to share the material from this session with authorized data researchers in a secure data library called Databrary, and for authorized Databrary researchers to show selected video excerpts and images from recordings of this session for scientific presentations and informational/educational purposes, but never for commerical purposes.'
                                      }"
                                      v-model="forminfo.video_permission"
-                                    value="0"  
-                                    step="1"  
                             />     
                             <FormKit type="checkbox"
-                                     label="Hearing About Us"
-                                     help="Please let us know how you found us."
+                                     label="Please let us know how you found us."
                                      :options="['Facebook Ad','Facebook Post','Twitter','Instagram','Podcast Ad','Reddit','Other parenting message board or forum','www.kidconcepts.org','Direct email or personal contact','Childrens Museum of Manhattan','Prolific','Other']"
                                      v-model="forminfo.source"
-                            />       
+                            >       
+                            <template #label="context">
+                                    {{context.option.label}} &nbsp;
+                                    <input v-model="forminfo.source_other" v-if="context.option.label === 'Other'" type = "text" />
+                                </template>
+                            </FormKit>
                             <FormKit type="radio"
-                                     label="Language"
-                                     help="What is the primary language you use to speak to your child at home?"
-                                     :options="['English','Spanish','Mandarin','Other']"
+                                     label="What is the primary language you use to speak to your child at home?"
+                                     :options="['English', 'Spanish', 'Mandarin', 'Other']"
                                      v-model="forminfo.language"
-                            />  
+                            >
+                                <template #label="context">
+                                    {{context.option.label}} &nbsp;
+                                    <input v-model="forminfo.language_other" v-if="context.option.label === 'Other'" type = "text" />
+                                </template>
+                            </FormKit>  
                             <FormKit type="textarea"
-                                     label="Questions/Comments"
-                                     placeholder="If you have any questions or comments about this study, please note them here."
+                                     label="If you have any questions or comments about this study, please note them here."
+                                     placeholder=""
                                      rows="10"
+                                     v-model="forminfo.comments"
+
                             />
                             <hr>              
                             <div class="has-text-right">

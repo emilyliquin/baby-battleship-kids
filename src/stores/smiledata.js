@@ -33,6 +33,8 @@ export default defineStore('smilestore', {
       intro_page: 0,
       consent_page:0,
       mouseinfo_page: 0,
+      endtask_page: 0,
+      upload_page: 0,
       page_visited: -1,
     }, localStorage, { mergeDefaults: true }),
     global: {
@@ -58,7 +60,7 @@ export default defineStore('smilestore', {
       recruitment_service: 'web', // fake
       browser_data: [], // empty
       time_data: [],
-      demographic_form: {}, // empty
+      parent_form: {}, // empty
       withdraw: false, // false
       route_order: [],
       conditions: {},
@@ -88,7 +90,8 @@ export default defineStore('smilestore', {
     getPageIntro: (state) => state.local.intro_page,
     getPageConsent: (state) => state.local.consent_page,
     getPageMouseInfo: (state) => state.local.mouseinfo_page,
-
+    getPageEndTask: (state) => state.local.endtask_page,
+    getPageUpload: (state) => state.local.upload_page,
   },
 
   actions: {
@@ -140,8 +143,8 @@ export default defineStore('smilestore', {
         this.dev.page_provides_autofill()
       }
     },
-    saveDemographicForm(data) {
-      this.data.demographic_form = data
+    saveParentForm(data) {
+      this.data.parent_form = data
     },
     saveVidData(data) {
       this.data.vid_data.push(data)
