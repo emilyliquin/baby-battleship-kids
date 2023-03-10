@@ -33,6 +33,7 @@ import { faImage } from '@fortawesome/free-solid-svg-icons'
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons'
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
 import { faPause } from '@fortawesome/free-solid-svg-icons'
+import { faStop } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
 library.add(
@@ -64,5 +65,6 @@ library.add(
   faSackDollar,
   faQuestionCircle,
   faQuestion,
-  faPause
+  faPause,
+  faStop
 )

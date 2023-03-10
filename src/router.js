@@ -180,6 +180,7 @@ timeline.pushSeqRoute({
   path: '/parentform',
   name: 'parentform',
   component: ParentForm,
+  meta: {allowDirectEntry:true}
 
 })
 

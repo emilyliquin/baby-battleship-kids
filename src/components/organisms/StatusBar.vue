@@ -10,6 +10,7 @@ import InformedConsentModal from '@/components/molecules/InformedConsentModal.vu
 import ReportIssueModal from '@/components/molecules/ReportIssueModal.vue'
 import HelpModal from '@/components/molecules/HelpModal.vue'
 import PauseModal from '@/components/molecules/PauseModal.vue'
+import StopModal from '@/components/molecules/StopModal.vue'
 
 const router = useRouter()
 const smilestore = useSmileStore() // get the global store
@@ -62,6 +63,23 @@ function closeHelp() {
     showhelpmodal.value=!showhelpmodal.value // have to use .value in <script> when using ref()
 }
 
+const showstopmodal = ref(false) // reactive
+function openStop() {
+    // pause any videos on screen
+    const video = document.getElementById("kidvid")
+    if(video){
+        video.pause()
+    }
+    showstopmodal.value=!showstopmodal.value // have to use .value in <script> when using ref()
+}
+function closeStop() {
+    const video = document.getElementById("kidvid")
+    if(video){
+        video.play()
+    }
+    showstopmodal.value=!showstopmodal.value // have to use .value in <script> when using ref()
+}
+
 const showpausemodal = ref(false) // reactive
 function openPause() {
     // pause any videos on screen
@@ -83,9 +101,10 @@ function closePause() {
 
 function submitWithdraw() {
     // submit the withdraw form and jump to the thanks
-    toggleWithdraw()
-    router.push('withdraw') // should use 
+    closeStop()
+    router.push('parentform') // should use 
 }
+
 
 </script>
 
@@ -105,6 +124,9 @@ function submitWithdraw() {
                     <div class="buttons">
                         <button class="button is-info is-small is-light" @click="openPause()">
                             <FAIcon icon="pause" />&nbsp;&nbsp;Pause
+                        </button>
+                        <button class="button is-danger is-small is-light" @click="openStop()">
+                            <FAIcon icon="stop" />&nbsp;&nbsp;Stop
                         </button>
                         <button class="button is-warning is-small is-light" @click="openHelp()">
                             <FAIcon icon="question" />&nbsp;&nbsp;Help
@@ -135,6 +157,17 @@ function submitWithdraw() {
         </div>
     </div>
     <button class="modal-close is-large" aria-label="close" @click="closeHelp()"></button>
+    </div>
+
+    <!-- modal for viewing stop -->
+    <div class="modal" :class="{'is-active': showstopmodal}">
+    <div class="modal-background" @click="closeStop()"></div>
+    <div class="modal-content">
+        <div class="modaltext">
+            <StopModal @close-stop="closeStop()" @submit-withdraw="submitWithdraw()" />
+        </div>
+    </div>
+    <button class="modal-close is-large" aria-label="close" @click="closeStop()"></button>
     </div>
 
     <!-- modal for viewing pause -->

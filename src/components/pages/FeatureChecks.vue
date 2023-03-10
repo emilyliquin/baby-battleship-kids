@@ -38,7 +38,8 @@ const clickOptionsL2 = [{option_id: "l", height: "200", width: "200", margin_top
 const clickOptionsR2 = [{option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "75"}]
 
 
-let pages = [{comp: VidClickArrow, args:{vid_name: "audio_prac_1", reminderText: "Say <b>how old you are</b>, then click the arrow."}}, 
+let pages = [{comp: VidAutoAdvance, args:{vid_name: "introbuttons"}},
+    {comp: VidClickArrow, args:{vid_name: "audio_prac_1", reminderText: "Say <b>how old you are</b>, then click the arrow."}}, 
 {comp: VidClickArrow, args:{vid_name: "audio_prac_2", reminderText: "Say <b>what your favorite color is</b>, then click the arrow."}},
 {comp: VidAutoAdvance, args:{vid_name: "cc_intro"}}]
 
