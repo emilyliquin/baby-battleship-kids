@@ -41,7 +41,8 @@
     "uuid": "^9.0.0",
     "vue": "^3.2.25",
     "vue-gtag": "^2.0.1",
-    "vue-router": "^4.0.16"
+    "vue-router": "^4.0.16",
+    "vue-signature-pad": "^3.0.2"
   },
   "devDependencies": {
     "@codenamize/codenamize": "^1.1.1",

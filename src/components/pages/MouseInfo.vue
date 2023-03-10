@@ -4,12 +4,11 @@ import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata'
 
+import InformedConsentText from '@/components/atoms/InformedConsentText.vue';
 import VidAutoAdvance from '@/components/organisms/VidAutoAdvance.vue'
 import VidClickArrow from '@/components/organisms/VidClickArrow.vue'
 import VidClickImage from '@/components/organisms/VidClickImage.vue'
 import ImageClickArrow from '@/components/organisms/ImageClickArrow.vue'
-
-
 
 const router = useRouter()
 const route = useRoute()
@@ -24,34 +23,14 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
-/// ////////// CHOICES HERE ////////////
-
-const choices = [{option_id: "yes", height: "100", width: "150", margin_top: "300", margin_left: "-175"},
-{option_id: "no", height: "100", width: "150", margin_top: "300", margin_left: "25"}]
-
-/// /////////////////////////////////////////////
-
-
-/// ////////// PAGES HERE ////////////
-
-const pages = [{comp: VidClickArrow, args:{vid_name: "rachelintro"}},
-    {comp: ImageClickArrow, args:{img_name: "consent1.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent2.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent3.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent4.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent5.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent6.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent7.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent8.jpeg"}},
-    {comp: VidClickImage, args:{vid_name: "consent_child_video", clickOptions: choices}}
+/// //////// TO DO: EDIT PAGES HERE ////////////
+const pages = [{comp: VidAutoAdvance, args:{vid_name: "mouse_info"}},
+    {comp: VidClickArrow, args:{vid_name: "lets_get_started"}}
 ]
-    
+
 /// /////////////////////////////////////////////
 
-
-
-
-const page_indx = smilestore.getPageConsent
+const page_indx = smilestore.getPageMouseInfo
 
 const currentTab = shallowRef(pages[page_indx])
 
@@ -62,14 +41,14 @@ onMounted(() => {
 
 function next_trial(goto) {
     smilestore.local.page_visited = -1
-    const newpage = smilestore.incrementPage("consent_page", 1)
+    const newpage = smilestore.incrementPage("mouseinfo_page", 1)
     if (newpage >= pages.length) {
         if (!smilestore.isKnownUser) {
         // console.log('not known')
         smilestore.setKnown() // set new user and add document
     }
     smilestore.setConsented()
-      smilestore.saveTiming('consent', Date.now() - start_time)
+      smilestore.saveTiming('mouseinfo', Date.now() - start_time)
         if(goto) router.push(goto)
     } else {
         currentTab.value = pages[newpage]
@@ -81,6 +60,7 @@ function next_trial(goto) {
 
 <template>
     <div class="page">
+        
         <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.vid_name" @next-vid="next_trial(next())"></component>
      </div>
 </template>
