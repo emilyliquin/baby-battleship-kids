@@ -57,7 +57,7 @@ function next_trial() {
 </script>
 
 <template>
-        <img class="kidvid" id="kidvid" :src="'./' + img_name">
+        <img class="kidimg" id="kidimg" :src="'./' + img_name">
 
         <div class="wrapper" v-if="img_name == 'consent8.jpeg'">
             <img class="imgsign" :src="'./signbox.jpeg'" width=400 height=150 />
@@ -71,7 +71,7 @@ function next_trial() {
  </template>
 
 <style scoped>
-.kidvid {
+.kidimg {
     width: 600px;
     height: auto;
 }
