@@ -3,6 +3,7 @@ import { ref, reactive, computed, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata' // get access to the global store
+import { VueSignaturePad } from 'vue-signature-pad';
 
 const router = useRouter()
 const route = useRoute()
@@ -28,6 +29,11 @@ const forminfo = reactive({
     comments: '',
 })
 
+/// / SIGNATURE PAD STUFF
+const signaturePad = ref(null)
+function clear() {
+    signaturePad.value.clearSignature();
+}
 
 let start_time
 onMounted(() => {
@@ -35,12 +41,16 @@ onMounted(() => {
 })
 
 function finish(goto) { 
-    console.log(forminfo)
-    smilestore.saveTiming("parentform", Date.now()-start_time)
-    smilestore.saveParentForm(forminfo);
-    smilestore.saveData()
-    if(smilestore.config.mode=='development') smilestore.removePageAutofill()
-    if(goto) router.push(goto)
+    if(signaturePad.value.isEmpty()){
+        alert("Please sign in the box to confirm your privacy settings.")
+    } else{
+        console.log(forminfo)
+        smilestore.saveTiming("parentform", Date.now()-start_time)
+        smilestore.saveParentForm(forminfo);
+        smilestore.saveData()
+        if(smilestore.config.mode=='development') smilestore.removePageAutofill()
+        if(goto) router.push(goto)
+        }
 }
 
 </script>
@@ -52,14 +62,22 @@ function finish(goto) {
             <h3 class="is-size-4 has-text-weight-bold">Parent Questions</h3>
                         <div class="box is-shadowless formbox">
                             <FormKit type="radio" 
-                                     label="Please choose your privacy settings."
+                                     label="Please choose your privacy settings and enter your signature."
                                      :options="{
                                         PANDA: 'I prefer for my video to remain accessible only to PANDA researchers and never shared with other researchers.',
                                         Databrary: 'I give permission to share the material from this session with authorized researchers in a secure data library called Databrary.',
                                         DatabraryExpanded: 'I give permission to share the material from this session with authorized data researchers in a secure data library called Databrary, and for authorized Databrary researchers to show selected video excerpts and images from recordings of this session for scientific presentations and informational/educational purposes, but never for commerical purposes.'
                                      }"
                                      v-model="forminfo.video_permission"
-                            />     
+                            />
+                            
+                            <div class="wrapper">
+                                <img class="imgsign" :src="'./signbox.jpeg'" width=400 height=150 />
+                                <VueSignaturePad  class="sigpad" width="400px" height="150px" ref="signaturePad" />
+                            </div>            
+                            <button class="button is-warning is-small" @click="clear" style="left:50%; margin-left:-50px;" >Clear Signature</button>
+
+                            
                             <FormKit type="checkbox"
                                      label="Please let us know how you found us."
                                      :options="['Facebook Ad','Facebook Post','Twitter','Instagram','Podcast Ad','Reddit','Other parenting message board or forum','www.kidconcepts.org','Direct email or personal contact','Childrens Museum of Manhattan','Prolific','Other']"
@@ -134,5 +152,32 @@ function finish(goto) {
 .formsectionexplainer {
     text-align: left;
     color: #777;
+}
+
+
+.wrapper {
+    position:relative;
+  width: 400px;
+  height: 155px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border:black 1px solid;
+  margin-left: -200px;
+    left: 50%;
+}
+.imgsign {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.sigpad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width:400px;
+  height:150px;
 }
 </style>
