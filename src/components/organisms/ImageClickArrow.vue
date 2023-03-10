@@ -7,6 +7,8 @@ import * as random from '@/randomization'
 import { v4 as uuidv4 } from 'uuid';
 import appconfig from '@/config'
 import seedrandom from 'seedrandom'
+import { VueSignaturePad } from 'vue-signature-pad';
+
 
 const router = useRouter()
 const route = useRoute()
@@ -21,52 +23,35 @@ const props = defineProps(["img_name"])
 const emit = defineEmits(["nextVid"])
 
 
-// const showmodal = ref(false) // reactive
-// function toggleModal() {
-//     showmodal.value=!showmodal.value  // have to use .value in <script> when using ref()
-//     // document.getElementById('kidvid')
-//     if(showmodal.value === false){
-//         document.getElementById("kidvid").play();
-//     }
-// }
 
 let start_time = 0
-let end_time = 0
 
 onMounted(() => {
     start_time = Date.now()
 
-    // if(smilestore.local.page_visited === -1) {
-    // // The cookie doesn't exist. Create it now
-    //     smilestore.local.page_visited = 1;
-    // }
-    // else {
-    //     // Not the first visit, so alert
-    //     console.log("refreshed")
-    //     toggleModal()
-    // }
   })
 
 
-function highlightNext(){
-    end_time =  Date.now()
-    const button = document.getElementById("finishp")
-    button.classList.add("is-success")
-    button.classList.remove('is-light');
-    document.getElementById("buttontext").classList.toggle("fa")
-    document.getElementById("reminder").style.visibility = ""
+/// / SIGNATURE PAD STUFF
+
+const signaturePad = ref(null)
+function clear() {
+    signaturePad.value.clearSignature();
 }
 
-
-
+ /// next trial (check for signature)
 function next_trial() { 
-    smilestore.local.page_visited = -1
+    if(props.img_name === 'consent8.jpeg' && signaturePad.value.isEmpty()){
+        alert("If you consent to participate, please sign in the box.")
+    } else{
+            smilestore.local.page_visited = -1
 
-    const vidData = {video: props.vid_name, reminder: props.reminderText, vid_start: start_time, vid_end: end_time, trial_end: Date.now()}
-    smilestore.saveVidData(vidData)
-    smilestore.saveData()
+            const vidData = {video: props.img_name, reminder: props.reminderText, trial_start: start_time, trial_end: Date.now()}
+            smilestore.saveVidData(vidData)
+            smilestore.saveData()
 
-    emit('nextVid')
+            emit('nextVid')
+        }
 }
 
 </script>
@@ -74,17 +59,21 @@ function next_trial() {
 <template>
         <img class="kidvid" id="kidvid" :src="'./' + img_name">
 
-        
-        
+        <div class="wrapper" v-if="img_name == 'consent8.jpeg'">
+            <img class="imgsign" :src="'./signbox.jpeg'" width=400 height=150 />
+            <VueSignaturePad  class="sigpad" width="400px" height="150px" ref="signaturePad" />
+        </div>            
+        <button v-if="img_name == 'consent8.jpeg'" class="button is-warning is-small" @click="clear" >Clear Signature</button>
+
+
         <hr>
         <button class="button is-success is-large" id='finishp' @click="next_trial()"><FAIcon id="buttontext" icon="fa-solid fa-arrow-right" /></button>
  </template>
 
 <style scoped>
 .kidvid {
-    width: auto;
-    height: 450px;
-  
+    width: 600px;
+    height: auto;
 }
 
 .fa {color: rgb(166, 165, 165);}
@@ -97,6 +86,32 @@ function next_trial() {
 
 .modal-content {
     width: 80%;
+}
+
+.wrapper {
+    position:relative;
+  width: 400px;
+  height: 155px;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  border:black 1px solid;
+  margin-left: -200px;
+    left: 50%;
+}
+.imgsign {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.sigpad {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width:400px;
+  height:150px;
 }
 
 </style>
