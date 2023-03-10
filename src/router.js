@@ -219,18 +219,18 @@ timeline.pushSeqRoute({
 // })
 
 // thanks/submit page
-timeline.pushSeqRoute({
-  path: '/thanks',
-  name: 'thanks',
-  component: Thanks,
-})
+// timeline.pushSeqRoute({
+//   path: '/thanks',
+//   name: 'thanks',
+//   component: Thanks,
+// })
 
-// this is a special page that is for a withdraw
-timeline.pushRoute({
-  path: '/withdraw',
-  name: 'withdraw',
-  component: Withdraw,
-})
+// // this is a special page that is for a withdraw
+// timeline.pushRoute({
+//   path: '/withdraw',
+//   name: 'withdraw',
+//   component: Withdraw,
+// })
 
 // this is a the special page that loads in the iframe on mturk.com
 timeline.pushRoute({

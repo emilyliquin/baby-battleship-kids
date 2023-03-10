@@ -12,6 +12,7 @@ import VidAutoAdvance from '@/components/organisms/VidAutoAdvance.vue'
 import VidClickArrow from '@/components/organisms/VidClickArrow.vue'
 import VidClickImage from '@/components/organisms/VidClickImage.vue'
 import ImageClickArrow from '@/components/organisms/ImageClickArrow.vue'
+import VidEnd from '@/components/organisms/VidEnd.vue'
 
 
 const router = useRouter()
@@ -22,15 +23,8 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
+smilestore.saveData(true) // force a data save
 
-/// ////////// TO DO: EDIT CHOICES HERE ////////////
-
-// const choices = [{option_id: "1", height: "150", width: "150", margin_top: "285", margin_left: "-300"},
-// {option_id: "2", height: "200", width: "200", margin_top: "125", margin_left: "-150"},
-// {option_id: "3", height: "200", width: "200", margin_top: "125", margin_left: "50"},
-// {option_id: "4", height: "200", width: "200", margin_top: "125", margin_left: "250"}]
-
-/// ////////////////////////////////////////////////
 
 
 /// ////////// TO DO: EDIT PAGES HERE ////////////
@@ -38,7 +32,7 @@ if(route.meta.progress) smilestore.global.progress = route.meta.progress
 // const pages = [{comp: ImageClickArrow, args:{img_name: "threepoints.png"}},
 // {comp: VidClickImage, args:{vid_name: "soundcheck", clickOptions: choices}}]
 
-const pages = [{comp: VidClickArrow, args:{vid_name: "uploadvid"}}]
+const pages = [{comp: VidEnd, args:{vid_name: "uploadvid", reminderText: "After you upload your video, you can close this page."}}]
 /// /////////////////////////////////////////////
 
 
