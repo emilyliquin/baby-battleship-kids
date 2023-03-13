@@ -60,11 +60,19 @@ function getStyle(option){
     return { height: `${option.height  }px`, width: `${option.width  }px`, marginTop: `${option.margin_top  }px`, marginLeft: `${option.margin_left  }px`}
 }
 
+// for optional parameters, return null to data if they are undefined
+function cleanDataVar(v){
+    if(v){
+        return v
+    } 
+    return null
+}
+
 
 function next_trial(choice) { 
     smilestore.local.page_visited = -1
 
-    const vidData = {video: props.vid_name, attempt: props.attempt, correct_choice: props.correct, choice, vid_start: start_time, vid_end: end_time, trial_end: Date.now()}
+    const vidData = {video: props.vid_name, attempt: cleanDataVar(props.attempt), correct_choice: cleanDataVar(props.correct), choice, vid_start: start_time, vid_end: end_time, trial_end: Date.now()}
     smilestore.saveVidData(vidData)
 
     if(choice === props.correct){

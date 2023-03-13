@@ -58,11 +58,18 @@ function highlightNext(){
 }
 
 
+// for optional parameters, return null to data if they are undefined
+function cleanDataVar(v){
+    if(v){
+        return v
+    } 
+    return null
+}
 
 function next_trial() { 
     smilestore.local.page_visited = -1
 
-    const vidData = {video: props.vid_name, reminder: props.reminderText, vid_start: start_time, vid_end: end_time, trial_end: Date.now()}
+    const vidData = {video: props.vid_name, reminder: cleanDataVar(props.reminderText), vid_start: start_time, vid_end: end_time, trial_end: Date.now()}
     smilestore.saveVidData(vidData)
     smilestore.saveData()
 

@@ -55,6 +55,7 @@ function next_trial(goto) {
     const newpage = smilestore.incrementPage("intro_page", 1)
     if (newpage >= pages.length) {
       smilestore.saveTiming('intro', Date.now() - start_time)
+      smilestore.saveStartTime(start_time)
         if(goto) router.push(goto)
     } else {
         currentTab.value = pages[newpage]

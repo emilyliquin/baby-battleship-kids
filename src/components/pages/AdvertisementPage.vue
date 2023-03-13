@@ -1,4 +1,5 @@
 <script setup>
+import { onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata' // get access to the global store
@@ -16,8 +17,13 @@ smilestore.global.status_bar_text_color = '#000'
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
+let start_time
+onMounted(() => {
+    start_time = Date.now()
+})
+
 function finish(goto) { 
-    // smilestore.saveData()
+    smilestore.saveTiming('welcome', Date.now() - start_time)
     if(goto) router.push(goto)
 }
 

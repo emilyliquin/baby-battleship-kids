@@ -46,7 +46,7 @@ function next_trial() {
     } else{
             smilestore.local.page_visited = -1
 
-            const vidData = {video: props.img_name, reminder: props.reminderText, trial_start: start_time, trial_end: Date.now()}
+            const vidData = {video: props.img_name, trial_start: start_time, trial_end: Date.now()}
             smilestore.saveVidData(vidData)
             smilestore.saveData()
 

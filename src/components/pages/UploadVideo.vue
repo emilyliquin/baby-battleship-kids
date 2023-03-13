@@ -23,14 +23,15 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
-smilestore.saveData(true) // force a data save
+
+onMounted(() => {
+    smilestore.saveEndTime(Date.now())
+    smilestore.setDone()
+    smilestore.saveData(true) // force a data save
+})
 
 
 
-/// ////////// TO DO: EDIT PAGES HERE ////////////
-
-// const pages = [{comp: ImageClickArrow, args:{img_name: "threepoints.png"}},
-// {comp: VidClickImage, args:{vid_name: "soundcheck", clickOptions: choices}}]
 
 const pages = [{comp: VidEnd, args:{vid_name: "uploadvid", reminderText: "After you upload your video, you can close this page."}}]
 /// /////////////////////////////////////////////
@@ -39,22 +40,6 @@ const pages = [{comp: VidEnd, args:{vid_name: "uploadvid", reminderText: "After 
 const page_indx = smilestore.getPageUpload
 
 const currentTab = shallowRef(pages[page_indx])
-
-let start_time
-onMounted(() => {
-    start_time = Date.now()
-})
-
-function next_trial(goto) {
-    smilestore.local.page_visited = -1
-    const newpage = smilestore.incrementPage("upload_page", 1)
-    if (newpage >= pages.length) {
-      smilestore.saveTiming('upload', Date.now() - start_time)
-        if(goto) router.push(goto)
-    } else {
-        currentTab.value = pages[newpage]
-    }
-}
 
 
 </script>

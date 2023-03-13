@@ -44,7 +44,6 @@ function finish(goto) {
     if(signaturePad.value.isEmpty()){
         alert("Please sign in the box to confirm your privacy settings.")
     } else{
-        console.log(forminfo)
         smilestore.saveTiming("parentform", Date.now()-start_time)
         smilestore.saveParentForm(forminfo);
         smilestore.saveData()

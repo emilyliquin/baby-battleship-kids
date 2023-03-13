@@ -16,8 +16,6 @@
             <div class="has-text-left mt-5">
                 <button class="button" aria-label="close" @click="$emit('closePause')">Thanks, take me back to the study!</button>
             </div>
-<br>
-            <p>If you'd like to end your participation early, scroll down to see your webcam video. Then, click the <span style="color:red;"><b>red stop button</b></span>, followed by the <span style="color:green;"><b>green upload button</b></span>. After that, you can close the browser window.</p>
 
         </div>            
     </article>

@@ -65,6 +65,9 @@ export default defineStore('smilestore', {
       route_order: [],
       conditions: {},
       vid_data: [],
+      start_time: 0,
+      end_time: 0,
+      has_valid_video: null,
     },
     private_data: {
       recruitment_info: {},
@@ -175,6 +178,12 @@ export default defineStore('smilestore', {
     },
     saveTiming(page, time) {
       this.data.time_data.push({page, time})
+    },
+    saveStartTime(time){
+      this.data.start_time = time
+    },
+    saveEndTime(time){
+      this.data.end_time = time
     },
     async loadData() {
       let data
