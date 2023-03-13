@@ -96,20 +96,6 @@ timeline.pushSeqRoute({
   component: MouseInfo,
 })
 
-// // demographic survery
-// timeline.pushSeqRoute({
-//   path: '/demograph',
-//   name: 'demograph',
-//   component: DemographicSurvey,
-//   // beforeEnter: (to, from) => {
-//   //   // before loading this route, identify the user
-//   //   const smilestore = useSmileStore()
-//   //   if (!smilestore.isKnownUser) {
-//   //     console.log('not known')
-//   //     smilestore.setKnown() // set new user and add document
-//   //   }
-//   // },
-// })
 
 // // windowsizer
 // timeline.pushSeqRoute({
@@ -118,70 +104,55 @@ timeline.pushSeqRoute({
 //   component: WindowSizer,
 // })
 
-// // captcha
-// timeline.pushSeqRoute({
-//   path: '/captcha',
-//   name: 'captcha',
-//   component: Captcha,
-// })
-
-// // instructions
-// timeline.pushSeqRoute({
-//   path: '/instructions',
-//   name: 'instructions',
-//   component: Instructions,
-// })
-
-
 
 
 // main experiment
 
-timeline.pushSeqRoute({
-  path: '/features',
-  name: 'features',
-  component: FeatureChecks,
-  beforeEnter: (to) => {
-    const smilestore = useSmileStore()
-    smilestore.local.page_visited = -1
-  },
-})
+// timeline.pushSeqRoute({
+//   path: '/features',
+//   name: 'features',
+//   component: FeatureChecks,
+//   beforeEnter: (to) => {
+//     const smilestore = useSmileStore()
+//     smilestore.local.page_visited = -1
+//   },
+// })
 
-timeline.pushSeqRoute({
-  path: '/practice',
-  name: 'practice',
-  component: PracticeTrials,
-  beforeEnter: (to) => {
-    const smilestore = useSmileStore()
-    smilestore.local.page_visited = -1
-  },
-})
+// timeline.pushSeqRoute({
+//   path: '/practice',
+//   name: 'practice',
+//   component: PracticeTrials,
+//   beforeEnter: (to) => {
+//     const smilestore = useSmileStore()
+//     smilestore.local.page_visited = -1
+//   },
+// })
 
-timeline.pushSeqRoute({
-  path: '/main',
-  name: 'main',
-  component: MainTrials,
-  beforeEnter: (to) => {
-    const smilestore = useSmileStore()
-    smilestore.local.page_visited = -1
-  },
-})
+// timeline.pushSeqRoute({
+//   path: '/main',
+//   name: 'main',
+//   component: MainTrials,
+//   beforeEnter: (to) => {
+//     const smilestore = useSmileStore()
+//     smilestore.local.page_visited = -1
+//   },
+// })
 
 
-timeline.pushSeqRoute({
-  path: '/endtask',
-  name: 'endtask',
-  component: EndTask,
+// timeline.pushSeqRoute({
+//   path: '/endtask',
+//   name: 'endtask',
+//   component: EndTask,
 
-})
+// })
 
-timeline.pushSeqRoute({
-  path: '/parentform',
-  name: 'parentform',
-  component: ParentForm,
-  meta: {allowDirectEntry:true}
+// timeline.pushSeqRoute({
+//   path: '/parentform',
+//   name: 'parentform',
+//   component: ParentForm,
+//   meta: {allowDirectEntry:true}
 
-})
+// })
 
 timeline.pushSeqRoute({
   path: '/uploadvideo',

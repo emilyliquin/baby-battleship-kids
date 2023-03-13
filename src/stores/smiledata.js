@@ -8,6 +8,7 @@ import {
   updateExperimentCounter,
   loadDoc,
   fsnow,
+  processFinishedData,
 } from './firestore-db'
 
 
@@ -109,6 +110,7 @@ export default defineStore('smilestore', {
     },
     setDone() {
       this.data.done = true
+      processFinishedData()
     },
     setCompletionCode(code) {
       this.local.completionCode = code

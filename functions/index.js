@@ -1,40 +1,51 @@
-// The Cloud Functions for Firebase SDK to create Cloud Functions
-// and set up triggers.
-import { https, logger, firestore } from 'firebase-functions'
+/* eslint-disable max-len */
+// The Cloud Functions for Firebase SDK to create Cloud Functions and set up triggers.
+const functions = require("firebase-functions");
 
 // The Firebase Admin SDK to access Firestore.
-import { initializeApp, firestore as _firestore } from 'firebase-admin'
-initializeApp()
+const admin = require("firebase-admin");
+admin.initializeApp();
 
-export const helloWorld = https.onRequest((request, response) => {
-  logger.info('Hello logs!', { structuredData: true })
-  response.send('Hello from Firebase!')
-})
+const db = admin.firestore();
 
-export const addMessage = https.onRequest(async (req, res) => {
-  // Grab the text parameter.
-  const original = req.query.text
-  // Push the new message into Firestore using the Firebase Admin SDK.
-  const writeResult = await _firestore()
-    .collection('messages')
-    .add({ original: original })
-  // Send back a message that we've successfully written the message
-  res.json({ result: `Message with ID: ${writeResult.id} added.` })
-})
 
-export const makeUppercase = firestore
-  .document('/messages/{documentId}')
-  .onCreate((snap, context) => {
-    // Grab the current value of what was written to Firestore.
-    const original = snap.data().original
+// make function that is called from within the app when the study ends (move data to secure database and, eventually, compute bonus)
+exports.finalizeData = functions.https.onCall((data, context) => {
+  const mode = data.mode;
+  const studyID = data.studyID;
+  // const docRef = data.docRef;
 
-    // Access the parameter `{documentId}` with `context.params`
-    logger.log('Uppercasing', context.params.documentId, original)
+  const tempDataCollection = db.collection(mode).doc(studyID).collection("temp");
+  const permanentDataCollection = db.collection(mode).doc(studyID).collection("data");
 
-    const uppercase = original.toUpperCase()
+  // get each document in temporary data storage, add bonus, then move to permanent data storage
+  tempDataCollection.get().then((querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      const docRef = doc.id;
+      const docData = doc.data();
 
-    // You must return a Promise when performing asynchronous tasks inside a Functions such as
-    // writing to Firestore.
-    // Setting an 'uppercase' field in Firestore document returns a Promise.
-    return snap.ref.set({ uppercase }, { merge: true })
-  })
+      // ADD CODE HERE TO COMPUTE BONUS
+      docData.bonus = 100;
+
+      // first, get the private data
+      const tempPrivate = tempDataCollection.doc(docRef).collection("private").doc("private_data");
+      tempPrivate.get().then((privatedoc) => {
+        // then, once you have it, save it to the permanent collection
+        if (privatedoc.exists) {
+          permanentDataCollection.doc(docRef).collection("private").doc("privateData").set(privatedoc.data()).then(() => {
+            // then delete the temp private data
+            tempPrivate.delete();
+          });
+        }
+      });
+      // save the main data to the permanent location
+      permanentDataCollection.doc(docRef).set(docData).then(() => {
+        // then also delete that document from the temp location
+        tempDataCollection.doc(docRef).delete();
+      });
+    });
+  });
+
+  return null;
+});
+

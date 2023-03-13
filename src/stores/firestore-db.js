@@ -9,6 +9,7 @@ import {
   Timestamp,
   runTransaction
 } from 'firebase/firestore'
+import { getFunctions, httpsCallable } from "firebase/functions"
 import appconfig from '@/config'
 
 // initialize firebase connection
@@ -19,6 +20,8 @@ let mode = 'real'
 if (appconfig.mode === 'development') {
   mode = 'testing'
 }
+const functions = getFunctions(firebaseApp);
+const finalizeData = httpsCallable(functions, 'finalizeData');
 
 export const fsnow = () => Timestamp.now()
 
@@ -117,6 +120,10 @@ export const updateExperimentCounter = async (counter) => {
     } catch (e) {
       console.log("Transaction failed: ", e);
     }
+}
+
+export const processFinishedData = () => {
+  finalizeData({"mode": mode, "studyID": appconfig.project_ref})
 }
 
 
