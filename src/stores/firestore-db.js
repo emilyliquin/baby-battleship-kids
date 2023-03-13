@@ -85,8 +85,6 @@ export const createDoc = async (data, private_data, seedid, partnum) => {
       return `${fulldocid  }-override`
     }
     // otherwise, we create a document with the specified docID 
-    console.log(data)
-    console.log(private_data)
 
       await setDoc(doc(db, `${mode}/${appconfig.project_ref}/temp/`, fulldocid), data);
 
