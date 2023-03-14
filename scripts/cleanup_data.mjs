@@ -29,7 +29,7 @@ const init = () => {
       })
     )
   )
-  console.log(chalk.green('your data is almost here.'))
+  console.log(chalk.red('WARNING! Only clean up data if there are no in-progress sessions.'))
 }
 
 const askQuestions = () => {
@@ -37,23 +37,9 @@ const askQuestions = () => {
     {
       type: 'list',
       name: 'TYPE',
-      message: 'What type of data do you want?',
+      message: 'What type of data do you want to clean up?',
       choices: ['testing', 'real'],
     },
-    {
-      type: 'list',
-      name: 'COMPLETE_ONLY',
-      message: 'Do you want all the data, or just the data that was marked done?',
-      choices: ['all', 'done_only'],
-    },
-
-    {
-      type: 'input',
-      name: 'FILENAME',
-      message: 'What is the name of the file without extension?',
-      default: 'data',
-    },
-
     {
       type: 'input',
       name: 'KEY_PATH',
@@ -64,35 +50,47 @@ const askQuestions = () => {
   return inquirer.prompt(questions)
 }
 
-const storeData = async (data, path) => {
-  try {
-    fs.writeFileSync(path, JSON.stringify(data))
-  } catch (err) {
-    console.error(err)
-  }
-}
-
-
-const getData = async (path, completeOnly, db, filename) => {
-  let querySnapshot = null
-
-  if (completeOnly == 'all') {
-    querySnapshot = await db.collection(path).get()
-  } else {
-    querySnapshot = await db.collection(path).where("done", "==", true).get();
-  }
-  const data = []
-  querySnapshot.forEach((doc) => {
-    data.push({ id: doc.id, data: doc.data() })
-  })
-
-  await storeData(data, `data/${filename}.json`)
-}
-
-const success = (filename) => {
+const success = () => {
   console.log(
-    chalk.green(`your data has been exported to 'data/${filename}.json'.`)
+    chalk.red("your data has been moved out of the temporary collection.")
   )
+}
+
+
+const cleanUpData = async (mode, studyID, db) => {
+
+  const tempDataCollection = db.collection(mode).doc(studyID).collection("temp");
+  const permanentDataCollection = db.collection(mode).doc(studyID).collection("data");
+
+  // get each document in temporary data storage, add bonus, then move to permanent data storage
+  const querySnapshot = await tempDataCollection.get()
+  // for each temp document
+  querySnapshot.forEach(async (doc) => {
+    const docRef = doc.id;
+    let docData = doc.data();
+
+    // if they finished the study, compute the bonus
+    if (docData.done === true) {
+      // ADD CODE HERE TO COMPUTE BONUS
+      const participantBonus = 0;
+      // then save the bonus to the data
+      docData.bonus = participantBonus;
+    }
+
+    // get the corresponding private data
+    const tempPrivate = tempDataCollection.doc(docRef).collection("private").doc("private_data");
+    const privatedoc = await tempPrivate.get();
+    if (privatedoc.exists) {
+      docData = Object.assign(docData, privatedoc.data());
+    }
+
+    // then save the data to the permanent location and delete from temp
+    const batch = db.batch();
+    batch.set(permanentDataCollection.doc(docRef), docData);
+    batch.delete(tempPrivate);
+    batch.delete(tempDataCollection.doc(docRef));
+    await batch.commit()
+  });
 }
 
 
@@ -104,7 +102,7 @@ const run = async () => {
 
   // ask questions
   const answers = await askQuestions()
-  const { TYPE, COMPLETE_ONLY, FILENAME, KEY_PATH } = answers
+  const { TYPE, KEY_PATH } = answers
 
   // connect to database
   const localenv = dotenv.config({ path: 'env/.env.local' })
@@ -120,13 +118,11 @@ const run = async () => {
   const app = initializeApp(firebaseConfig)
   const db = getFirestore(app)
 
-
-  // create the file
-  const path = `${TYPE}/${project_ref}/data`
-  await getData(path, COMPLETE_ONLY, db, `${TYPE}-${COMPLETE_ONLY}-${FILENAME}`)
+  // handle data cleanup
+  await cleanUpData(TYPE, project_ref, db)
 
   // show success message
-  success(`${TYPE}-${COMPLETE_ONLY}-${FILENAME}`)
+  success()
 }
 
 run()
