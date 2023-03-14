@@ -22,27 +22,33 @@ exports.finalizeData = functions.https.onCall((data, context) => {
   tempDataCollection.get().then((querySnapshot) => {
     querySnapshot.forEach((doc) => {
       const docRef = doc.id;
-      const docData = doc.data();
+      let docData = doc.data();
 
-      // ADD CODE HERE TO COMPUTE BONUS
-      docData.bonus = 100;
+      // if they finished the study, compute the bonus
+      if (docData.done === true) {
+        // ADD CODE HERE TO COMPUTE BONUS
+        const participantBonus = 0;
+        // then save the bonus to the data
+        docData.bonus = participantBonus;
+      }
 
-      // first, get the private data
-      const tempPrivate = tempDataCollection.doc(docRef).collection("private").doc("private_data");
-      tempPrivate.get().then((privatedoc) => {
-        // then, once you have it, save it to the permanent collection
-        if (privatedoc.exists) {
-          permanentDataCollection.doc(docRef).collection("private").doc("privateData").set(privatedoc.data()).then(() => {
-            // then delete the temp private data
-            tempPrivate.delete();
-          });
-        }
-      });
-      // save the main data to the permanent location
-      permanentDataCollection.doc(docRef).set(docData).then(() => {
-        // then also delete that document from the temp location
-        tempDataCollection.doc(docRef).delete();
-      });
+      // if it's done, withdrawn, or it's been more than three hours since the start time
+      if (docData.done === true || docData.withdraw === true || Date.now() - docData.start_time > 1.08e7) {
+        // Get the private data
+        const tempPrivate = tempDataCollection.doc(docRef).collection("private").doc("private_data");
+        tempPrivate.get().then((privatedoc) => {
+          // then save it to the data as well
+          if (privatedoc.exists) {
+            docData = Object.assign({}, docData, privatedoc);
+          }
+        });
+        // save the data to the permanent location
+        permanentDataCollection.doc(docRef).set(docData).then(() => {
+          // then also delete everything from the temp location
+          tempPrivate.delete();
+          tempDataCollection.doc(docRef).delete();
+        });
+      }
     });
   });
 
