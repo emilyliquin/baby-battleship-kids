@@ -78,21 +78,6 @@ const storeData = async (data, path) => {
   }
 }
 
-const connectFirestore = (certPath) => {
-  const localenv = dotenv.config({ path: 'env/.env.local' })
-  const firebaseConfig = {
-    apiKey: localenv.parsed.VITE_FIREBASE_APIKEY,
-    authDomain: localenv.parsed.VITE_FIREBASE_AUTHDOMAIN,
-    projectId: localenv.parsed.VITE_FIREBASE_PROJECTID,
-    storageBucket: localenv.parsed.VITE_FIREBASE_STORAGEBUCKET,
-    messagingSenderId: localenv.parsed.VITE_FIREBASE_MESSAGINGSENDERID,
-    appId: localenv.parsed.VITE_FIREBASE_APPID,
-    credential: cert(certPath)
-  }
-  const app = initializeApp(firebaseConfig)
-  const db = getFirestore(app)
-  return db
-}
 
 const getData = async (path, completeOnly, db, filename) => {
   let querySnapshot = null
@@ -124,6 +109,7 @@ const cleanUpData = async (mode, studyID, db) => {
 
   // get each document in temporary data storage, add bonus, then move to permanent data storage
   const querySnapshot = await tempDataCollection.get()
+  // for each temp document
   querySnapshot.forEach(async (doc) => {
     const docRef = doc.id;
     let docData = doc.data();
@@ -135,25 +121,21 @@ const cleanUpData = async (mode, studyID, db) => {
       // then save the bonus to the data
       docData.bonus = participantBonus;
     }
-    
-    // Get the private data
+
+    // get the corresponding private data
     const tempPrivate = tempDataCollection.doc(docRef).collection("private").doc("private_data");
-    const privatedoc = await tempPrivate.get()
-    // then save it to the data as well
+    const privatedoc = await tempPrivate.get();
     if (privatedoc.exists) {
       docData = Object.assign(docData, privatedoc.data());
     }
-    // save the data to the permanent location
+
+    // then save the data to the permanent location and delete from temp
     const batch = db.batch();
-    await batch.set(permanentDataCollection.doc(docRef), docData);
+    batch.set(permanentDataCollection.doc(docRef), docData);
     batch.delete(tempPrivate);
     batch.delete(tempDataCollection.doc(docRef));
-    batch.commit().then(() =>{
-      return null;
-    });
-
+    await batch.commit()
   });
-  return null;
 }
 
 
