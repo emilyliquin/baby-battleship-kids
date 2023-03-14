@@ -13,7 +13,6 @@ const db = admin.firestore();
 exports.finalizeData = functions.https.onCall((data, context) => {
   const mode = data.mode;
   const studyID = data.studyID;
-  // const docRef = data.docRef;
 
   const tempDataCollection = db.collection(mode).doc(studyID).collection("temp");
   const permanentDataCollection = db.collection(mode).doc(studyID).collection("data");
@@ -32,22 +31,33 @@ exports.finalizeData = functions.https.onCall((data, context) => {
         docData.bonus = participantBonus;
       }
 
-      // if it's done, withdrawn, or it's been more than three hours since the start time
-      if (docData.done === true || docData.withdraw === true || Date.now() - docData.start_time > 1.08e7) {
+      // if it's done, withdrawn, or it's been more than two hours since the start time
+      if (docData.done === true || docData.withdraw === true || Date.now() - docData.start_time > 7.2e6) {
+        if (Date.now() - docData.start_time > 7.2e6) {
+          docData.timeout = true;
+        }
         // Get the private data
         const tempPrivate = tempDataCollection.doc(docRef).collection("private").doc("private_data");
         tempPrivate.get().then((privatedoc) => {
           // then save it to the data as well
           if (privatedoc.exists) {
-            docData = Object.assign({}, docData, privatedoc);
+            docData = Object.assign(docData, privatedoc.data());
           }
         });
-        // save the data to the permanent location
-        permanentDataCollection.doc(docRef).set(docData).then(() => {
-          // then also delete everything from the temp location
-          tempPrivate.delete();
-          tempDataCollection.doc(docRef).delete();
+
+        const batch = db.batch();
+        batch.set(permanentDataCollection.doc(docRef), docData);
+        batch.delete(tempPrivate);
+        batch.delete(tempDataCollection.doc(docRef));
+        batch.commit().then(() =>{
+          return null;
         });
+        // // save the data to the permanent location
+        // permanentDataCollection.doc(docRef).set(docData).then(() => {
+        //   // then also delete everything from the temp location
+        //   tempPrivate.delete();
+        //   tempDataCollection.doc(docRef).delete();
+        // });
       }
     });
   });
