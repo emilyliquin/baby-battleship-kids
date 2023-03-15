@@ -27,6 +27,14 @@ function finish(goto) {
     if(goto) router.push(goto)
 }
 
+var mobile_iframe = parent.top.document.getElementById("browser-check-yes-mobile");
+try{
+    mobile_iframe.remove();
+} catch(e){
+    console.log(e)
+}
+
+
 </script>
 
 <template>
