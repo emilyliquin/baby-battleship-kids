@@ -69,18 +69,18 @@ timeline.pushSeqRoute({
   path: '/welcome/:service',
   name: 'welcome_referred',
   component: Advertisement,
-  meta: { next: 'intro', allowDirectEntry: true }, // override what is next
+  meta: { next: 'consent', allowDirectEntry: true }, // override what is next
   beforeEnter: (to) => {
     processQuery(to.query, to.params.service)
   },
 })
 
 // intro
-timeline.pushSeqRoute({
-  path: '/intro',
-  name: 'intro',
-  component: Intro,
-})
+// timeline.pushSeqRoute({
+//   path: '/intro',
+//   name: 'intro',
+//   component: Intro,
+// })
 
 // consent
 timeline.pushSeqRoute({

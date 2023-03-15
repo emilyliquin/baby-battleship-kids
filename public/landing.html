@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"></link>
+    <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
+</head>
+<script>
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    function startStudy(){
+        window.location.href='/#/welcome/panda/?ID=' + urlParams.get("ID")
+    }
+
+</script>
+<body>
+    <section class="section">
+        <div class="container">
+            <img src="./start_page.png" width="500" style="display: block; margin-left: auto; margin-right: auto;">
+            <br>
+            <button class="button is-warning is-large" style="display: block; margin-left: auto; margin-right: auto;" onclick="startStudy()">I'm ready! </button>
+        
+        </div>
+    </section>
+
+
+</body>
