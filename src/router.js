@@ -108,51 +108,51 @@ timeline.pushSeqRoute({
 
 // main experiment
 
-// timeline.pushSeqRoute({
-//   path: '/features',
-//   name: 'features',
-//   component: FeatureChecks,
-//   beforeEnter: (to) => {
-//     const smilestore = useSmileStore()
-//     smilestore.local.page_visited = -1
-//   },
-// })
+timeline.pushSeqRoute({
+  path: '/features',
+  name: 'features',
+  component: FeatureChecks,
+  beforeEnter: (to) => {
+    const smilestore = useSmileStore()
+    smilestore.local.page_visited = -1
+  },
+})
 
-// timeline.pushSeqRoute({
-//   path: '/practice',
-//   name: 'practice',
-//   component: PracticeTrials,
-//   beforeEnter: (to) => {
-//     const smilestore = useSmileStore()
-//     smilestore.local.page_visited = -1
-//   },
-// })
+timeline.pushSeqRoute({
+  path: '/practice',
+  name: 'practice',
+  component: PracticeTrials,
+  beforeEnter: (to) => {
+    const smilestore = useSmileStore()
+    smilestore.local.page_visited = -1
+  },
+})
 
-// timeline.pushSeqRoute({
-//   path: '/main',
-//   name: 'main',
-//   component: MainTrials,
-//   beforeEnter: (to) => {
-//     const smilestore = useSmileStore()
-//     smilestore.local.page_visited = -1
-//   },
-// })
+timeline.pushSeqRoute({
+  path: '/main',
+  name: 'main',
+  component: MainTrials,
+  beforeEnter: (to) => {
+    const smilestore = useSmileStore()
+    smilestore.local.page_visited = -1
+  },
+})
 
 
-// timeline.pushSeqRoute({
-//   path: '/endtask',
-//   name: 'endtask',
-//   component: EndTask,
+timeline.pushSeqRoute({
+  path: '/endtask',
+  name: 'endtask',
+  component: EndTask,
 
-// })
+})
 
-// timeline.pushSeqRoute({
-//   path: '/parentform',
-//   name: 'parentform',
-//   component: ParentForm,
-//   meta: {allowDirectEntry:true}
+timeline.pushSeqRoute({
+  path: '/parentform',
+  name: 'parentform',
+  component: ParentForm,
+  meta: {allowDirectEntry:true}
 
-// })
+})
 
 timeline.pushSeqRoute({
   path: '/uploadvideo',
