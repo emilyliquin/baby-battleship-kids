@@ -6,8 +6,12 @@
 <script>
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
+
+    const currentloc = window.location.href
+    const newloc = currentloc.replace('landing.html','#/welcome/panda/?ID=')
+
     function startStudy(){
-        window.location.href='/e/hide-exuberant-primary/#/welcome/panda/?ID=' + urlParams.get("ID")
+        window.location.href=newloc + urlParams.get("ID")
     }
 
 </script>
