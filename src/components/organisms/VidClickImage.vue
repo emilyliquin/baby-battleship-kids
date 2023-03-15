@@ -71,9 +71,13 @@ function cleanDataVar(v){
 
 function next_trial(choice) { 
     smilestore.local.page_visited = -1
-
-    const vidData = {video: props.vid_name, attempt: cleanDataVar(props.attempt), correct_choice: cleanDataVar(props.correct), choice, vid_start: start_time, vid_end: end_time, trial_end: Date.now()}
-    smilestore.saveVidData(vidData)
+    const attempt = props.attempt
+    const correct_choice = props.correct
+    const trialData = {...(attempt ? { attempt } : {}),
+    ...(correct_choice ? { correct_choice } : {}),
+    ...{choice}}
+    const vidData = {video: props.vid_name, vid_start: start_time, vid_end: end_time, trial_end: Date.now(), trial_data: trialData}
+    smilestore.saveTrialData(vidData)
 
     if(choice === props.correct){
         smilestore.saveData()

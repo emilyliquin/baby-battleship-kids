@@ -16,7 +16,7 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
-const props = defineProps(["vid_name", "reminderText"])
+const props = defineProps(["vid_name", "reminderText", "hint"])
 
 const emit = defineEmits(["nextVid"])
 
@@ -58,19 +58,15 @@ function highlightNext(){
 }
 
 
-// for optional parameters, return null to data if they are undefined
-function cleanDataVar(v){
-    if(v){
-        return v
-    } 
-    return null
-}
 
 function next_trial() { 
     smilestore.local.page_visited = -1
-
-    const vidData = {video: props.vid_name, reminder: cleanDataVar(props.reminderText), vid_start: start_time, vid_end: end_time, trial_end: Date.now()}
-    smilestore.saveVidData(vidData)
+    const reminder = props.reminderText
+    const hint = props.hint
+    const trialData = {...(reminder ? { reminder } : {}),
+    ...(hint ? { hint } : {})}
+    const vidData = {video: props.vid_name, vid_start: start_time, vid_end: end_time, trial_end: Date.now(), trial_data: trialData}
+    smilestore.saveTrialData(vidData)
     smilestore.saveData()
 
     emit('nextVid')

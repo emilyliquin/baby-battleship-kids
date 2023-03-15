@@ -36,7 +36,7 @@ const choices = [{option_id: "1", height: "150", width: "140", margin_top: "285"
 /// ////////// TO DO: EDIT PAGES HERE ////////////
 
 const pages = [{comp: ImageClickArrow, args:{img_name: "threepoints.png"}},
-{comp: VidClickImage, args:{vid_name: "soundcheck", clickOptions: choices}}]
+{comp: VidClickImage, args:{vid_name: "soundcheck", clickOptions: choices, correct: "2"}}]
 
 /// /////////////////////////////////////////////
 

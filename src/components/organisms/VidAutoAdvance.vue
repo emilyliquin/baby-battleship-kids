@@ -49,9 +49,9 @@ onMounted(() => {
 
 function next_trial() { 
     smilestore.local.page_visited = -1
-
-    const vidData = {video: props.vid_name, vid_start: start_time, vid_end: Date.now(), trial_end: Date.now()}
-    smilestore.saveVidData(vidData)
+    const trialData = {}
+    const vidData = {video: props.vid_name, vid_start: start_time, vid_end: Date.now(), trial_end: Date.now(), trial_data: trialData}
+    smilestore.saveTrialData(vidData)
     smilestore.saveData()
 
     emit('nextVid')

@@ -24,32 +24,32 @@ if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
 const pages1 = [
 {comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{vid_name: "mt1_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt1_1", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["b_cir_2", "p_cir_2", "r_cir_?"]}},
 {comp: VidClickArrow, args:{vid_name: "mt1_2"}},
 ]
 const pages2 = [
 {comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{vid_name: "mt2_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt2_1", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_sq_2", "r_sq_?", "b_cir_?"]}},
 {comp: VidClickArrow, args:{vid_name: "mt2_2"}},
 ]
 const pages3 = [
 {comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{vid_name: "mt3_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt3_1", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_sq_3", "b_?_3", "p_?_1"]}},
 {comp: VidClickArrow, args:{vid_name: "mt3_2"}},
 ]
 const pages4 = [
 {comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{vid_name: "mt4_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt4_1", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_?_3", "b_?_3", "p_?_2"]}},
 {comp: VidClickArrow, args:{vid_name: "mt4_2"}},
 ]
 const pages5 = [
 {comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{vid_name: "mt5_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt5_1", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_cir_3", "b_cir_?", "p_?_?"]}},
 {comp: VidClickArrow, args:{vid_name: "mt5_2"}},
 ]
 const pages6 = [
 {comp: VidAutoAdvance, args:{vid_name: "trial_mixing"}},
-{comp: VidClickArrow, args:{vid_name: "mt6_1", reminderText: "Say <b>your one question</b>, then click the arrow."}},
+{comp: VidClickArrow, args:{vid_name: "mt6_1", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_cir_?", "p_cir_?", "b_?_?"]}},
 {comp: VidClickArrow, args:{vid_name: "mt6_2"}},
 ]
 

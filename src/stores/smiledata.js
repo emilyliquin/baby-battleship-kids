@@ -65,7 +65,7 @@ export default defineStore('smilestore', {
       withdraw: false, // false
       route_order: [],
       conditions: {},
-      vid_data: [],
+      trial_data: [],
       start_time: 0,
       end_time: 0,
       has_valid_video: null,
@@ -151,8 +151,8 @@ export default defineStore('smilestore', {
     saveParentForm(data) {
       this.data.parent_form = data
     },
-    saveVidData(data) {
-      this.data.vid_data.push(data)
+    saveTrialData(data) {
+      this.data.trial_data.push(data)
     },
     setCondition(name, cond) {
       this.data.conditions[name] = cond
