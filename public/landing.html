@@ -8,10 +8,9 @@
     const urlParams = new URLSearchParams(queryString);
 
     const currentloc = window.location.href
-    const newloc = currentloc.replace('landing.html','#/welcome/panda/?ID=')
-
+    const newloc = currentloc.replace('landing.html','#/welcome/panda/')
     function startStudy(){
-        window.location.href=newloc + urlParams.get("ID")
+        window.location.href=newloc
     }
 
 </script>
