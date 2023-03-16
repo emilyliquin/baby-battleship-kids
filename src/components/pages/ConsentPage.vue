@@ -64,10 +64,6 @@ function next_trial(goto) {
     smilestore.local.page_visited = -1
     const newpage = smilestore.incrementPage("consent_page", 1)
     if (newpage >= pages.length) {
-        if (!smilestore.isKnownUser) {
-        // console.log('not known')
-        smilestore.setKnown() // set new user and add document
-    }
     smilestore.setConsented()
       smilestore.saveTiming('consent', Date.now() - start_time)
         if(goto) router.push(goto)
