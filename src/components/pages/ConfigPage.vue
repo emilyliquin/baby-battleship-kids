@@ -35,7 +35,7 @@ function resetLocalState() {
   // localStorage.removeItem(`${appconfig.local_storage_key}-seed_id`)
   // localStorage.removeItem(`${appconfig.local_storage_key}-seed_set`)
   smilestore.$reset()  // reset all the data even
-  router.push('/')
+  // router.push('/')
 }
 </script>
 
