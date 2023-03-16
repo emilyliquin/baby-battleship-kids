@@ -33,10 +33,10 @@ exports.finalizeData = functions.https.onCall(async (data, context) => {
       docData.bonus = participantBonus;
     }
 
-    // if it's done, withdrawn, or it's been more than two hours since the start time, move the data to permanent
-    if (docData.done === true || docData.withdraw === true || Date.now() - docData.start_time > 7.2e6) {
+    // if it's done, withdrawn, or it's been more than one hour since the start time, move the data to permanent
+    if (docData.done === true || docData.withdraw === true || Date.now() - docData.start_time > 3.6e6) {
       // record whether it timed out
-      if (Date.now() - docData.start_time > 7.2e6) {
+      if (Date.now() - docData.start_time > 3.6e6) {
         docData.timeout = true;
       }
 
