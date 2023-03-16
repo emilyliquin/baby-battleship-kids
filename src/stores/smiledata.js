@@ -71,6 +71,7 @@ export default defineStore('smilestore', {
       end_time: 0,
       code_hash: appconfig.github.last_commit_hash,
       progress: 0,
+      questions_asked: 0,
     },
     private_data: {
       recruitment_info: {},
@@ -188,6 +189,9 @@ export default defineStore('smilestore', {
     },
     saveEndTime(time){
       this.data.end_time = time
+    },
+    incrementQuestions(){
+      this.data.questions_asked += 1
     },
     async loadData() {
       let data

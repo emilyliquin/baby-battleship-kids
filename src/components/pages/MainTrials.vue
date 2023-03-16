@@ -90,6 +90,9 @@ onMounted(() => {
 })
 
 function next_trial(goto) {
+    if(currentTab.value.args.reminderText){
+        smilestore.incrementQuestions()
+    }
     smilestore.local.page_visited = -1
     const newpage = smilestore.incrementPage("main_page", 1)
     if (newpage >= pages.length) {

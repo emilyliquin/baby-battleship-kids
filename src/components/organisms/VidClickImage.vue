@@ -15,7 +15,7 @@ const smilestore = useSmileStore()
 
 const { next, prev } = useTimelineStepper()
 
-if(route.meta.progress) smilestore.data.progress = route.meta.progress
+// if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
 const props = defineProps(["vid_name", "attempt", "correct", "clickOptions"])
 
