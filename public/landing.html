@@ -4,6 +4,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"></meta>
 </head>
 <script>
+    // reset local storage
+
+    try{
+        localStorage.removeItem('smilestore-hide-exuberant-primary')
+        console.log("cleared local storage")
+    } catch(e){
+        console.log("no local storage to delete")
+    }
+
+    // determine where to send participant next
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 

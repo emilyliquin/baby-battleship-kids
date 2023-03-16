@@ -48,8 +48,6 @@ function next_trial() {
 
             const vidData = {image: props.img_name, trial_start: start_time, trial_end: Date.now()}
             smilestore.saveTrialData(vidData)
-            smilestore.saveData()
-
             emit('nextVid')
         }
 }

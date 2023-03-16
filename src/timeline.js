@@ -204,7 +204,7 @@ class Timeline {
     const seqTimelineLength = this.seqtimeline.length
     for (let i = 0; i < seqTimelineLength; i++) {
       this.seqtimeline[i].meta.routeIdx = i
-      this.seqtimeline[i].meta.progress = Math.round((i*100) / (seqTimelineLength - 2))/100
+      this.seqtimeline[i].meta.progress = Math.round((i*100) / (seqTimelineLength - 1))/100
     }
   }
 }
