@@ -37,6 +37,7 @@ export default defineStore('smilestore', {
       endtask_page: 0,
       upload_page: 0,
       page_visited: -1,
+      lastStart: Date.now(),
     }, localStorage, { mergeDefaults: true }),
     global: {
       // ephemeral state, resets on browser refresh
