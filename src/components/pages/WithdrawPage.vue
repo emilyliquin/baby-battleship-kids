@@ -5,7 +5,7 @@ import useSmileStore from '@/stores/smiledata' // get access to the global store
 const route = useRoute()
 const smilestore = useSmileStore()
 
-if(route.meta.progress) smilestore.global.progress = route.meta.progress
+if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
 smilestore.saveData(true) // force a data save
 </script>

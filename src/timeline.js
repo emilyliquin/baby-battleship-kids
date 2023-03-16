@@ -169,7 +169,7 @@ class Timeline {
 
   build() {
     this.buildGraph()
-    // this.buildProgress()
+    this.buildProgress()
   }
 
   // buildGraph builds
@@ -200,12 +200,12 @@ class Timeline {
 
   // this won't work with new system
   // buildProgress assigns progrees meeter values to each route
-  // buildProgress() {
-  //   const seqTimelineLength = this.seqtimeline.length
-  //   for (let i = 0; i < seqTimelineLength; i++) {
-  //     this.seqtimeline[i].meta.routeIdx = i
-  //     this.seqtimeline[i].meta.progress = (100 * i) / (seqTimelineLength - 1)
-  //   }
-  // }
+  buildProgress() {
+    const seqTimelineLength = this.seqtimeline.length
+    for (let i = 0; i < seqTimelineLength; i++) {
+      this.seqtimeline[i].meta.routeIdx = i
+      this.seqtimeline[i].meta.progress = Math.round((i*100) / (seqTimelineLength - 2))/100
+    }
+  }
 }
 export default Timeline

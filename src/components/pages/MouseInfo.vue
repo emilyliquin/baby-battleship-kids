@@ -21,7 +21,7 @@ smilestore.global.status_bar_text_color = '#000'
 
 const { next, prev } = useTimelineStepper()
 
-if(route.meta.progress) smilestore.global.progress = route.meta.progress
+if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
 /// //////// TO DO: EDIT PAGES HERE ////////////
 const pages = [{comp: VidAutoAdvance, args:{vid_name: "mouse_info"}},

@@ -22,12 +22,12 @@ smilestore.global.status_bar_text_color = '#000'
 
 const { next, prev } = useTimelineStepper()
 
-if(route.meta.progress) smilestore.global.progress = route.meta.progress
+if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
 /// ////////// CHOICES HERE ////////////
 
-const choices = [{option_id: "yes", height: "100", width: "150", margin_top: "300", margin_left: "-175"},
-{option_id: "no", height: "100", width: "150", margin_top: "300", margin_left: "25"}]
+const choices = [{option_id: "yes", height: "140", width: "180", margin_top: "408", margin_left: "-222"},
+{option_id: "no", height: "140", width: "180", margin_top: "408", margin_left: "38"}]
 
 /// /////////////////////////////////////////////
 

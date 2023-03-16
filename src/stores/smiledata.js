@@ -68,7 +68,8 @@ export default defineStore('smilestore', {
       study_data: [],
       start_time: 0,
       end_time: 0,
-      has_valid_video: null,
+      code_hash: appconfig.github.last_commit_hash,
+      progress: 0,
     },
     private_data: {
       recruitment_info: {},

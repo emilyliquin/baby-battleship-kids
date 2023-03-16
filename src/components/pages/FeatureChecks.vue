@@ -19,7 +19,7 @@ const smilestore = useSmileStore()
 
 const { next, prev } = useTimelineStepper()
 
-if(route.meta.progress) smilestore.global.progress = route.meta.progress
+if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
 
 const fullClickOptions3 = [{option_id: "l", height: "200", width: "200", margin_top: "125", margin_left: "-380"},

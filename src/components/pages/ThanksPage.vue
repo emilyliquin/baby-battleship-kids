@@ -12,7 +12,7 @@ const smilestore = useSmileStore()
 
 const { next, prev } = useTimelineStepper()
 
-if(route.meta.progress) smilestore.global.progress = route.meta.progress
+if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
 smilestore.saveData(true) // force a data save
 

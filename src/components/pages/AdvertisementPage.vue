@@ -20,15 +20,15 @@ const smilestore = useSmileStore()
 
 const { next, prev } = useTimelineStepper()
 
-if(route.meta.progress) smilestore.global.progress = route.meta.progress
+if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
 
 /// ////////// TO DO: EDIT CHOICES HERE ////////////
 
-const choices = [{option_id: "1", height: "150", width: "140", margin_top: "285", margin_left: "-295"},
-{option_id: "2", height: "150", width: "140", margin_top: "285", margin_left: "-145"},
-{option_id: "3", height: "150", width: "140", margin_top: "285", margin_left: "-5"},
-{option_id: "4", height: "150", width: "140", margin_top: "285", margin_left: "150"}]
+const choices = [{option_id: "1", height: "170", width: "190", margin_top: "405", margin_left: "-390"},
+{option_id: "2", height: "170", width: "190", margin_top: "405", margin_left: "-200"},
+{option_id: "3", height: "170", width: "190", margin_top: "405", margin_left: "-10"},
+{option_id: "4", height: "170", width: "190", margin_top: "405", margin_left: "195"}]
 
 /// ////////////////////////////////////////////////
 

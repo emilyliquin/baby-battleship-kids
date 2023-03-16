@@ -15,7 +15,7 @@ const smilestore = useSmileStore()
 
 const { next, prev } = useTimelineStepper()
 
-if(route.meta.progress) smilestore.global.progress = route.meta.progress
+if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
 const props = defineProps(["vid_name", "attempt", "correct", "clickOptions"])
 
@@ -117,7 +117,7 @@ function next_trial(choice) {
 
 .kidvid {
     width: 800px;
-    height: 450px;
+    height: auto
   
 }
 
@@ -133,29 +133,6 @@ function next_trial(choice) {
 }
 .overlay:hover {
     opacity:0.3;
-}
-
-#l {
-    height:200px;
-    width:200px;
-    margin-top: 125px;
-    margin-left: -380px;
-}
-
-#m {
-    height:200px;
-    width:200px;
-    margin-top: 125px;
-    left: 50%;
-    margin-left: -100px;
-}
-
-#r {
-    height:200px;
-    width:200px;
-    margin-top: 125px;
-    left: 50%;
-    margin-left: 180px;
 }
 
 

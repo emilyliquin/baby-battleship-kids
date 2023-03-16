@@ -122,13 +122,13 @@ function submitWithdraw() {
             <div class="navbar-end">
                 <div class="navbar-item" >
                     <div class="buttons">
-                        <button class="button is-info is-small is-light" @click="openPause()">
+                        <button class="button is-info is-light" @click="openPause()">
                             <FAIcon icon="pause" />&nbsp;&nbsp;Pause
                         </button>
-                        <button class="button is-danger is-small is-light" @click="openStop()">
+                        <button class="button is-danger is-light" @click="openStop()">
                             <FAIcon icon="stop" />&nbsp;&nbsp;Stop
                         </button>
-                        <button class="button is-warning is-small is-light" @click="openHelp()">
+                        <button class="button is-warning is-light" @click="openHelp()">
                             <FAIcon icon="question" />&nbsp;&nbsp;Help
                         </button>
                     </div>
@@ -240,5 +240,9 @@ function submitWithdraw() {
 }
 .navbar-end {
     margin-left: auto;
+}
+
+.modal{
+    z-index: 120;
 }
 </style>
