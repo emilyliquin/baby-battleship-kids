@@ -67,7 +67,7 @@ export default defineStore('smilestore', {
       route_order: [],
       conditions: {},
       study_data: [],
-      start_time: 0,
+      start_time: Date.now(),
       end_time: 0,
       code_hash: appconfig.github.last_commit_hash,
       progress: 0,
@@ -184,9 +184,9 @@ export default defineStore('smilestore', {
     saveTiming(page, time) {
       this.data.time_data.push({page, time})
     },
-    saveStartTime(time){
-      this.data.start_time = time
-    },
+    // saveStartTime(time){
+    //   this.data.start_time = time
+    // },
     saveEndTime(time){
       this.data.end_time = time
     },

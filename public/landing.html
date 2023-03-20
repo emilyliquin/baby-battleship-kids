@@ -6,6 +6,8 @@
 <script>
     // reset local storage
 
+    const fullstart = Date.now()
+
     try{
         localStorage.removeItem('smilestore-hide-exuberant-primary')
         console.log("cleared local storage")
@@ -17,8 +19,10 @@
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
 
+
     const currentloc = window.location.href
-    const newloc = currentloc.replace('landing.html','#/welcome/panda/')
+    let newloc = currentloc.replace('landing.html','#/welcome/panda/')
+    newloc = newloc + '&STARTTIME=' + Date.now()
     function startStudy(){
         window.location.href=newloc
     }
