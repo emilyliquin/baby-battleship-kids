@@ -56,6 +56,7 @@ const pages6 = [
 const pagesNested = [pages1, pages2, pages3, pages4, pages5, pages6]
 const pagesShuffled = random.shuffle(pagesNested)
 
+// just add the four trials
 const pages = []
 pages.push(...pagesShuffled[0])
 pages.push({comp: VidAutoAdvance, args:{vid_name: "vid1"}})
@@ -71,14 +72,6 @@ pages.push({comp: VidClickArrow, args:{vid_name: "post_animal"}})
 
 pages.push(...pagesShuffled[3])
 pages.push({comp: VidAutoAdvance, args:{vid_name: "vid4"}})
-pages.push({comp: VidClickArrow, args:{vid_name: "post_animal"}})
-
-pages.push(...pagesShuffled[4])
-pages.push({comp: VidAutoAdvance, args:{vid_name: "vid5"}})
-pages.push({comp: VidClickArrow, args:{vid_name: "post_animal"}})
-
-pages.push(...pagesShuffled[5])
-pages.push({comp: VidAutoAdvance, args:{vid_name: "vid6"}})
 
 const page_indx = smilestore.getPageMain
 
