@@ -1,15 +1,10 @@
 <script setup>
-import { ref, shallowRef, onMounted } from 'vue'
+import { ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata'
 
-import VidAutoAdvance from '@/components/organisms/VidAutoAdvance.vue'
-import VidClickArrow from '@/components/organisms/VidClickArrow.vue'
-import VidClickImage from '@/components/organisms/VidClickImage.vue'
-import ImageClickArrow from '@/components/organisms/ImageClickArrow.vue'
-
-
+import InformedConsentText from '@/components/atoms/InformedConsentText.vue';
 
 const router = useRouter()
 const route = useRoute()
@@ -22,65 +17,65 @@ smilestore.global.status_bar_text_color = '#000'
 
 const { next, prev } = useTimelineStepper()
 
-if(route.meta.progress) smilestore.data.progress = route.meta.progress
-
-/// ////////// CHOICES HERE ////////////
-
-const choices = [{option_id: "yes", height: "140", width: "180", margin_top: "408", margin_left: "-222"},
-{option_id: "no", height: "140", width: "180", margin_top: "408", margin_left: "38"}]
-
-/// /////////////////////////////////////////////
+if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
 
-/// ////////// PAGES HERE ////////////
-
-const pages = [{comp: VidClickArrow, args:{vid_name: "rachelintro"}},
-    {comp: ImageClickArrow, args:{img_name: "consent1.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent2.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent3.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent4.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent5.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent6.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent7.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent8.jpeg"}},
-    {comp: VidClickImage, args:{vid_name: "consent_child_video", clickOptions: choices}}
-]
-    
-/// /////////////////////////////////////////////
-
-
-
-
-const page_indx = smilestore.getPageConsent
-
-const currentTab = shallowRef(pages[page_indx])
-
-let start_time
-onMounted(() => {
-    start_time = Date.now()
-})
-
-function next_trial(goto) {
-    smilestore.local.page_visited = -1
-    const newpage = smilestore.incrementPage("consent_page", 1)
-    if (newpage >= pages.length) {
-    smilestore.setConsented()
-      smilestore.saveTiming('consent', Date.now() - start_time)
-        if(goto) router.push(goto)
-    } else {
-        currentTab.value = pages[newpage]
+function finish(goto) { 
+    if (!smilestore.isKnownUser) {
+        // console.log('not known')
+        smilestore.setKnown() // set new user and add document
     }
+    smilestore.setConsented()
+    if(goto) router.push(goto)
 }
-
+const agree = ref(false)
+const name = ref('enter your name')
 
 </script>
 
 <template>
     <div class="page">
-        <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.vid_name" @next-vid="next_trial(next())"></component>
-     </div>
+        <div class="pagecontent">
+            <div class="has-background-light  bumper">
+                <div class="columns">
+                    <div class="column">
+                        <InformedConsentText/>
+                    </div>
+                    <div class="column is-one-third">
+                        <div class="box consentbox">
+                            <p class="has-text-left has-text-weight-semibold">
+                                We first must verify that you are
+                                participating willingly and know your rights. Please take the time to read
+                                the consent form (you can scroll the page).
+                            </p>
+                            <hr>
+                            <p>
+                                <FormKit
+                                    v-model="agree"
+                                    type="checkbox"
+                                    name="consent_toggle"
+                                    label="I consent and am over 18 years old."
+                                    help="Do you consent to participate in this study?"
+                                    validation="accepted"
+                                    validation-visibility="dirty"
+                                    label-class="has-text-left"
+                                    />
+                                <div class="hname">
+                                    Required!  Please enter your name: <input type="text" name="your_name" label="enter your name" v-model='name' />
+                                </div>
+                            </p>
+                            <br>
+            
+                            <button class="button is-success is-fullwidth" id='finish' v-if='agree' @click="finish(next())">
+                                Let's start &nbsp;<FAIcon icon="fa-solid fa-arrow-right" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </template>
-
 
 <style scoped>
 

@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, onUnmounted } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata' // get access to the global store
@@ -7,7 +7,6 @@ import * as random from '@/randomization'
 import { v4 as uuidv4 } from 'uuid';
 import appconfig from '@/config'
 import seedrandom from 'seedrandom'
-
 
 const router = useRouter()
 const route = useRoute()
@@ -17,7 +16,7 @@ const { next, prev } = useTimelineStepper()
 
 // if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
-const props = defineProps(["vid_name", "attempt", "correct", "clickOptions"])
+const props = defineProps(["vid_name", "reminderText", "hint"])
 
 const emit = defineEmits(["nextVid"])
 
@@ -31,7 +30,7 @@ const emit = defineEmits(["nextVid"])
 //     }
 // }
 
-let start_time = 0 
+let start_time = 0
 let end_time = 0
 
 onMounted(() => {
@@ -48,58 +47,40 @@ onMounted(() => {
     // }
   })
 
-function showButtons(){
+
+function highlightNext(){
     end_time =  Date.now()
-    const collection = document.getElementsByClassName("overlay");
-    for (let i = 0; i < collection.length; i++) {
-        collection[i].removeAttribute("hidden")
-    }
-}
-
-function getStyle(option){
-    return { height: `${option.height  }px`, width: `${option.width  }px`, marginTop: `${option.margin_top  }px`, marginLeft: `${option.margin_left  }px`}
-}
-
-// for optional parameters, return null to data if they are undefined
-function cleanDataVar(v){
-    if(v){
-        return v
-    } 
-    return null
+    const button = document.getElementById("finishp")
+    button.classList.add("is-success")
+    button.classList.remove('is-light');
+    document.getElementById("buttontext").classList.toggle("fa")
+    document.getElementById("reminder").style.visibility = ""
 }
 
 
-function next_trial(choice) { 
+
+function next_trial() { 
     smilestore.local.page_visited = -1
-    const attempt = props.attempt
-    const correct_choice = props.correct
-    const trialData = {...(attempt ? { attempt } : {}),
-    ...(correct_choice ? { correct_choice } : {}),
-    ...{choice}}
+    const reminder = props.reminderText
+    const hint = props.hint
+    const trialData = {...(reminder ? { reminder } : {}),
+    ...(hint ? { hint } : {})}
     const vidData = {video: props.vid_name, vid_start: start_time, vid_end: end_time, trial_end: Date.now(), trial_data: trialData}
     smilestore.saveTrialData(vidData)
+    smilestore.saveData()
 
-    if(choice === props.correct){
-        smilestore.saveData()
-        emit('nextVid', true,  props.attempt)
-    }
-    else {
-        emit('nextVid')
-    }
+    emit('nextVid')
 }
-
-
-
 
 </script>
 
 <template>
-        <div v-for="option in clickOptions" class="overlay" :key="option.option_id" :id="option.option_id" @click="next_trial(option.option_id)" :style="getStyle(option)"> </div>
-        <video class="kidvid" id="kidvid" autoplay @ended="showButtons()">
+        <video class="kidvid" id="kidvid" autoplay @ended="highlightNext()">
             <source :src="'./' + vid_name + '.webm'" >
             <source :src="'./' + vid_name + '.mp4'" >
             <p>Sorry, we're experiencing technical difficulties! Please contact the researcher to let them know.</p>
-        </video>    
+        </video>     
+        <p class="is-size-4 has-text-center" id="reminder" v-html="reminderText" style="visibility: hidden;"> </p>   
 
         <!-- modal for refresh page -->
         <!-- <div class="modal" :class="{'is-active': showmodal}">
@@ -109,34 +90,29 @@ function next_trial(choice) {
         </div>
         </div> -->
 
+        
+        
         <hr>
-        <button class="button is-light is-large" id='finishp' @click="next_trial('')"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
-
-</template>
+        <button class="button is-light is-large" id='finishp' @click="next_trial()"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
+ </template>
 
 <style scoped>
-
 .kidvid {
     width: 800px;
-    height: auto
+    height: auto;
   
 }
 
 .fa {color: rgb(166, 165, 165);}
 
-.overlay{
-    position:absolute;
-    background:white;
-    opacity:0;
-    border:1px solid black;
-    z-index:99;
-    left: 50%;
-}
-.overlay:hover {
-    opacity:0.3;
+
+.modaltext {
+    background-color: #fff;
+    padding: 30px;
 }
 
-
-
+.modal-content {
+    width: 80%;
+}
 
 </style>
