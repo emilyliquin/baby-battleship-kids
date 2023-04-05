@@ -38,10 +38,8 @@ const clickOptionsL2 = [{option_id: "l", height: "200", width: "200", margin_top
 const clickOptionsR2 = [{option_id: "r", height: "200", width: "200", margin_top: "125", margin_left: "75"}]
 
 
-let pages = [{comp: VidAutoAdvance, args:{vid_name: "introbuttons"}},
-    {comp: VidClickArrow, args:{vid_name: "audio_prac_1", reminderText: "Say <b>how old you are</b>, then click the arrow."}}, 
-{comp: VidClickArrow, args:{vid_name: "audio_prac_2", reminderText: "Say <b>what your favorite color is</b>, then click the arrow."}},
-{comp: VidAutoAdvance, args:{vid_name: "cc_intro"}}]
+let pages = [
+{comp: VidAutoAdvance, args:{vid_name: "cc_intro_adults"}}]
 
 
 const colorTrialsShuffle = random.shuffle([[{comp: VidClickImage, args:{vid_name: "cc_colors_1_attempt1", attempt: 1, correct: "m", clickOptions: fullClickOptions3}},
@@ -90,7 +88,7 @@ function next_trial(success, attempt_num) {
     smilestore.local.page_visited = -1
     let newpage = page_indx
     if(success){
-        newpage = smilestore.incrementPage("cc_page", 3-attempt_num)
+        newpage = smilestore.incrementPage("cc_page", 4-attempt_num)
     } else {
         newpage = smilestore.incrementPage("cc_page", 1)
     }
