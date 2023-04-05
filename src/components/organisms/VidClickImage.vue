@@ -110,7 +110,7 @@ function next_trial(choice) {
         </div> -->
 
         <hr>
-        <button class="button is-light is-large" id='finishp' @click="next_trial('')"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
+        <button class="button is-light is-large" id='finishp' @click="next_trial('')" style="visibility: hidden;"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
 
 </template>
 
