@@ -72,6 +72,7 @@ export default defineStore('smilestore', {
       code_hash: appconfig.github.last_commit_hash,
       progress: 0,
       questions_asked: 0,
+      demographic_form: {},
     },
     private_data: {
       recruitment_info: {},
@@ -159,6 +160,9 @@ export default defineStore('smilestore', {
     },
     setCondition(name, cond) {
       this.data.conditions[name] = cond
+    },
+    saveDemographicForm(data) {
+      this.data.demographic_form = data
     },
     incrementPage(page, amount){
       this.local[page] += amount

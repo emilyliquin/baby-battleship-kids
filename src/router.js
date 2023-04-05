@@ -26,6 +26,7 @@ import WindowSizer from '@/components/pages/WindowSizerPage.vue'
 import EndTask from '@/components/pages/EndTask.vue'
 import ParentForm from '@/components/pages/ParentForm.vue'
 import UploadVideo from '@/components/pages/UploadVideo.vue'
+import DemographicPage from '@/components/pages/DemographicSurveyPage.vue'
 
 // add new routes here.  generally these will be things in components/pages/[something].vue
 
@@ -75,12 +76,7 @@ timeline.pushSeqRoute({
   },
 })
 
-// intro
-// timeline.pushSeqRoute({
-//   path: '/intro',
-//   name: 'intro',
-//   component: Intro,
-// })
+
 
 // consent
 timeline.pushSeqRoute({
@@ -139,28 +135,25 @@ timeline.pushSeqRoute({
 })
 
 
+// demographic
 timeline.pushSeqRoute({
-  path: '/endtask',
-  name: 'endtask',
-  component: EndTask,
-
+  path: '/demo',
+  name: 'demo',
+  component: DemographicPage,
 })
 
 timeline.pushSeqRoute({
-  path: '/parentform',
-  name: 'parentform',
-  component: ParentForm,
-  meta: {allowDirectEntry:true}
-
+  path: '/debrief',
+  name: 'debrief',
+  component: Debrief,
 })
 
+// thanks/submit page
 timeline.pushSeqRoute({
-  path: '/uploadvideo',
-  name: 'uploadvideo',
-  component: UploadVideo,
-
+  path: '/thanks',
+  name: 'thanks',
+  component: Thanks,
 })
-
 
 
 // // randomized block of tasks
@@ -188,12 +181,7 @@ timeline.pushSeqRoute({
 //   component: Debrief,
 // })
 
-// thanks/submit page
-// timeline.pushSeqRoute({
-//   path: '/thanks',
-//   name: 'thanks',
-//   component: Thanks,
-// })
+
 
 // // this is a special page that is for a withdraw
 // timeline.pushRoute({
