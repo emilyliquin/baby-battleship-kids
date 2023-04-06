@@ -23,12 +23,13 @@ const forminfo = reactive({
     age: '',
     gender: '',
     race: '',
+    race_other: '',
     // hispanic: '',
     fluent_english: '',
     normal_vision: '',
     color_blind: '',
-    education_level: '',
-    household_income: '',
+    // education_level: '',
+    // household_income: '',
 })
 
 
@@ -43,15 +44,16 @@ const page_three_complete = computed(() => forminfo.education_level!==''&&formin
 
 function autofill () {
     forminfo.age = '1'
-    forminfo.gender = 'Male'
+    forminfo.gender = 'Man'
     forminfo.race = ['White']
     // forminfo.hispanic = 'No'
+    forminfo.race_other = ''
     forminfo.fluent_english = 'Yes'
     forminfo.normal_vision = 'Yes'
     forminfo.color_blind = 'No'
     // forminfo.country = 'United States'
-    forminfo.education_level = 'Doctorate Degree (PhD/Other)'
-    forminfo.household_income = '$100,000-$199,999'
+    // forminfo.education_level = 'Doctorate Degree (PhD/Other)'
+    // forminfo.household_income = '$100,000-$199,999'
 }
 
 if(smilestore.config.mode==='development') smilestore.setPageAutofill(autofill)
@@ -111,7 +113,12 @@ function finish(goto) {
                                      v-model="forminfo.race"
                                      validation="required"
                                      help="Select one or more"
-                                     :options="['Asian', 'Black/African American', 'Hispanic/Latinx', 'Middle Eastern/North African', 'Native American/Alaska Native/First Nations', 'Pacific Islander/Native Hawaiian', 'White', 'Prefer not to specify']"/>
+                                     :options="['American Indian/Alaska Native', 'Asian', 'Black or African American', 'Hispanic', 'Native Hawaiian or Other Pacific Islander', 'White', 'Prefer not to specify', 'Other (please specify)']">
+                                     <template #label="context">
+                                    {{context.option.label}} &nbsp;
+                                    <input v-model="forminfo.race_other" v-if="context.option.label === 'Other (please specify)'" type = "text" />
+                                </template>
+                                </FormKit>
 
                             <hr>              
                             <div class="has-text-right">
@@ -146,7 +153,7 @@ function finish(goto) {
                                 </div>
                                 <div class="column">
                                     <div class="has-text-right">
-                                    <button class="button is-warning" id='finish' v-if='page_two_complete' @click="page++">Continue &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></button>
+                                        <button class="button is-success" id='finish' v-if='page_two_complete' @click="finish(next())">That was easy!</button>
                                     </div> 
                                 </div>
                             </div>
@@ -155,41 +162,7 @@ function finish(goto) {
                 </div>
 
 
-            <div class="formstep" v-if='page==3'>
-                        <div class="box is-shadowless formbox">
-                            <!-- make these not required (require but include "prefer not to specify") -->
-                            <FormKit type="select"
-                                     name="education"
-                                     label="What is the highest level of education/schooling that you completed?"
-                                     placeholder="Select an option"
-                                     v-model="forminfo.education_level"
-                                     validation="required"
-                                     :options="['No Formal Qualifications', 'Secondary Education (ie. GED/GCSE)', 'High School Diploma (A-levels)', 'Technical/Community College', 'Undergraduate Degree (BA/BS/Other)', 'Graduate Degree (MA/MS/MPhil/Other)', 'Doctorate Degree (PhD/Other)', 'Don’t Know/Not Applicable', 'Prefer not to specify']"
-                                     />
-                            <FormKit type="select"
-                                     name="income"
-                                     label="What is your approximate household income?"
-                                     placeholder="Select an option"
-                                     v-model="forminfo.household_income"
-                                     validation="required"
-                                     :options="['Less than $20,000', '$20,000–$39,999', '$40,000–$59,999', '$60,000–$79,999', '$80,000–$99,999', '$100,000–$199,999', '$200,000–$299,999', '$300,000–$399,999', '$400,000–$499,999', '$500,000+', 'I don’t know', 'Prefer not to specify']"
-                                     />
-                            <hr> 
-                            <div class="field is-grouped">
 
-                            <div class="column">
-                                    <div class="has-text-left">
-                                    <button class="button is-warning" id='finish' @click="page--"><FAIcon icon="fa-solid fa-arrow-left" />&nbsp; Previous</button>
-                                    </div> 
-                                </div>
-                                <div class="column">
-                                    <div class="has-text-right">
-                                    <button class="button is-success" id='finish' v-if='page_three_complete' @click="finish(next())">That was easy!</button>
-                                    </div> 
-                                </div>
-                                </div>
-                </div>
-        </div>
     </div>
     </div>
 
