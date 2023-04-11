@@ -35,13 +35,13 @@ const choices = [{option_id: "yes", height: "140", width: "180", margin_top: "40
 /// ////////// PAGES HERE ////////////
 
 const pages = [{comp: VidClickArrow, args:{vid_name: "rachelintro"}},
-    {comp: ImageClickArrow, args:{img_name: "consent1.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent2.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent3.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent4.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent5.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent6.jpeg"}},
-    {comp: ImageClickArrow, args:{img_name: "consent7.jpeg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent1.jpg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent2.jpg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent3.jpg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent4.jpg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent5.jpg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent6.jpg"}},
+    {comp: ImageClickArrow, args:{img_name: "consent7.jpg"}},
     {comp: ImageClickArrow, args:{img_name: "consent8.jpeg"}},
     {comp: VidClickImage, args:{vid_name: "consent_child_video", clickOptions: choices}}
 ]
