@@ -73,6 +73,7 @@ export default defineStore('smilestore', {
       progress: 0,
       questions_asked: 0,
       demographic_form: {},
+      captcha_data: [],
     },
     private_data: {
       recruitment_info: {},
@@ -157,6 +158,9 @@ export default defineStore('smilestore', {
     },
     saveTrialData(data) {
       this.data.study_data.push(data)
+    },
+    saveCaptchaData(data) {
+      this.data.captcha_data.push(data)
     },
     setCondition(name, cond) {
       this.data.conditions[name] = cond

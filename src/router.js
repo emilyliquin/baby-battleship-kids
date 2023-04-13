@@ -27,6 +27,8 @@ import EndTask from '@/components/pages/EndTask.vue'
 import ParentForm from '@/components/pages/ParentForm.vue'
 import UploadVideo from '@/components/pages/UploadVideo.vue'
 import DemographicPage from '@/components/pages/DemographicSurveyPage.vue'
+import CaptchaPage from '@/components/pages/Captcha.vue'
+import CaptchaInstructions from '@/components/pages/CaptchaInstructions.vue'
 
 // add new routes here.  generally these will be things in components/pages/[something].vue
 
@@ -93,14 +95,25 @@ timeline.pushSeqRoute({
 })
 
 
-// // windowsizer
-// timeline.pushSeqRoute({
-//   path: '/windowsizer',
-//   name: 'windowsizer',
-//   component: WindowSizer,
-// })
+// windowsizer
+timeline.pushSeqRoute({
+  path: '/windowsizer',
+  name: 'windowsizer',
+  component: WindowSizer,
+})
 
+// captcha
+timeline.pushSeqRoute({
+  path: '/captchai',
+  name: 'captchai',
+  component: CaptchaInstructions,
+})
 
+timeline.pushSeqRoute({
+  path: '/captcha',
+  name: 'captcha',
+  component: CaptchaPage,
+})
 
 // main experiment
 
