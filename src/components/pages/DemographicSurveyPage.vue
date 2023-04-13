@@ -122,7 +122,7 @@ function finish(goto) {
 
                             <hr>              
                             <div class="has-text-right">
-                            <button class="button is-warning" id='finish' v-if='page_one_complete' @click="page++">continue &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></button>
+                            <button class="button is-warning" id='finish' v-if='page_one_complete' @click="page++">next &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></button>
                             </div> 
                         </div>
             </div>
@@ -148,12 +148,12 @@ function finish(goto) {
                             <div class="field is-grouped">
                             <div class="column">
                                     <div class="has-text-left">
-                                    <button class="button is-warning" id='finish' @click="page--"><FAIcon icon="fa-solid fa-arrow-left" />&nbsp; Previous</button>
+                                    <button class="button is-warning" id='finish' @click="page--"><FAIcon icon="fa-solid fa-arrow-left" />&nbsp; previous</button>
                                     </div> 
                                 </div>
                                 <div class="column">
                                     <div class="has-text-right">
-                                        <button class="button is-success" id='finish' v-if='page_two_complete' @click="finish(next())">That was easy!</button>
+                                        <button class="button is-success" id='finish' v-if='page_two_complete' @click="finish(next())">next &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></button>
                                     </div> 
                                 </div>
                             </div>

@@ -113,6 +113,8 @@ pages.push({comp: VidClickArrow, args:{vid_name: "post_animal"}})
 pages.push(...pagesShuffled[3])
 pages.push({comp: VidAutoAdvance, args:{vid_name: "vid4"}})
 
+// const pages = pagesShuffled.flat(2)
+
 const page_indx = smilestore.getPageMain
 
 const currentTab = shallowRef(pages[page_indx])
