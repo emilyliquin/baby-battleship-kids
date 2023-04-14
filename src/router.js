@@ -42,14 +42,14 @@ const timeline = new Timeline()
 
 
 // add the recruitment chooser if in development mode
-if (appconfig.mode === 'development') {
-  timeline.pushRoute({
-    path: '/',
-    name: 'recruit',
-    component: RecruitmentChooser,
-    meta: { allowDirectEntry: true },
-  })
-} else {
+// if (appconfig.mode === 'development') {
+//   timeline.pushRoute({
+//     path: '/',
+//     name: 'recruit',
+//     component: RecruitmentChooser,
+//     meta: { allowDirectEntry: true },
+//   })
+// } else {
   // auto refer to the anonymous welcome page
   timeline.pushRoute({
     path: '/',
@@ -57,7 +57,7 @@ if (appconfig.mode === 'development') {
     redirect: { name: 'welcome_referred', params: { service: 'prolific' } },
     meta: { allowDirectEntry: true },
   })
-}
+// }
 
 // welcome screen for non-referral
 timeline.pushSeqRoute({
@@ -73,8 +73,14 @@ timeline.pushSeqRoute({
   name: 'welcome_referred',
   component: Advertisement,
   meta: { next: 'consent', allowDirectEntry: true }, // override what is next
-  beforeEnter: (to, from) => {
-    processQuery(from.query, to.params.service)
+  beforeEnter: (to) => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let queryDict = {}
+    for (const [key, value] of urlParams.entries()) {
+      queryDict[key] = value
+    }
+    processQuery(queryDict, to.params.service)
   },
 })
 
