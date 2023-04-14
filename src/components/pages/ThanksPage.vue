@@ -34,6 +34,7 @@ smilestore.setDone()
 smilestore.saveData(true) // force a data save
 
 
+
 // create clipboard system
 const clipboard = new Clipboard('#copy_code');
 clipboard.on('success', (e) => {
