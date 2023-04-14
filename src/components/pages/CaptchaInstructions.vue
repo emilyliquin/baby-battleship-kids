@@ -25,12 +25,12 @@ function finish(goto) {
 
 <template>
     <div class="page">
-        <p class="is-size-5 has-text-left">
+        <p class="is-size-5 has-text-center">
                 Before we begin the study, we'd like you to play a quick game for us,
                 just to warm up your brain. 
             </p>
             <br>
-            <p class="is-size-5 has-text-left">
+            <p class="is-size-5 has-text-center">
                 In the game, you will sort objects into their appropriate locations.
             </p>
         <br>
@@ -40,7 +40,7 @@ function finish(goto) {
 
 <style scoped>
 .page {
-    width: 80%;
+    width: 60%;
     margin: auto;
 }
 </style>
