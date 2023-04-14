@@ -12,7 +12,9 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
+smilestore.saveEndTime(Date.now())
 smilestore.setDone()
+smilestore.saveData(true) // force a data save
 
 function finish(goto) { 
     if(goto) router.push(goto)

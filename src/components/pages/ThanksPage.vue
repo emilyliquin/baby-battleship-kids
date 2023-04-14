@@ -14,8 +14,6 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
-smilestore.saveEndTime(Date.now())
-smilestore.saveData(true) // force a data save
 
 /// / https://app.prolific.co/submissions/complete?cc=16K4HJM1
 // prolific offers another code for non-completion
