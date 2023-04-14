@@ -73,8 +73,8 @@ timeline.pushSeqRoute({
   name: 'welcome_referred',
   component: Advertisement,
   meta: { next: 'consent', allowDirectEntry: true }, // override what is next
-  beforeEnter: (to) => {
-    processQuery(to.query, to.params.service)
+  beforeEnter: (to, from) => {
+    processQuery(from.query, to.params.service)
   },
 })
 
