@@ -54,7 +54,7 @@ if (appconfig.mode === 'development') {
   timeline.pushRoute({
     path: '/',
     name: 'landing',
-    redirect: { name: 'welcome_anonymous' },
+    redirect: { name: 'welcome_referred', params: { service: 'prolific' } },
     meta: { allowDirectEntry: true },
   })
 }
