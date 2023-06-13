@@ -10,6 +10,7 @@ import {
   balancedAssignConditions,
   loadDoc,
   fsnow,
+  processFinishedData,
 } from './firestore-db'
 
 
@@ -30,6 +31,16 @@ export default defineStore('smilestore', {
       seedID: '',
       seedSet: false,
       pageTracker: 0,
+      cc_page: 0,
+      prac_page: 0,
+      main_page: 0,
+      intro_page: 0,
+      consent_page:0,
+      mouseinfo_page: 0,
+      endtask_page: 0,
+      upload_page: 0,
+      page_visited: -1,
+      lastStart: Date.now(),
       possibleConditions: {taskOrder: ["AFirst", "BFirst"], instructions: ["version1", "version2", "version3"]},
     }, localStorage, { mergeDefaults: true }),
     global: {
@@ -48,21 +59,29 @@ export default defineStore('smilestore', {
     },
     data: {
       // syncs with firestore
+      docRef: null,
       trial_num: 0, // not being updated correctly
       consented: false,
       done: false,
-      starttime: null, // time consented
-      endtime: null, // time finished or withdrew
       recruitment_service: 'web', // fake
-      recruitment_info: {}, // empty
-      browser_fingerprint: {}, // empty
       browser_data: [], // empty
-      demographic_form: {}, // empty
+      time_data: [],
+      parent_form: {}, // empty
       withdraw: false, // false
-      withdraw_data: {}, // empty
       route_order: [],
       conditions: {},
+      study_data: [],
+      start_time: Date.now(),
+      end_time: 0,
+      code_hash: appconfig.github.last_commit_hash,
+      progress: 0,
+      questions_asked: 0,
+      conditions: {},
       smile_config: appconfig, //  adding config info to firebase document
+    },
+    private_data: {
+      recruitment_info: {},
+      withdraw_data: {}
     },
     config: appconfig,
   }),
@@ -81,6 +100,14 @@ export default defineStore('smilestore', {
     getPage: (state) => state.local.pageTracker,
     getPossibleConditions: (state) => state.local.possibleConditions,
     getConditions: (state) => state.data.conditions,
+    getPageCC: (state) => state.local.cc_page,
+    getPagePrac: (state) => state.local.prac_page,
+    getPageMain: (state) => state.local.main_page,
+    getPageIntro: (state) => state.local.intro_page,
+    getPageConsent: (state) => state.local.consent_page,
+    getPageMouseInfo: (state) => state.local.mouseinfo_page,
+    getPageEndTask: (state) => state.local.endtask_page,
+    getPageUpload: (state) => state.local.upload_page,
   },
 
   actions: {
@@ -101,7 +128,7 @@ export default defineStore('smilestore', {
     },
     setDone() {
       this.data.done = true
-      this.data.endtime = fsnow()
+      processFinishedData()
     },
     setCompletionCode(code) {
       this.local.completionCode = code
@@ -183,16 +210,41 @@ export default defineStore('smilestore', {
         this.dev.page_provides_autofill()
       }
     },
-    saveDemographicForm(data) {
-      this.data.demographic_form = data
+    saveParentForm(data) {
+      this.data.parent_form = data
+    },
+    saveTrialData(data) {
+      this.data.study_data.push(data)
     },
     setCondition(name, cond) {
       this.data.conditions[name] = cond
     },
+    incrementPage(page, amount){
+      this.local[page] += amount
+      return this.local[page] 
+    },
+    resetPages(){
+      this.local.cc_page = 0
+      this.local.prac_page = 0
+      this.local.main_page = 0
+    },
+    saveTiming(page, time) {
+      this.data.time_data.push({page, time})
+    },
+    // saveStartTime(time){
+    //   this.data.start_time = time
+    // },
+    saveEndTime(time){
+      this.data.end_time = time
+    },
+    incrementQuestions(){
+      this.data.questions_asked += 1
+    },
     async setKnown() {
       this.local.knownUser = true
       this.local.partNum = await updateExperimentCounter('participants')
-      this.local.docRef = await createDoc(this.data, this.local.seedID, this.local.partNum)
+      this.local.docRef = await createDoc(this.data, this.private_data, this.local.seedID, this.local.partNum)
+      this.data.docRef = this.local.docRef
       // if possible conditions are not empty, assign conditions
       if(this.local.possibleConditions){
         this.data.conditions = await balancedAssignConditions(this.local.possibleConditions, this.data.conditions)

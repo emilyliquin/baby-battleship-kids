@@ -11,6 +11,7 @@ import {
   runTransaction
 } from 'firebase/firestore'
 import appconfig from '@/config'
+import { getFunctions, httpsCallable } from "firebase/functions"
 import { split } from 'lodash'
 
 // initialize firebase connection
@@ -22,13 +23,17 @@ if (appconfig.mode === 'development') {
   mode = 'testing'
 }
 
+const functions = getFunctions(firebaseApp);
+const finalizeData = httpsCallable(functions, 'finalizeData');
+
+
 export const fsnow = () => Timestamp.now()
 
 // create a collection
 export const updateSubjectDataRecord = (data, docid) => {
   // is it weird to have a aync method that doesn't return anything?
   try {
-    const docRef = doc(db, `${mode}/${appconfig.project_ref}/data/`, docid)
+    const docRef = doc(db, `${mode}/${appconfig.project_ref}/temp/`, docid)
     setDoc(docRef, data, {
       merge: true,
     })
@@ -38,7 +43,7 @@ export const updateSubjectDataRecord = (data, docid) => {
 }
 
 export const loadDoc = async (docid) => {
-  const docRef = doc(db, `${mode}/${appconfig.project_ref}/data/`, docid)
+  const docRef = doc(db, `${mode}/${appconfig.project_ref}/temp/`, docid)
   const docSnap = await getDoc(docRef)
   if (docSnap.exists()) {
     const data = docSnap.data()
@@ -50,7 +55,7 @@ export const loadDoc = async (docid) => {
   return undefined
 }
 
-export const createDoc = async (data, seedid, partnum) => {
+export const createDoc = async (data, private_data, seedid, partnum) => {
   try {
     const expRef = doc(db, mode, appconfig.project_ref)
     await setDoc(
@@ -74,19 +79,24 @@ export const createDoc = async (data, seedid, partnum) => {
     //   data
     // )
 
+
     // Append the participnt number to the end of the docID -- this should ALWAYS make a unique record
     const fulldocid = `${seedid}-p${partnum}`
-    const docRef = doc(db, `${mode}/${appconfig.project_ref}/data`, fulldocid)
+    const docRef = doc(db, `${mode}/${appconfig.project_ref}/temp/`, fulldocid)
     const docSnap = await getDoc(docRef);
 
     // however, we'll still check to make sure the record doesn't already exist. If it does, we append override, but any additional overrides with same id and participant will overwrite the data
     if (docSnap.exists()) {
-      await setDoc(doc(db, `${mode}/${appconfig.project_ref}/data`, `${fulldocid  }-override`), data);
+      await setDoc(doc(db, `${mode}/${appconfig.project_ref}/temp/`, `${fulldocid  }-override`), data);
+      await setDoc(doc(db, `${mode}/${appconfig.project_ref}/temp/${fulldocid}-override/private/`, "private_data"), private_data)
       console.log('Document written with ID: ', `${fulldocid  }-override`)
       return `${fulldocid  }-override`
     }
     // otherwise, we create a document with the specified docID 
-      await setDoc(doc(db, `${mode}/${appconfig.project_ref}/data`, fulldocid), data);
+
+      await setDoc(doc(db, `${mode}/${appconfig.project_ref}/temp/`, fulldocid), data);
+
+      await setDoc(doc(db, `${mode}/${appconfig.project_ref}/temp/${fulldocid}/private/`, "private_data"), private_data)
       console.log('Document written with ID: ', fulldocid)
       return fulldocid
     
@@ -228,6 +238,10 @@ export const balancedAssignConditions = async (conditionDict, currentConditions)
     console.error(e);
   }
   return null;
+}
+
+export const processFinishedData = () => {
+  finalizeData({"mode": mode, "studyID": appconfig.project_ref})
 }
 
 // export default createDoc
