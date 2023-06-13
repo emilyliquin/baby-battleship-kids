@@ -113,8 +113,8 @@ pages.push({comp: VidClickArrow, args:{vid_name: "post_animal"}})
 pages.push(...pagesShuffled[3])
 pages.push({comp: VidAutoAdvance, args:{vid_name: "vid4"}})
 
-//If you want to see all 14 trials, uncomment the next line
-//const pages = pagesShuffled.flat(2)
+// If you want to see all 14 trials, uncomment the next line
+// const pages = pagesShuffled.flat(2)
 
 const page_indx = smilestore.getPageMain
 

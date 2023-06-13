@@ -5,7 +5,7 @@ import useSmileStore from '@/stores/smiledata'
 import DeveloperNavBar from '@/components/organisms/DeveloperNavBar.vue';
 import StatusBar from '@/components/organisms/StatusBar.vue';
 import { onMounted, watch, ref } from 'vue';
-import PresenationNavBar from '@/components/organisms/PresentationNavBar.vue';
+// import PresenationNavBar from '@/components/organisms/PresentationNavBar.vue';
 import ProgressBar from './components/molecules/ProgressBar.vue';
 
 // imports the global config object
