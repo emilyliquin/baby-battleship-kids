@@ -36,9 +36,4 @@ module.exports = {
     ],
     'vue/no-multiple-template-root': 'off',
   },
-  paths: {
-    "firebase-admin/*": [
-      "node_modules/firebase-admin/lib/*"
-    ]
-  }
 }

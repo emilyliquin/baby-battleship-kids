@@ -1,10 +1,12 @@
 // import { ref } from 'vue'
+import '@/seed' 
 import useSmileStore from '@/stores/smiledata' // get access to the global store
 import seedrandom from 'seedrandom'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import appconfig from '@/config'
 import { processQuery } from '@/utils'
 import Timeline from '@/timeline'
+import RandomSubTimeline from '@/subtimeline'
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -12,21 +14,18 @@ import { v4 as uuidv4 } from 'uuid';
 import RecruitmentChooser from '@/components/pages/RecruitmentChooserPage.vue'
 import MTurk from '@/components/pages/MTurkRecruitPage.vue'
 import Advertisement from '@/components/pages/AdvertisementPage.vue'
-import Intro from '@/components/pages/IntroPage.vue'
 import Consent from '@/components/pages/ConsentPage.vue'
-import MouseInfo from '@/components/pages/MouseInfo.vue'
-import PracticeTrials from '@/components/pages/PracticeTrials.vue'
-import MainTrials from '@/components/pages/MainTrials.vue'
-import FeatureChecks from '@/components/pages/FeatureChecks.vue'
+import DemographicSurvey from '@/components/pages/DemographicSurveyPage.vue'
+import Captcha from '@/components/pages/CaptchaPage.vue'
+import Instructions from '@/components/pages/InstructionsPage.vue'
+import Exp from '@/components/pages/ExpPage.vue'
+import Task1 from '@/components/pages/Task1Page.vue'
+import Task2 from '@/components/pages/Task2Page.vue'
 import Debrief from '@/components/pages/DebriefPage.vue'
 import Thanks from '@/components/pages/ThanksPage.vue'
 import Config from '@/components/pages/ConfigPage.vue'
 import Withdraw from '@/components/pages/WithdrawPage.vue'
 import WindowSizer from '@/components/pages/WindowSizerPage.vue'
-import EndTask from '@/components/pages/EndTask.vue'
-import ParentForm from '@/components/pages/ParentForm.vue'
-import UploadVideo from '@/components/pages/UploadVideo.vue'
-
 // add new routes here.  generally these will be things in components/pages/[something].vue
 
 // 2. Define some routes to the timeline
@@ -75,13 +74,6 @@ timeline.pushSeqRoute({
   },
 })
 
-// intro
-// timeline.pushSeqRoute({
-//   path: '/intro',
-//   name: 'intro',
-//   component: Intro,
-// })
-
 // consent
 timeline.pushSeqRoute({
   path: '/consent',
@@ -89,118 +81,92 @@ timeline.pushSeqRoute({
   component: Consent,
 })
 
-// mouseinfo
+// demographic survery
 timeline.pushSeqRoute({
-  path: '/info',
-  name: 'info',
-  component: MouseInfo,
+  path: '/demograph',
+  name: 'demograph',
+  component: DemographicSurvey,
+  // beforeEnter: (to, from) => {
+  //   // before loading this route, identify the user
+  //   const smilestore = useSmileStore()
+  //   if (!smilestore.isKnownUser) {
+  //     console.log('not known')
+  //     smilestore.setKnown() // set new user and add document
+  //   }
+  // },
 })
 
+// windowsizer
+timeline.pushSeqRoute({
+  path: '/windowsizer',
+  name: 'windowsizer',
+  component: WindowSizer,
+})
 
-// // windowsizer
-// timeline.pushSeqRoute({
-//   path: '/windowsizer',
-//   name: 'windowsizer',
-//   component: WindowSizer,
-// })
+// captcha
+timeline.pushSeqRoute({
+  path: '/captcha',
+  name: 'captcha',
+  component: Captcha,
+})
 
-
+// instructions
+timeline.pushSeqRoute({
+  path: '/instructions',
+  name: 'instructions',
+  component: Instructions,
+})
 
 // main experiment
-
 timeline.pushSeqRoute({
-  path: '/features',
-  name: 'features',
-  component: FeatureChecks,
-  beforeEnter: (to) => {
-    const smilestore = useSmileStore()
-    smilestore.local.page_visited = -1
-  },
+  path: '/exp',
+  name: 'exp',
+  component: Exp,
 })
 
-timeline.pushSeqRoute({
-  path: '/practice',
-  name: 'practice',
-  component: PracticeTrials,
-  beforeEnter: (to) => {
-    const smilestore = useSmileStore()
-    smilestore.local.page_visited = -1
-  },
+// create subtimeline for randomization
+const randTimeline = new RandomSubTimeline()
+
+randTimeline.pushRoute({
+  path: '/task1',
+  name: 'task1',
+  component: Task1,
 })
 
-timeline.pushSeqRoute({
-  path: '/main',
-  name: 'main',
-  component: MainTrials,
-  beforeEnter: (to) => {
-    const smilestore = useSmileStore()
-    smilestore.local.page_visited = -1
-  },
+randTimeline.pushRoute({
+  path: '/task2',
+  name: 'task2',
+  component: Task2,
+})
+
+// if you want fixed orders based on conditions, uncomment meta line
+// commented out, this will shuffle the routes at random
+timeline.pushRandomizedTimeline({
+  name: randTimeline,
+  // meta: { label: "taskOrder", orders: {AFirst: ["task1", "task2"], BFirst: ["task2", "task1"]} }
 })
 
 
+// debriefing form
 timeline.pushSeqRoute({
-  path: '/endtask',
-  name: 'endtask',
-  component: EndTask,
-
+  path: '/debrief',
+  name: 'debrief',
+  component: Debrief,
 })
-
-timeline.pushSeqRoute({
-  path: '/parentform',
-  name: 'parentform',
-  component: ParentForm,
-  meta: {allowDirectEntry:true}
-
-})
-
-timeline.pushSeqRoute({
-  path: '/uploadvideo',
-  name: 'uploadvideo',
-  component: UploadVideo,
-
-})
-
-
-
-// // randomized block of tasks
-// timeline.pushRandRoute({
-//   path: '/task1',
-//   name: 'task1',
-//   component: Task1,
-//   meta: { rand: 'group1' }
-// })
-
-// timeline.pushRandRoute({
-//   path: '/task2',
-//   name: 'task2',
-//   component: Task2,
-//   meta: { rand: 'group1' }
-// })
-// // extra step: must resolve the random routes before going back to sequential routes
-// timeline.resolveRandRoutes('group1')
-
-
-// // debriefing form
-// timeline.pushSeqRoute({
-//   path: '/debrief',
-//   name: 'debrief',
-//   component: Debrief,
-// })
 
 // thanks/submit page
-// timeline.pushSeqRoute({
-//   path: '/thanks',
-//   name: 'thanks',
-//   component: Thanks,
-// })
+timeline.pushSeqRoute({
+  path: '/thanks',
+  name: 'thanks',
+  component: Thanks,
+})
 
-// // this is a special page that is for a withdraw
-// timeline.pushRoute({
-//   path: '/withdraw',
-//   name: 'withdraw',
-//   component: Withdraw,
-// })
+// this is a special page that is for a withdraw
+timeline.pushRoute({
+  path: '/withdraw',
+  name: 'withdraw',
+  component: Withdraw,
+})
 
 // this is a the special page that loads in the iframe on mturk.com
 timeline.pushRoute({
@@ -254,6 +220,13 @@ function addGuards(r) {
     }
     // if you're trying to go to the next route, allow it
     if (from.meta.next === to.name) {
+      smilestore.setLastRoute(to.name)
+      smilestore.recordRoute(to.name)
+      return true
+    }
+    // if the next route is a subtimeline and you're trying to go to a subtimeline route, allow it
+    // this is necessary because from.meta.next won't immediately get the subroute as next when the subtimeline is randomized
+    if (from.meta.next.type === 'randomized_sub_timeline' && to.meta.subroute) {
       smilestore.setLastRoute(to.name)
       smilestore.recordRoute(to.name)
       return true

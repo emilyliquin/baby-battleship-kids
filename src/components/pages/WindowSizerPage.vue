@@ -14,7 +14,7 @@
     smilestore.global.status_bar_bg_color = '#fff'
     smilestore.global.status_bar_text_color = '#000'
     
-    if(route.meta.progress) smilestore.data.progress = route.meta.progress
+    if(route.meta.progress) smilestore.global.progress = route.meta.progress
     
     function finish(goto) { 
         // smilestore.setConsented()

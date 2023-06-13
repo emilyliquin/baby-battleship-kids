@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import Timeline from '@/timeline'
+import RandomSubTimeline from '@/subtimeline'
 
 describe('Timeline tests', () => {
   it('should be able to create a timeline', () => {
@@ -176,6 +177,159 @@ describe('Timeline tests', () => {
     expect(timeline.seqtimeline.length).toBe(1) // only first one should work
   })
 
+  it('should add a subtimeline to sequential timeline', () => {
+    const MockComponent = { template: '<div>Mock Component</div>' }
+    const timeline = new Timeline()
+    const subtimeline = new RandomSubTimeline()
+    timeline.pushSeqRoute({
+      path: '/first',
+      name: 'first',
+      component: MockComponent,
+    })
+    subtimeline.pushRoute({
+      path: '/mid1',
+      name: 'mid1',
+      component: MockComponent,
+    })
+    timeline.pushRandomizedTimeline({
+      name: subtimeline
+    })
+
+    expect(timeline.seqtimeline.length).toBe(2)
+  })
+
+
+  it('cannot add a timeline to a timeline', () => {
+    const MockComponent = { template: '<div>Mock Component</div>' }
+    const timeline = new Timeline()
+    const timeline2 = new Timeline()
+    timeline.pushSeqRoute({
+      path: '/first',
+      name: 'first',
+      component: MockComponent,
+    })
+    timeline2.pushRoute({
+      path: '/mid1',
+      name: 'mid1',
+      component: MockComponent,
+    })
+    const errorTrigger = () => {
+      timeline.pushRandomizedTimeline({
+        name: timeline2
+      })
+    }
+    expect(errorTrigger).toThrowError()
+  })
+
+  it('should not allow the same route to be registered inside and outside a subtimeline', () => {
+    const MockComponent = { template: '<div>Mock Component</div>' }
+    const timeline = new Timeline()
+    const subtimeline = new RandomSubTimeline()
+    timeline.pushSeqRoute({
+      path: '/thanks',
+      name: 'thank',
+      component: MockComponent,
+    })
+    subtimeline.pushRoute({
+      path: '/thanks',
+      name: 'thanks',
+      component: MockComponent,
+    })
+    const errorTrigger = () => {
+      timeline.pushRandomizedTimeline({
+        name: subtimeline
+      })
+    }
+    expect(errorTrigger).toThrowError()
+    expect(timeline.routes.length).toBe(1) // route won't get added
+  })
+
+  it('build method correctly configures meta and next fields of subtimeline/subtimeline routes', () => {
+    const MockComponent = { template: '<div>Mock Component</div>' }
+
+    const timeline = new Timeline()
+    const subtimeline = new RandomSubTimeline()
+    timeline.pushSeqRoute({
+      path: '/first',
+      name: 'first',
+      component: MockComponent,
+    })
+    subtimeline.pushRoute({
+      path: '/mid1',
+      name: 'mid1',
+      component: MockComponent,
+    })
+    subtimeline.pushRoute({
+      path: '/mid2',
+      name: 'mid2',
+      component: MockComponent,
+    })
+    timeline.pushRandomizedTimeline({
+      name: subtimeline
+    })
+
+    timeline.pushSeqRoute({
+      path: '/last',
+      name: 'last',
+      component: MockComponent,
+    })
+
+    timeline.build()
+
+    // these are the prev and next fields for the first randomized route
+    expect(timeline.routes[1].meta.prev).toBe('first')
+    expect(timeline.routes[1].meta.next).toBe('last')
+
+    // these are the prev and next fields for the second randomized route
+    expect(timeline.routes[2].meta.prev).toBe('first')
+    expect(timeline.routes[2].meta.next).toBe('last')
+
+    // these are the prev and next fields for the subtimeline itself
+    expect(timeline.seqtimeline[1].meta.prev).toBe('first')
+    expect(timeline.seqtimeline[1].meta.next).toBe('last')
+  })
+  
+  it('build method should propogate specified conditions to routes when set', () => {
+    const MockComponent = { template: '<div>Mock Component</div>' }
+
+    const timeline = new Timeline()
+    const subtimeline = new RandomSubTimeline()
+    timeline.pushSeqRoute({
+      path: '/first',
+      name: 'first',
+      component: MockComponent,
+    })
+    subtimeline.pushRoute({
+      path: '/mid1',
+      name: 'mid1',
+      component: MockComponent,
+    })
+    subtimeline.pushRoute({
+      path: '/mid2',
+      name: 'mid2',
+      component: MockComponent,
+    })
+    timeline.pushRandomizedTimeline({
+      name: subtimeline,
+      meta: { label: "condition", orders: {cond1: ["mid1", "mid2"], BFirst: ["mid2", "mid1"]} }
+    })
+
+    timeline.pushSeqRoute({
+      path: '/last',
+      name: 'last',
+      component: MockComponent,
+    })
+
+    timeline.build()
+
+    expect(timeline.routes[1].meta.label).toBeDefined()
+    expect(timeline.routes[1].meta.orders).toBeDefined()
+
+    expect(timeline.routes[2].meta.label).toBeDefined()
+    expect(timeline.routes[2].meta.orders).toBeDefined()
+    
+  })
+
   it('build method should correctly configure a doubly linked list', () => {
     const MockComponent = { template: '<div>Mock Component</div>' }
     const timeline = new Timeline()
@@ -290,7 +444,6 @@ describe('Timeline tests', () => {
       path: '/five',
       name: 'five',
       component: MockComponent,
-      meta: { next: 'one' },
     })
 
     // right hand branch
@@ -314,7 +467,7 @@ describe('Timeline tests', () => {
     timeline.build()
 
     expect(timeline.seqtimeline[0].meta.next).toBe('two')
-    expect(timeline.seqtimeline[1].meta.next).toBe('three')
+    expect(timeline.seqtimeline[1].meta.next).toBe('two')
     expect(timeline.seqtimeline[2].meta.next).toBe('four')
     expect(timeline.seqtimeline[3].meta.next).toBe('one')
 
@@ -322,7 +475,7 @@ describe('Timeline tests', () => {
     // implicily.  but it changes if you have gone through the loop
     expect(timeline.seqtimeline[0].meta.prev).toBe(null) // oh not sure about this
     expect(timeline.seqtimeline[1].meta.prev).toBe('one')
-    expect(timeline.seqtimeline[2].meta.prev).toBe('two')
+    expect(timeline.seqtimeline[2].meta.prev).toBe('one-b')
     expect(timeline.seqtimeline[3].meta.prev).toBe('three')
   })
   /*

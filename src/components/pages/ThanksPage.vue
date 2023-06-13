@@ -12,7 +12,7 @@ const smilestore = useSmileStore()
 
 const { next, prev } = useTimelineStepper()
 
-if(route.meta.progress) smilestore.data.progress = route.meta.progress
+if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
 smilestore.saveData(true) // force a data save
 
@@ -98,12 +98,6 @@ clipboard.on('success', (e) => {
             <p>
                 <h1 class="title is-3">Thanks for your contribution to science!</h1>
                 Your data have been successfully recorded and you can close this window or navigate to another page.
-            </p>
-        </div>
-        <div class="payment" v-if="smilestore.recruitmentService=='panda'">
-            <p>
-
-                <h1 class="title is-3">Thanks for your contribution to science!</h1>
             </p>
         </div>
     </div>

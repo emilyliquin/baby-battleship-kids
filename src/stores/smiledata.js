@@ -1,14 +1,15 @@
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
+import axios from 'axios'
 import appconfig from '@/config'
 
 import {
   createDoc,
   updateSubjectDataRecord,
   updateExperimentCounter,
+  balancedAssignConditions,
   loadDoc,
   fsnow,
-  processFinishedData,
 } from './firestore-db'
 
 
@@ -25,19 +26,11 @@ export default defineStore('smilestore', {
       completionCode: '',
       totalWrites: 0,
       lastWrite: null,
-      seedActive: true,
+      seedActive: true, // do you want to use a random seed based on the participant's ID?
       seedID: '',
       seedSet: false,
-      cc_page: 0,
-      prac_page: 0,
-      main_page: 0,
-      intro_page: 0,
-      consent_page:0,
-      mouseinfo_page: 0,
-      endtask_page: 0,
-      upload_page: 0,
-      page_visited: -1,
-      lastStart: Date.now(),
+      pageTracker: 0,
+      possibleConditions: {taskOrder: ["AFirst", "BFirst"], instructions: ["version1", "version2", "version3"]},
     }, localStorage, { mergeDefaults: true }),
     global: {
       // ephemeral state, resets on browser refresh
@@ -55,27 +48,21 @@ export default defineStore('smilestore', {
     },
     data: {
       // syncs with firestore
-      docRef: null,
       trial_num: 0, // not being updated correctly
       consented: false,
       done: false,
+      starttime: null, // time consented
+      endtime: null, // time finished or withdrew
       recruitment_service: 'web', // fake
+      recruitment_info: {}, // empty
+      browser_fingerprint: {}, // empty
       browser_data: [], // empty
-      time_data: [],
-      parent_form: {}, // empty
+      demographic_form: {}, // empty
       withdraw: false, // false
+      withdraw_data: {}, // empty
       route_order: [],
       conditions: {},
-      study_data: [],
-      start_time: Date.now(),
-      end_time: 0,
-      code_hash: appconfig.github.last_commit_hash,
-      progress: 0,
-      questions_asked: 0,
-    },
-    private_data: {
-      recruitment_info: {},
-      withdraw_data: {}
+      smile_config: appconfig, //  adding config info to firebase document
     },
     config: appconfig,
   }),
@@ -91,14 +78,9 @@ export default defineStore('smilestore', {
     recruitmentService: (state) => state.data.recruitment_service,
     isSeedSet: (state) => state.local.seedSet,
     getSeedID: (state) => state.local.seedID,
-    getPageCC: (state) => state.local.cc_page,
-    getPagePrac: (state) => state.local.prac_page,
-    getPageMain: (state) => state.local.main_page,
-    getPageIntro: (state) => state.local.intro_page,
-    getPageConsent: (state) => state.local.consent_page,
-    getPageMouseInfo: (state) => state.local.mouseinfo_page,
-    getPageEndTask: (state) => state.local.endtask_page,
-    getPageUpload: (state) => state.local.upload_page,
+    getPage: (state) => state.local.pageTracker,
+    getPossibleConditions: (state) => state.local.possibleConditions,
+    getConditions: (state) => state.data.conditions,
   },
 
   actions: {
@@ -110,10 +92,16 @@ export default defineStore('smilestore', {
     },
     setConsented() {
       this.data.consented = true
+      this.data.starttime = fsnow()
+    },
+    setWithdraw(forminfo) {
+      this.data.withdraw = true
+      this.data.withdraw_data = forminfo
+      this.data.endtime = fsnow()
     },
     setDone() {
       this.data.done = true
-      processFinishedData()
+      this.data.endtime = fsnow()
     },
     setCompletionCode(code) {
       this.local.completionCode = code
@@ -121,6 +109,13 @@ export default defineStore('smilestore', {
     setSeedID(seed) {
       this.local.seedID = seed
       this.local.seedSet = true
+    },
+    incrementPageTracker(){
+      this.local.pageTracker += 1
+      return this.local.pageTracker
+    },
+    resetPageTracker(){
+      this.local.pageTracker = 0
     },
     recordWindowEvent(type, event_data = null) {
       if (event_data) {
@@ -136,6 +131,43 @@ export default defineStore('smilestore', {
         })
       }
     },
+    getBrowserFingerprint() {
+      // this is not "real" browser fingerprinting, but it's close enough for our purposes
+      // it just finds things like browser version, OS, and IP address of user
+      // which can be helpful for debugging purposes
+      let ip = 'unknown'
+      // Make a request for a user with a given ID
+      axios
+        .get('https://api.ipify.org/?format=json')
+        .then((response) => {
+          // handle success
+          console.log('ip address', response.data)
+          // check if ip field exists
+          if (response.data.ip) {
+            ip = response.data.ip
+          }
+        })
+        .catch((error) => {
+          // handle error
+          console.log(error)
+        })
+        .finally(() => {
+          // always executed
+          const { language } = window.navigator
+          const { webdriver } = window.navigator
+          const { userAgent } = window.navigator
+          this.setFingerPrint(ip, userAgent, language, webdriver)
+        })
+    },
+    setFingerPrint(ip, userAgent, language, webdriver) {
+      this.data.browser_fingerprint = {
+        ip,
+        userAgent,
+        language,
+        webdriver,
+      }
+      console.log(this.data.browser_fingerprint)
+    },
     setPageAutofill(fn) {
       this.dev.page_provides_autofill = fn
     },
@@ -144,54 +176,33 @@ export default defineStore('smilestore', {
     },
     setRecruitmentService(service, info) {
       this.data.recruitment_service = service
-      this.private_data.recruitment_info = info
+      this.data.recruitment_info = info
     },
     autofill() {
       if (this.dev.page_provides_autofill) {
         this.dev.page_provides_autofill()
       }
     },
-    saveParentForm(data) {
-      this.data.parent_form = data
-    },
-    saveTrialData(data) {
-      this.data.study_data.push(data)
+    saveDemographicForm(data) {
+      this.data.demographic_form = data
     },
     setCondition(name, cond) {
       this.data.conditions[name] = cond
     },
-    incrementPage(page, amount){
-      this.local[page] += amount
-      return this.local[page] 
-    },
-    resetPages(){
-      this.local.cc_page = 0
-      this.local.prac_page = 0
-      this.local.main_page = 0
-    },
     async setKnown() {
       this.local.knownUser = true
       this.local.partNum = await updateExperimentCounter('participants')
-      this.local.docRef = await createDoc(this.data, this.private_data, this.local.seedID, this.local.partNum)
-      this.data.docRef = this.local.docRef
-      // assign conditions, with id number for randomization
-      // this.assignConds(this.local.partNum)
-
+      this.local.docRef = await createDoc(this.data, this.local.seedID, this.local.partNum)
+      // if possible conditions are not empty, assign conditions
+      if(this.local.possibleConditions){
+        this.data.conditions = await balancedAssignConditions(this.local.possibleConditions, this.data.conditions)
+      }
       if (this.local.docRef) {
         this.setDBConnected()
+        // force a data save so conditions get added to the data right away
+        this.saveData(true)
       }
-    },
-    saveTiming(page, time) {
-      this.data.time_data.push({page, time})
-    },
-    // saveStartTime(time){
-    //   this.data.start_time = time
-    // },
-    saveEndTime(time){
-      this.data.end_time = time
-    },
-    incrementQuestions(){
-      this.data.questions_asked += 1
+      return this.data.conditions
     },
     async loadData() {
       let data

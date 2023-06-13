@@ -36,12 +36,13 @@ export default defineConfig({
           { text: '📦 Data storage', link: '/datastorage' },
           { text: '👩‍💻 Developing', link: '/developing' },
           { text: '🐞 Testing', link: '/testing' },
+          { text: '🧪 Lab Config', link: '/labconfig' },
         ],
       },
       {
         text: 'Experiment Design',
         items: [
-          { text: '👩‍🎨 Overview', link: '/experimentdesign' },
+          { text: '🧑‍🎨 Overview', link: '/experimentdesign' },
           { text: '🧩 Components', link: '/components' },
           { text: '🔀 Timeline', link: '/timeline' },
           { text: '🎲 Randomization', link: '/randomization' },
