@@ -37,10 +37,10 @@ const legOpts3 = [{option_id: "l1", height: "50", width: "40", margin_top: "175"
 {option_id: "l3", height: "50", width: "50", margin_top: "175", margin_left: "252"}]
 
 // edit numbers to make boxes in the right place
-const legsClickOptions = [{option_id: "3", height: "50", width: "40", margin_top: "175", margin_left: "160"},
-{option_id: "4", height: "50", width: "40", margin_top: "175", margin_left: "204"},
-{option_id: "5", height: "50", width: "50", margin_top: "175", margin_left: "252"},
-{option_id: "6", height: "50", width: "50", margin_top: "175", margin_left: "252"},]
+const legsClickOptions = [{option_id: "3", height: "100", width: "60", margin_top: "245", margin_left: "-315"},
+{option_id: "4", height: "100", width: "60", margin_top: "245", margin_left: "-205"},
+{option_id: "5", height: "100", width: "60", margin_top: "245", margin_left: "-95"},
+{option_id: "6", height: "100", width: "60", margin_top: "245", margin_left: "15"},]
 
 const headsClickOptions = [{option_id: "3", height: "50", width: "40", margin_top: "175", margin_left: "160"},
 {option_id: "4", height: "50", width: "40", margin_top: "175", margin_left: "204"},
@@ -98,12 +98,12 @@ if(questionCondition === "legs" && qualityCondition === "bad"){
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_guess" }})
 }
 if(questionCondition === "heads" && qualityCondition === "good"){
-    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_good_qa", correct: "3", clickOptions: legsClickOptions }})
+    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_good_qa", correct: "3", clickOptions: headsClickOptions }})
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_answercorrect" }})
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_guess" }})
 }
 if(questionCondition === "heads" && qualityCondition === "bad"){
-    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_bad_qa", correct: "2", clickOptions: legsClickOptions }})
+    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_bad_qa", correct: "2", clickOptions: headsClickOptions }})
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_answercorrect" }})
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_guess" }})
 }
