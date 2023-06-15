@@ -36,13 +36,35 @@ const legOpts3 = [{option_id: "l1", height: "50", width: "40", margin_top: "175"
 {option_id: "l2", height: "50", width: "40", margin_top: "175", margin_left: "204"},
 {option_id: "l3", height: "50", width: "50", margin_top: "175", margin_left: "252"}]
 
+// edit numbers to make boxes in the right place
+const legsClickOptions = [{option_id: "3", height: "50", width: "40", margin_top: "175", margin_left: "160"},
+{option_id: "4", height: "50", width: "40", margin_top: "175", margin_left: "204"},
+{option_id: "5", height: "50", width: "50", margin_top: "175", margin_left: "252"},
+{option_id: "6", height: "50", width: "50", margin_top: "175", margin_left: "252"},]
 
+const headsClickOptions = [{option_id: "3", height: "50", width: "40", margin_top: "175", margin_left: "160"},
+{option_id: "4", height: "50", width: "40", margin_top: "175", margin_left: "204"},
+{option_id: "5", height: "50", width: "50", margin_top: "175", margin_left: "252"},
+{option_id: "6", height: "50", width: "50", margin_top: "175", margin_left: "252"},]
+
+
+const questionCondition = "legs"
+const qualityCondition = "good"
 
 const pages = []
 
 
-pages.push({comp: VidAutoAdvance, args:{vid_name: "game_intro"}})
-pages.push({comp: VidAutoAdvance, args:{vid_name: "practice_game"}})
+pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/game_intro"}})
+
+// hint (depends on heads/legs/good/bad)
+if(questionCondition === "legs" && qualityCondition === "good"){
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/hint_legs_good"}})
+} else if(questionCondition === "legs" && qualityCondition === "bad"){
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/hint_legs_bad"}})
+} // ADD CONDITIONS FOR HEADS GOOD/BAD
+
+
+// question rules
 pages.push({comp: VidAutoAdvance, args:{vid_name: "question_rules"}})
 
 // example questions
@@ -56,6 +78,17 @@ pages.push({comp: VidAutoAdvance, args:{vid_name: `exq${q1}_first`}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: `exq${q2}`}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: `exq${q3}`}})
 pages.push({comp: VidAutoAdvance, args:{vid_name: `exq${q4}`}})
+
+// ADD EXPOSURE TRIALS HERE
+if(questionCondition === "legs" && qualityCondition === "good"){
+    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_good_qa", correct: "3", clickOptions: legsClickOptions }})
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_answercorrect" }})
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_guess" }})
+}
+// do this for all the conditions
+
+
+
 
 // end of practice
 pages.push({comp: VidClickArrow, args:{vid_name: "practice_end"}})
