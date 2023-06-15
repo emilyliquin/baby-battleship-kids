@@ -41,7 +41,7 @@ export default defineStore('smilestore', {
       upload_page: 0,
       page_visited: -1,
       lastStart: Date.now(),
-      possibleConditions: {taskOrder: ["AFirst", "BFirst"], instructions: ["version1", "version2", "version3"]},
+      possibleConditions: {questionCond: ["heads", "legs"], qualityCond: ["good", "bad"]},
     }, localStorage, { mergeDefaults: true }),
     global: {
       // ephemeral state, resets on browser refresh

@@ -16,7 +16,8 @@ const { next, prev } = useTimelineStepper()
 
 // if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
-const props = defineProps(["vid_name"])
+const props = defineProps(["vid_name", "skip"])
+console.log(props.skip)
 
 const emit = defineEmits(["nextVid"])
 
@@ -54,7 +55,7 @@ function next_trial() {
     smilestore.saveTrialData(vidData)
     smilestore.saveData()
 
-    emit('nextVid')
+    emit('nextVid', props.skip, 1)
 }
 
 </script>

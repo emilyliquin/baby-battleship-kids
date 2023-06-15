@@ -75,7 +75,7 @@ const pagesHeads4 = [
 ]
 
 
-const questionCondition = "legs"
+const questionCondition = smilestore.data.conditions.questionCond
 
 let pagesShuffled
 if(questionCondition === "legs"){

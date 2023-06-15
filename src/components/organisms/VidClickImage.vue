@@ -71,7 +71,7 @@ function cleanDataVar(v){
 
 function next_trial(choice) { 
     smilestore.local.page_visited = -1
-    const attempt = props.attempt
+    const {attempt} = props
     const correct_choice = props.correct
     const trialData = {...(attempt ? { attempt } : {}),
     ...(correct_choice ? { correct_choice } : {}),
@@ -82,9 +82,9 @@ function next_trial(choice) {
     if(choice === props.correct){
         smilestore.saveData()
         emit('nextVid', true,  props.attempt)
+    } else {
+        emit('nextVid')
     }
-    emit('nextVid')
-    
 }
 
 

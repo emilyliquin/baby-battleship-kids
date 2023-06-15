@@ -5,7 +5,7 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 /* import specific icons */
 /* to limit the size of the final project you import individal icons */
 /* NOTE: you also have to load them below by adding to the library */
-import { faUserSecret } from '@fortawesome/free-solid-svg-icons'
+import { faQuestion, faUserSecret } from '@fortawesome/free-solid-svg-icons'
 import { faGear } from '@fortawesome/free-solid-svg-icons'
 import { faBook } from '@fortawesome/free-solid-svg-icons'
 import { faArrowsTurnToDots } from '@fortawesome/free-solid-svg-icons'
@@ -32,6 +32,9 @@ import { faShapes } from '@fortawesome/free-solid-svg-icons'
 import { faImage } from '@fortawesome/free-solid-svg-icons'
 import { faSackDollar } from '@fortawesome/free-solid-svg-icons'
 import { faFlask } from '@fortawesome/free-solid-svg-icons'
+import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons'
+import { faPause } from '@fortawesome/free-solid-svg-icons'
+import { faStop } from '@fortawesome/free-solid-svg-icons'
 
 /* add icons to the library */
 library.add(
@@ -61,5 +64,9 @@ library.add(
   faRainbow,
   faPenToSquare,
   faSackDollar,
-  faFlask
+  faFlask,
+  faQuestionCircle,
+  faPause,
+  faStop,
+  faQuestion
 )
