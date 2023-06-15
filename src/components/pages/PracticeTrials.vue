@@ -63,6 +63,12 @@ if(questionCondition === "legs" && qualityCondition === "good"){
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/hint_legs_bad"}})
 } // ADD CONDITIONS FOR HEADS GOOD/BAD
 
+if(questionCondition === "heads" && qualityCondition === "good"){
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/hint_heads_good"}})
+} else if(questionCondition === "heads" && qualityCondition === "bad"){
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/hint_heads_bad"}})
+}
+
 
 // question rules
 pages.push({comp: VidAutoAdvance, args:{vid_name: "question_rules"}})
@@ -86,8 +92,21 @@ if(questionCondition === "legs" && qualityCondition === "good"){
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_guess" }})
 }
 // do this for all the conditions
-
-
+if(questionCondition === "legs" && qualityCondition === "bad"){
+    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_bad_qa", correct: "6", clickOptions: legsClickOptions }})
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_answercorrect" }})
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_guess" }})
+}
+if(questionCondition === "heads" && qualityCondition === "good"){
+    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_good_qa", correct: "3", clickOptions: legsClickOptions }})
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_answercorrect" }})
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_guess" }})
+}
+if(questionCondition === "heads" && qualityCondition === "bad"){
+    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_bad_qa", correct: "2", clickOptions: legsClickOptions }})
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_answercorrect" }})
+    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_guess" }})
+}
 
 
 // end of practice

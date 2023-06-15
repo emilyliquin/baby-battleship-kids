@@ -49,10 +49,30 @@ const pagesLegs4 = [
 
 // heads go here
 
-const pagesHeads1 = []
-const pagesHeads2 = []
-const pagesHeads3 = []
-const pagesHeads4 = []
+const pagesHeads1 = [
+    {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
+    {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test4_hint"}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test4_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_0_1", "b_0_0", "r_0_0"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test4_reveal"}}
+]
+const pagesHeads2 = [
+    {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
+    {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test6_hint"}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test6_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_cir_0", "p_cir_0", "b_0_0"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test6_reveal"}}
+]
+const pagesHeads3 = [
+    {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
+    {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test1_hint"}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test1_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_sq_1", "b_sq_0", "p_cir_0"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test1_reveal"}}
+]
+const pagesHeads4 = [
+    {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
+    {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test10_hint"}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test10_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_cir_1", "b_sq_2", "r_0_3"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test10_reveal"}}
+]
 
 
 const questionCondition = "legs"
