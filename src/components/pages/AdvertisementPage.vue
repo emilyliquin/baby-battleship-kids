@@ -26,8 +26,7 @@ if (!smilestore.isKnownUser) {
         // console.log('not known')
         smilestore.setKnown() // set new user and add document
     }
-
-
+    
 /// ////////// TO DO: EDIT CHOICES HERE ////////////
 
 const choices = [{option_id: "1", height: "170", width: "190", margin_top: "405", margin_left: "-390"},
