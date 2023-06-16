@@ -90,7 +90,7 @@ function next_trial(success, attempt_num) {
     smilestore.local.page_visited = -1
     let newpage = page_indx
     if(success){
-        newpage = smilestore.incrementPage("cc_page", 3-attempt_num)
+        newpage = smilestore.incrementPage("cc_page", 4-attempt_num)
     } else {
         newpage = smilestore.incrementPage("cc_page", 1)
     }
