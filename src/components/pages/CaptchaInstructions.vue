@@ -25,17 +25,22 @@ function finish(goto) {
 
 <template>
     <div class="page">
-        <br><br><br>
-        <img src="@/assets/brain.svg" width="220">
-        <h1 class="title is-3">Please help us understand the mind!</h1>
-        <p>
-            Take part in a short experiment where you play a game for money.
-        </p>
+        <p class="is-size-5 has-text-center">
+                Before we begin the study, we'd like you to play a quick game for us,
+                just to warm up your brain. 
+            </p>
+            <br>
+            <p class="is-size-5 has-text-center">
+                In the game, you will sort objects into their appropriate locations.
+            </p>
         <br>
-        <button class="button is-warning" id='finish' @click="finish(next())">I'm ready! &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></button>
+        <button class="button is-success" id='finish' @click="finish(next())">I'm ready! &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></button>
     </div>
 </template>
 
 <style scoped>
-
+.page {
+    width: 60%;
+    margin: auto;
+}
 </style>

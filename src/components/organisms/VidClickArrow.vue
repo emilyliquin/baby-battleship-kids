@@ -59,8 +59,7 @@ function highlightNext(){
     button.classList.remove('is-light');
     document.getElementById("buttontext").classList.toggle("fa")
     document.getElementById("reminder").style.visibility = ""
-    document.getElementById("finishp").style.visibility = ""
-
+    button.style.visibility = ""
 }
 
 
@@ -99,7 +98,7 @@ function next_trial() {
         
         
         <hr>
-        <button class="button is-light is-large" id='finishp' @click="next_trial()"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
+        <button class="button is-light is-large" id='finishp' @click="next_trial()" style="visibility: hidden;"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
  </template>
 
 <style scoped>

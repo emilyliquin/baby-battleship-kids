@@ -125,9 +125,9 @@ function submitWithdraw() {
                         <button class="button is-info is-light" @click="openPause()">
                             <FAIcon icon="pause" />&nbsp;&nbsp;Pause
                         </button>
-                        <button class="button is-danger is-light" @click="openStop()">
+                        <!-- <button class="button is-danger is-light" @click="openStop()">
                             <FAIcon icon="stop" />&nbsp;&nbsp;Stop
-                        </button>
+                        </button> -->
                         <button class="button is-warning is-light" @click="openHelp()">
                             <FAIcon icon="question" />&nbsp;&nbsp;Help
                         </button>

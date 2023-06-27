@@ -12,7 +12,6 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.global.progress = route.meta.progress
 
-smilestore.setDone()
 
 function finish(goto) { 
     if(goto) router.push(goto)

@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata' // get access to the global store
@@ -16,9 +16,10 @@ const { next, prev } = useTimelineStepper()
 
 // if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
-const props = defineProps(["vid_name", "skip"])
+const props = defineProps(["vid_name", "reminderText", "hint"])
 
 const emit = defineEmits(["nextVid"])
+
 
 // const showmodal = ref(false) // reactive
 // function toggleModal() {
@@ -30,6 +31,7 @@ const emit = defineEmits(["nextVid"])
 // }
 
 let start_time = 0
+let end_time = 0
 
 onMounted(() => {
     start_time = Date.now()
@@ -46,37 +48,55 @@ onMounted(() => {
   })
 
 
+function highlightNext(){
+    end_time =  Date.now()
+    // const button = document.getElementById("finishp")
+    // const box = document.getElementById("textbox")
+    // button.style.visibility = ""
+    // box.style.visibility = ""
+
+    // button.classList.add("is-success")
+    // button.classList.remove('is-light');
+    // document.getElementById("buttontext").classList.toggle("fa")
+    document.getElementById("hiddenstuff").style.visibility = ""
+
+}
+
+const questionText = ref("")
 
 function next_trial() { 
     smilestore.local.page_visited = -1
-    const trialData = {}
-    const vidData = {video: props.vid_name, vid_start: start_time, vid_end: Date.now(), trial_end: Date.now(), trial_data: trialData}
+    const reminder = props.reminderText
+    const hint = props.hint
+    const trialData = {...(reminder ? { reminder } : {}),
+    ...(hint ? { hint } : {}),
+    ...{ question: questionText.value }}
+    const vidData = {video: props.vid_name, vid_start: start_time, vid_end: end_time, trial_end: Date.now(), trial_data: trialData}
     smilestore.saveTrialData(vidData)
     smilestore.saveData()
-
-    emit('nextVid', props.skip, 1)
+    emit('nextVid')
 }
 
 </script>
 
 <template>
-        <video class="kidvid" id="kidvid" autoplay @ended="next_trial()">
+        <video class="kidvid" id="kidvid" autoplay @ended="highlightNext()">
             <source :src="'./' + vid_name + '.webm'" >
             <source :src="'./' + vid_name + '.mp4'" >
             <p>Sorry, we're experiencing technical difficulties! Please contact the researcher to let them know.</p>
-        </video>
+        </video>     
+        <div id="hiddenstuff" style="visibility: hidden;">
+            <p class="is-size-4 has-text-center" id="reminder" v-html="reminderText" > </p>   
 
-                <!-- modal for refresh page -->
-        <!-- <div class="modal" :class="{'is-active': showmodal}">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <button class="button is-success is-large" @click="toggleModal()">Click here to keep going</button>
-        </div>
-        </div> -->
 
         <hr>
-        <button class="button is-light is-large" id='finishp' @click="next_trial()" style="visibility: hidden;"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
-</template>
+        <input class="input" id="textbox" type="text" placeholder="Your question" v-model="questionText">
+        <br>
+        <br>
+        <button class="button is-success is-large" id='finishp' @click="next_trial()"><FAIcon id="buttontext" icon="fa-solid fa-arrow-right" /></button>
+
+        </div>
+ </template>
 
 <style scoped>
 .kidvid {
@@ -84,6 +104,21 @@ function next_trial() {
     height: auto;
   
 }
+
 .fa {color: rgb(166, 165, 165);}
+
+
+.modaltext {
+    background-color: #fff;
+    padding: 30px;
+}
+
+.modal-content {
+    width: 80%;
+}
+
+.input{
+    width: 70%;
+}
 
 </style>

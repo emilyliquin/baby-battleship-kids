@@ -1,5 +1,5 @@
 <script setup>
-import {ref, onMounted} from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata' // get access to the global store
@@ -15,10 +15,10 @@ const smilestore = useSmileStore()
 const { next, prev } = useTimelineStepper()
 
 // if(route.meta.progress) smilestore.data.progress = route.meta.progress
-
-const props = defineProps(["vid_name", "skip"])
+const props = defineProps(["vid_name"])
 
 const emit = defineEmits(["nextVid"])
+
 
 // const showmodal = ref(false) // reactive
 // function toggleModal() {
@@ -30,6 +30,7 @@ const emit = defineEmits(["nextVid"])
 // }
 
 let start_time = 0
+let end_time = 0
 
 onMounted(() => {
     start_time = Date.now()
@@ -45,45 +46,62 @@ onMounted(() => {
     // }
   })
 
+const checked = ref(false)
+function soundcheck(){
+    checked.value = !checked.value
+}
 
 
 function next_trial() { 
     smilestore.local.page_visited = -1
     const trialData = {}
-    const vidData = {video: props.vid_name, vid_start: start_time, vid_end: Date.now(), trial_end: Date.now(), trial_data: trialData}
+    const vidData = {trial_start: start_time, trial_end: Date.now(), trial_data: trialData}
     smilestore.saveTrialData(vidData)
     smilestore.saveData()
 
-    emit('nextVid', props.skip, 1)
+    emit('nextVid')
 }
 
 </script>
 
 <template>
-        <video class="kidvid" id="kidvid" autoplay @ended="next_trial()">
-            <source :src="'./' + vid_name + '.webm'" >
-            <source :src="'./' + vid_name + '.mp4'" >
-            <p>Sorry, we're experiencing technical difficulties! Please contact the researcher to let them know.</p>
-        </video>
-
-                <!-- modal for refresh page -->
-        <!-- <div class="modal" :class="{'is-active': showmodal}">
-        <div class="modal-background"></div>
-        <div class="modal-content">
-            <button class="button is-success is-large" @click="toggleModal()">Click here to keep going</button>
+    <div class="instructions">
+        <h1 class="title">Instructions</h1>
+        <p class="is-size-5 has-text-left">
+            Before proceeding with the experiment, please <b>turn your sound on</b> and <b>make this window full screen</b>.
+        </p>
+        <p class="is-size-5 has-text-left">
+        If you are unable to do so, please close this window and return your submission on Prolific.
+        </p>
+        <div class="field">
+            <div class="control">
+                <label class="checkbox">
+                    <input type="checkbox" id="soundcheck" @click="soundcheck()">
+                    I have turned my sound on and made this window full screen.
+                </label>
+            </div>
         </div>
-        </div> -->
-
+    </div>
         <hr>
-        <button class="button is-light is-large" id='finishp' @click="next_trial()" style="visibility: hidden;"><FAIcon class="fa" id="buttontext" icon="fa-solid fa-arrow-right" /></button>
-</template>
+        <button v-if="checked" class="button is-success is-large" id='finishp' @click="next_trial()"><FAIcon id="buttontext" icon="fa-solid fa-arrow-right" /></button>
+ </template>
 
 <style scoped>
-.kidvid {
-    width: 800px;
-    height: auto;
-  
-}
-.fa {color: rgb(166, 165, 165);}
 
+.modaltext {
+    background-color: #fff;
+    padding: 30px;
+}
+
+.modal-content {
+    width: 80%;
+}
+.instructions {
+    width: 60%;
+    margin: auto;
+}
+
+.instructions p {
+    padding-bottom: 20px;
+}
 </style>

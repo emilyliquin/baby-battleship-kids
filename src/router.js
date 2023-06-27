@@ -28,6 +28,9 @@ import WindowSizer from '@/components/pages/WindowSizerPage.vue'
 import EndTask from '@/components/pages/EndTask.vue'
 import ParentForm from '@/components/pages/ParentForm.vue'
 import UploadVideo from '@/components/pages/UploadVideo.vue'
+import DemographicPage from '@/components/pages/DemographicSurveyPage.vue'
+import CaptchaPage from '@/components/pages/Captcha.vue'
+import CaptchaInstructions from '@/components/pages/CaptchaInstructions.vue'
 
 // add new routes here.  generally these will be things in components/pages/[something].vue
 
@@ -41,22 +44,22 @@ const timeline = new Timeline()
 
 
 // add the recruitment chooser if in development mode
-if (appconfig.mode === 'development') {
-  timeline.pushRoute({
-    path: '/',
-    name: 'recruit',
-    component: RecruitmentChooser,
-    meta: { allowDirectEntry: true },
-  })
-} else {
+// if (appconfig.mode === 'development') {
+//   timeline.pushRoute({
+//     path: '/',
+//     name: 'recruit',
+//     component: RecruitmentChooser,
+//     meta: { allowDirectEntry: true },
+//   })
+// } else {
   // auto refer to the anonymous welcome page
   timeline.pushRoute({
     path: '/',
     name: 'landing',
-    redirect: { name: 'welcome_anonymous' },
+    redirect: { name: 'welcome_referred', params: { service: 'prolific' } },
     meta: { allowDirectEntry: true },
   })
-}
+// }
 
 // welcome screen for non-referral
 timeline.pushSeqRoute({
@@ -73,16 +76,17 @@ timeline.pushSeqRoute({
   component: Advertisement,
   meta: { next: 'consent', allowDirectEntry: true }, // override what is next
   beforeEnter: (to) => {
-    processQuery(to.query, to.params.service)
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const queryDict = {}
+    for (const [key, value] of urlParams.entries()) {
+      queryDict[key] = value
+    }
+    processQuery(queryDict, to.params.service)
   },
 })
 
-// intro
-// timeline.pushSeqRoute({
-//   path: '/intro',
-//   name: 'intro',
-//   component: Intro,
-// })
+
 
 // consent
 timeline.pushSeqRoute({
@@ -99,14 +103,25 @@ timeline.pushSeqRoute({
 })
 
 
-// // windowsizer
-// timeline.pushSeqRoute({
-//   path: '/windowsizer',
-//   name: 'windowsizer',
-//   component: WindowSizer,
-// })
+// windowsizer
+timeline.pushSeqRoute({
+  path: '/windowsizer',
+  name: 'windowsizer',
+  component: WindowSizer,
+})
 
+// captcha
+timeline.pushSeqRoute({
+  path: '/captchai',
+  name: 'captchai',
+  component: CaptchaInstructions,
+})
 
+timeline.pushSeqRoute({
+  path: '/captcha',
+  name: 'captcha',
+  component: CaptchaPage,
+})
 
 // main experiment
 
@@ -141,28 +156,60 @@ timeline.pushSeqRoute({
 })
 
 
+// demographic
 timeline.pushSeqRoute({
-  path: '/endtask',
-  name: 'endtask',
-  component: EndTask,
-
+  path: '/demo',
+  name: 'demo',
+  component: DemographicPage,
 })
 
 timeline.pushSeqRoute({
-  path: '/parentform',
-  name: 'parentform',
-  component: ParentForm,
-  meta: {allowDirectEntry:true}
-
+  path: '/debrief',
+  name: 'debrief',
+  component: Debrief,
 })
 
+// thanks/submit page
 timeline.pushSeqRoute({
-  path: '/uploadvideo',
-  name: 'uploadvideo',
-  component: UploadVideo,
-
+  path: '/thanks',
+  name: 'thanks',
+  component: Thanks,
 })
 
+
+// // randomized block of tasks
+// timeline.pushRandRoute({
+//   path: '/task1',
+//   name: 'task1',
+//   component: Task1,
+//   meta: { rand: 'group1' }
+// })
+
+// timeline.pushRandRoute({
+//   path: '/task2',
+//   name: 'task2',
+//   component: Task2,
+//   meta: { rand: 'group1' }
+// })
+// // extra step: must resolve the random routes before going back to sequential routes
+// timeline.resolveRandRoutes('group1')
+
+
+// // debriefing form
+// timeline.pushSeqRoute({
+//   path: '/debrief',
+//   name: 'debrief',
+//   component: Debrief,
+// })
+
+
+
+// // this is a special page that is for a withdraw
+// timeline.pushRoute({
+//   path: '/withdraw',
+//   name: 'withdraw',
+//   component: Withdraw,
+// })
 
 // this is a the special page that loads in the iframe on mturk.com
 timeline.pushRoute({

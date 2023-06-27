@@ -3,33 +3,30 @@
         <div class="columns">
             <div class="column is-1"><img src="@/assets/nyu_small.png" width="60"></div>
             <div class="column is-11">
-                <h1 class="is-size-5">Official Informed Consent Statement</h1>
+                <h1 class="is-size-5">Consent Form for IRB-FY2022-6540</h1>
                 <hr>
                 <p>
-                    If you agree to be in this study, you will be asked to look at pictures of objects or pictures presented on a computer display, watch videos, listen to sounds, or observe lights controlled by the computer and to make judgments about them using a keyboard, mouse, or other input device attached to a computer.
-                    <ul>
-                        <li>
-                            Participation in this study will take about 30 minutes to complete, and you will receive $4.50 for your participation. As an additional incentive to try your best at the task, you may earn a cash bonus of up to $10.00 based on your performance.
-                        </li>
-                        <li>
-                            When you complete the study, a thorough verbal and written explanation of it will be provided.
-                        </li>
-                        <li>
-                            In addition, by agreeing to participate, you understand you must be 18 years or older to participate.
-                        </li>
-                        <li>
-                            There are no known risks associated with your participation in this research beyond those of everyday life. Although you will receive no direct benefits, this research may help the investigator understand how people learn new categories.
-                        </li>
-                        <li>
-                            Confidentiality of your research records will be strictly maintained. We assign code numbers to each participant so that data is never directly linked to individual identity, and we are interested in group results rather than the responses of particular individuals. Any emails will never be shared with anyone nor linked to your data.  Data are kept in our laboratory and are only viewed by the investigators. These data files are kept on our computer indefinitely.
-                        </li>
-                        <li>
-                            Taking part in this study is voluntary. Not taking part or withdrawing after the study has begun will result in no loss of services from NYU to which you are otherwise entitled. You have the right to skip or not answer any questions you prefer not to answer.
-                        </li>
-                    </ul>
+                    You have been invited to take part in a research study to learn more about how people's prior experiences and knowledge affect question asking. This study will be conducted by Emily Liquin, FAS - Psychology, Arts & Science, New York University. Her faculty sponsor is Professor Todd Gureckis, Deparmtent of FAS - Psychology, Arts & Science, New York University.
                 </p>
                 <p>
-                    If there is anything about the study or your participation that is unclear or that you do not understand, if you have questions or wish to report a research-related problem, you may contact the principal investigator, <a href="http://todd.gureckislab.org">Todd M. Gureckis</a> at 6 Washington Place (409), New York, NY, 10003, (212) 998-3794, <a href="mailto:todd.gureckis@nyu.edu">todd.gureckis@nyu.edu</a>. For questions about your rights as a research participant, you may contact the University Committee on Activities Involving Human Subjects, New York University, 665 Broadway, Suite 804, New York, NY 10012, at ask.humansubjects@nyu.edu or (212) 998-4808.
+                    If you agree to be in this study, you will be asked to look at pictures of everyday or fictional objects, animals, or people. You will listen to or read information about them, and make judgments, guesses, or ask questions about them. You may also be asked to complete comprehension or attention check questions. You will also be asked to provide basic demographic information, including your age, gender, and racial-ethnic background. Participation in this study will take about 15 minutes.
+                </p>
+                <p>
+                    There are no known risks associated with your participation in this research beyond those of everyday life. Although you will receive no direct benefits, this research may help the investigator understand how people's prior experiences and knowledge affect question asking. You will be paid $3.00 for completing this study. If you withdraw before the end of the study, no payment will be given.                
+                </p>
+                <p>
+                    Confidentiality of your research records will be strictly maintained by giving all subject data a random numerical code. Any specific identifying information gathered will be available only to the investigator and senior research team. Information not containing identifiers may be used in future research, shared with other researchers, or placed in a data repository without your additional consent.
+                </p>
+                <p>
+                    Participation in this study is voluntary. You may refuse to participate or withdraw at any time without penalty. For interviews, questionnaires, or surveys, you have the right to skip or not answer any questions you prefer not to answer.
+                </p>
+                <p>
+                    If there is anything about the study or your participation that is unclear or that you do not understand, if you have questions or wish to report a research-related problem, you may contact Emily Liquin at (212) 998-3794, emily.liquin@nyu.edu, 6 Washington Place, Room 863, or the faculty sponsor, Todd Gureckis at (212) 998-3794, todd.gureckis@nyu.edu, 6 Washington Place, Room 859.
+                </p>
+                <p>
+                    For questions about your rights as a research participant, you may contact the University Committee on Activities Involving Human Subjects (UCAIHS), New York University, 665 Broadway, Suite 804, New York, New York, 10012, at ask.humansubjects@nyu.edu or (212) 998-4808. Please reference the study # (IRB-FY2022-6540) when contacting the IRB (UCAIHS).
+                </p>
+                <p> <em>You may now print a copy of this consent document to keep.</em>
                 </p>
             </div>
         </div>
@@ -37,6 +34,10 @@
 </template>
 
 <style scoped>
+p{
+    padding-bottom:10px;
+}
+
 .informedconsent {
     padding: 10px;
     padding-top: 30px;
@@ -52,7 +53,7 @@
 }
 .informedconsent ul {
     padding-left: 30px;
-    padding-top: 10px;
+    padding-top: 0px;
     padding-bottom: 10px;
     list-style-type: square;
 }

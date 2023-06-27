@@ -11,6 +11,7 @@ import seedrandom from 'seedrandom'
 import VidAutoAdvance from '@/components/organisms/VidAutoAdvance.vue'
 import VidClickArrow from '@/components/organisms/VidClickArrow.vue'
 import VidClickImage from '@/components/organisms/VidClickImage.vue'
+import VidTextbox from '@/components/organisms/VidTextbox.vue'
 
 
 const router = useRouter()

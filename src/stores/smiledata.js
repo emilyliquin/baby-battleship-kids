@@ -76,8 +76,9 @@ export default defineStore('smilestore', {
       code_hash: appconfig.github.last_commit_hash,
       progress: 0,
       questions_asked: 0,
-      conditions: {},
       smile_config: appconfig, //  adding config info to firebase document
+      demographic_form: {},
+      captcha_data: [],
     },
     private_data: {
       recruitment_info: {},
@@ -216,8 +217,14 @@ export default defineStore('smilestore', {
     saveTrialData(data) {
       this.data.study_data.push(data)
     },
+    saveCaptchaData(data) {
+      this.data.captcha_data.push(data)
+    },
     setCondition(name, cond) {
       this.data.conditions[name] = cond
+    },
+    saveDemographicForm(data) {
+      this.data.demographic_form = data
     },
     incrementPage(page, amount){
       this.local[page] += amount

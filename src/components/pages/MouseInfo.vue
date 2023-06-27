@@ -4,11 +4,13 @@ import { useRouter, useRoute } from 'vue-router'
 import useTimelineStepper from '@/composables/timelinestepper'
 import useSmileStore from '@/stores/smiledata'
 
-import InformedConsentText from '@/components/atoms/InformedConsentText.vue';
 import VidAutoAdvance from '@/components/organisms/VidAutoAdvance.vue'
 import VidClickArrow from '@/components/organisms/VidClickArrow.vue'
 import VidClickImage from '@/components/organisms/VidClickImage.vue'
 import ImageClickArrow from '@/components/organisms/ImageClickArrow.vue'
+import AdultInfo1 from '@/components/organisms/AdultInfo1.vue'
+import AdultInfo2 from '@/components/organisms/AdultInfo2.vue'
+
 
 const router = useRouter()
 const route = useRoute()
@@ -23,9 +25,17 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
+
+const choices = [{option_id: "1", height: "170", width: "190", margin_top: "405", margin_left: "-390"},
+{option_id: "2", height: "170", width: "190", margin_top: "405", margin_left: "-200"},
+{option_id: "3", height: "170", width: "190", margin_top: "405", margin_left: "-10"},
+{option_id: "4", height: "170", width: "190", margin_top: "405", margin_left: "195"}]
+
+
 /// //////// TO DO: EDIT PAGES HERE ////////////
-const pages = [{comp: VidAutoAdvance, args:{vid_name: "mouse_info"}},
-    {comp: VidClickArrow, args:{vid_name: "lets_get_started"}}
+const pages = [{comp: AdultInfo1, args:{vid_name: "none"}},
+    {comp: AdultInfo2, args:{vid_name: "none"}},
+    {comp: VidClickImage, args:{vid_name: "soundcheck_adults", clickOptions: choices, correct: "2", attempt: 1}}
 ]
 
 /// /////////////////////////////////////////////
@@ -39,17 +49,14 @@ onMounted(() => {
     start_time = Date.now()
 })
 
-function next_trial(goto) {
+function next_trial(success, attempt_num) {
+    console.log(success, attempt_num)
     smilestore.local.page_visited = -1
     const newpage = smilestore.incrementPage("mouseinfo_page", 1)
+    console.log(newpage)
     if (newpage >= pages.length) {
-        if (!smilestore.isKnownUser) {
-        // console.log('not known')
-        smilestore.setKnown() // set new user and add document
-    }
-    smilestore.setConsented()
       smilestore.saveTiming('mouseinfo', Date.now() - start_time)
-        if(goto) router.push(goto)
+        if(next()) router.push(next())
     } else {
         currentTab.value = pages[newpage]
     }
@@ -61,7 +68,7 @@ function next_trial(goto) {
 <template>
     <div class="page">
         
-        <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.vid_name" @next-vid="next_trial(next())"></component>
+        <component :is="currentTab.comp" v-bind="{...currentTab.args}" :key="currentTab.args.vid_name" @next-vid="next_trial"></component>
      </div>
 </template>
 
