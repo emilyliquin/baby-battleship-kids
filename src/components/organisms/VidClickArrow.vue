@@ -16,7 +16,7 @@ const { next, prev } = useTimelineStepper()
 
 // if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
-const props = defineProps(["vid_name", "reminderText", "hint"])
+const props = defineProps(["vid_name", "reminderText", "hint", "hideArrow"])
 
 const emit = defineEmits(["nextVid"])
 
@@ -45,6 +45,10 @@ onMounted(() => {
     //     console.log("refreshed")
     //     toggleModal()
     // }
+
+    if(props.hideArrow){
+        document.getElementById("finishp").style.visibility = "hidden"
+    }
   })
 
 
@@ -55,6 +59,8 @@ function highlightNext(){
     button.classList.remove('is-light');
     document.getElementById("buttontext").classList.toggle("fa")
     document.getElementById("reminder").style.visibility = ""
+    document.getElementById("finishp").style.visibility = ""
+
 }
 
 
@@ -62,7 +68,7 @@ function highlightNext(){
 function next_trial() { 
     smilestore.local.page_visited = -1
     const reminder = props.reminderText
-    const hint = props.hint
+    const {hint} = props
     const trialData = {...(reminder ? { reminder } : {}),
     ...(hint ? { hint } : {})}
     const vidData = {video: props.vid_name, vid_start: start_time, vid_end: end_time, trial_end: Date.now(), trial_data: trialData}

@@ -25,25 +25,25 @@ if(route.meta.progress) smilestore.data.progress = route.meta.progress
 const pagesLegs1 = [
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test13_hint"}},
-    {comp: VidClickArrow, args:{vid_name: "exposure_study/test13_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_cir_0", "b_0_0", "r_0_0"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test13_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_cir_0", "b_0_0", "r_0_0"], hideArrow:true}},
     {comp: VidClickArrow, args:{vid_name: "exposure_study/test13_reveal"}}
 ]
 const pagesLegs2 = [
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test7_hint"}},
-    {comp: VidClickArrow, args:{vid_name: "exposure_study/test7_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_0_1", "p_0_3", "b_0_0"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test7_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_0_1", "p_0_3", "b_0_0"], hideArrow:true}},
     {comp: VidClickArrow, args:{vid_name: "exposure_study/test7_reveal"}}
 ]
 const pagesLegs3 = [
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test2_hint"}},
-    {comp: VidClickArrow, args:{vid_name: "exposure_study/test2_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_sq_2", "r_0_3", "b_0_2"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test2_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_sq_2", "r_0_3", "b_0_2"], hideArrow:true}},
     {comp: VidClickArrow, args:{vid_name: "exposure_study/test2_reveal"}}
 ]
 const pagesLegs4 = [
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test8_hint"}},
-    {comp: VidClickArrow, args:{vid_name: "exposure_study/test8_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["b_sq_3", "r_sq_3", "p_sq_0"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test8_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["b_sq_3", "r_sq_3", "p_sq_0"], hideArrow:true}},
     {comp: VidClickArrow, args:{vid_name: "exposure_study/test8_reveal"}}
 ]
 
@@ -52,30 +52,47 @@ const pagesLegs4 = [
 const pagesHeads1 = [
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test4_hint"}},
-    {comp: VidClickArrow, args:{vid_name: "exposure_study/test4_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_0_1", "b_0_0", "r_0_0"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test4_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_0_1", "b_0_0", "r_0_0"], hideArrow:true}},
     {comp: VidClickArrow, args:{vid_name: "exposure_study/test4_reveal"}}
 ]
 const pagesHeads2 = [
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test6_hint"}},
-    {comp: VidClickArrow, args:{vid_name: "exposure_study/test6_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_cir_0", "p_cir_0", "b_0_0"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test6_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_cir_0", "p_cir_0", "b_0_0"], hideArrow:true}},
     {comp: VidClickArrow, args:{vid_name: "exposure_study/test6_reveal"}}
 ]
 const pagesHeads3 = [
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test1_hint"}},
-    {comp: VidClickArrow, args:{vid_name: "exposure_study/test1_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_sq_1", "b_sq_0", "p_cir_0"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test1_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["r_sq_1", "b_sq_0", "p_cir_0"], hideArrow:true}},
     {comp: VidClickArrow, args:{vid_name: "exposure_study/test1_reveal"}}
 ]
 const pagesHeads4 = [
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test_hiding"}},
     {comp: VidAutoAdvance, args:{vid_name: "exposure_study/test10_hint"}},
-    {comp: VidClickArrow, args:{vid_name: "exposure_study/test10_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_cir_1", "b_sq_2", "r_0_3"]}},
+    {comp: VidClickArrow, args:{vid_name: "exposure_study/test10_question", reminderText: "Say <b>your one question</b>, then click the arrow.", hint:["p_cir_1", "b_sq_2", "r_0_3"], hideArrow:true}},
     {comp: VidClickArrow, args:{vid_name: "exposure_study/test10_reveal"}}
 ]
 
 
-const questionCondition = smilestore.data.conditions.questionCond
+// if smilestore.data.conditions.condNum is either 3, 4, 7, 8, 11, or 12, then questionCondition is "legs"
+const legConds = ["3", "4", "7", "8", "11", "12"]
+let questionCondition
+if(legConds.includes(smilestore.data.conditions.condNum)){
+    questionCondition = "legs"
+} else {
+    questionCondition = "heads"
+}
+
+// if smilestore.data.conditions.condNum is either 1, 2, 3, 4, 9, or 11 then qualityCondition is "good"
+const goodConds = ["1", "2", "3", "4", "9", "11"]
+let qualityCondition
+if(goodConds.includes(smilestore.data.conditions.condNum)){
+    qualityCondition = "good"
+} else {
+    qualityCondition = "bad"
+}
+
 
 let pagesShuffled
 if(questionCondition === "legs"){

@@ -34,8 +34,34 @@ const headsClickOptions = [{option_id: "0", height: "130", width: "60", margin_t
 {option_id: "3", height: "130", width: "90", margin_top: "280", margin_left: "5"},]
 
 
-const questionCondition = smilestore.data.conditions.questionCond
-const qualityCondition = smilestore.data.conditions.qualityCond
+// if smilestore.data.conditions.condNum is either 3, 4, 7, 8, 11, or 12, then questionCondition is "legs"
+const legConds = ["3", "4", "7", "8", "11", "12"]
+let questionCondition
+if(legConds.includes(smilestore.data.conditions.condNum)){
+    questionCondition = "legs"
+} else {
+    questionCondition = "heads"
+}
+
+// if smilestore.data.conditions.condNum is either 1, 2, 3, 4, 9, or 11 then qualityCondition is "good"
+const goodConds = ["1", "2", "3", "4", "9", "11"]
+let qualityCondition
+if(goodConds.includes(smilestore.data.conditions.condNum)){
+    qualityCondition = "good"
+} else {
+    qualityCondition = "bad"
+}
+
+// if smilestore.data.conditions.condNum is either 9, 10, 11, or 12, then exposureCondition is "baseline"
+const baselineConds = ["9", "10", "11", "12"]
+let exposureCondition
+if(baselineConds.includes(smilestore.data.conditions.condNum)){
+    exposureCondition = "baseline"
+} else {
+    exposureCondition = "exposure"
+}
+
+
 
 const pages = []
 
@@ -75,31 +101,34 @@ pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/question_examp
 
 
 // ADD EXPOSURE TRIALS HERE
-if(questionCondition === "legs" && qualityCondition === "good"){
-    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_good_qa", correct: "3", attempt: 1, clickOptions: legsClickOptions }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_answerincorrect", skip: true }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_answercorrect" }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_guess" }})
+if(exposureCondition === "exposure"){
+    if(questionCondition === "legs" && qualityCondition === "good"){
+        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_good_qa", correct: "3", attempt: 1, clickOptions: legsClickOptions, hideOptions: true }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_answerincorrect", skip: true }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_answercorrect" }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_guess" }})
+    }
+    // do this for all the conditions
+    if(questionCondition === "legs" && qualityCondition === "bad"){
+        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_bad_qa", correct: "6", attempt: 1, clickOptions: legsClickOptions, hideOptions: true }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_answerincorrect", skip: true }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_answercorrect" }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_guess" }})
+    }
+    if(questionCondition === "heads" && qualityCondition === "good"){
+        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_good_qa", correct: "3", attempt: 1, clickOptions: headsClickOptions, hideOptions: true }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_answerincorrect", skip: true }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_answercorrect" }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_guess" }})
+    }
+    if(questionCondition === "heads" && qualityCondition === "bad"){
+        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_bad_qa", correct: "2", attempt: 1, clickOptions: headsClickOptions, hideOptions: true }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_answerincorrect", skip: true }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_answercorrect" }})
+        pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_guess" }})
+    }
 }
-// do this for all the conditions
-if(questionCondition === "legs" && qualityCondition === "bad"){
-    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_bad_qa", correct: "6", attempt: 1, clickOptions: legsClickOptions }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_answerincorrect", skip: true }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_answercorrect" }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_guess" }})
-}
-if(questionCondition === "heads" && qualityCondition === "good"){
-    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_good_qa", correct: "3", attempt: 1, clickOptions: headsClickOptions }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_answerincorrect", skip: true }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_answercorrect" }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_guess" }})
-}
-if(questionCondition === "heads" && qualityCondition === "bad"){
-    pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_bad_qa", correct: "2", attempt: 1, clickOptions: headsClickOptions }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_answerincorrect", skip: true }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_answercorrect" }})
-    pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_guess" }})
-}
+
 
 
 // end of practice
@@ -122,10 +151,8 @@ function next_trial(success, attempt_num) {
     // const newpage = smilestore.incrementPage("prac_page", 1)
     let newpage = page_indx
     if(success){
-        console.log("skip a page")
         newpage = smilestore.incrementPage("prac_page", 2)
     } else {
-        console.log("go to next")
         newpage = smilestore.incrementPage("prac_page", 1)
     }
     if (newpage >= pages.length) {
