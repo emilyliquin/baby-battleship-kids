@@ -44,14 +44,14 @@ const timeline = new Timeline()
 
 
 // add the recruitment chooser if in development mode
-// if (appconfig.mode === 'development') {
-//   timeline.pushRoute({
-//     path: '/',
-//     name: 'recruit',
-//     component: RecruitmentChooser,
-//     meta: { allowDirectEntry: true },
-//   })
-// } else {
+if (appconfig.mode === 'development') {
+  timeline.pushRoute({
+    path: '/',
+    name: 'recruit',
+    component: RecruitmentChooser,
+    meta: { allowDirectEntry: true },
+  })
+} else {
   // auto refer to the anonymous welcome page
   timeline.pushRoute({
     path: '/',
@@ -59,7 +59,7 @@ const timeline = new Timeline()
     redirect: { name: 'welcome_referred', params: { service: 'prolific' } },
     meta: { allowDirectEntry: true },
   })
-// }
+}
 
 // welcome screen for non-referral
 timeline.pushSeqRoute({
