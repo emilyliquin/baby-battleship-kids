@@ -67,7 +67,7 @@ const questionText = ref("")
 function next_trial() { 
     smilestore.local.page_visited = -1
     const reminder = props.reminderText
-    const hint = props.hint
+    const {hint} = props
     const trialData = {...(reminder ? { reminder } : {}),
     ...(hint ? { hint } : {}),
     ...{ question: questionText.value }}
