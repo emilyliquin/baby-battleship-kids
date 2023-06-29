@@ -103,7 +103,7 @@ function next_trial(choice) {
         <div v-for="option in clickOptions" class="overlay" :key="option.option_id" :id="option.option_id" @click="next_trial(option.option_id)" :style="getStyle(option)"> </div>
         <video class="kidvid" id="kidvid" autoplay @ended="showButtons()">
             <source :src="'./' + vid_name + '.webm'" >
-            <!-- <source :src="'./' + vid_name + '.mp4'" > -->
+            <source :src="'./' + vid_name + '.mp4'" >
             <p>Sorry, we're experiencing technical difficulties! Please contact the researcher to let them know.</p>
         </video>    
 
