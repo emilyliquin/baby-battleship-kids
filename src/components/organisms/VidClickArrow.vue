@@ -82,7 +82,7 @@ function next_trial() {
 <template>
         <video class="kidvid" id="kidvid" autoplay @ended="highlightNext()">
             <source :src="'./' + vid_name + '.webm'" >
-            <!-- <source :src="'./' + vid_name + '.mp4'" > -->
+            <source :src="'./' + vid_name + '.mp4'" >
             <p>Sorry, we're experiencing technical difficulties! Please contact the researcher to let them know.</p>
         </video>     
         <p class="is-size-4 has-text-center" id="reminder" v-html="reminderText" style="visibility: hidden;"> </p>   
