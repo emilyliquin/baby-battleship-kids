@@ -29,10 +29,10 @@ if (!smilestore.isKnownUser) {
     
 /// ////////// TO DO: EDIT CHOICES HERE ////////////
 
-const choices = [{option_id: "1", height: "170", width: "190", margin_top: "405", margin_left: "-390"},
-{option_id: "2", height: "170", width: "190", margin_top: "405", margin_left: "-200"},
-{option_id: "3", height: "170", width: "190", margin_top: "405", margin_left: "-10"},
-{option_id: "4", height: "170", width: "190", margin_top: "405", margin_left: "195"}]
+const choices = [{option_id: "horse", height: "170", width: "190", margin_top: "405", margin_left: "-390"},
+{option_id: "bird", height: "170", width: "190", margin_top: "405", margin_left: "-200"},
+{option_id: "dog", height: "170", width: "190", margin_top: "405", margin_left: "-10"},
+{option_id: "cow", height: "170", width: "190", margin_top: "405", margin_left: "195"}]
 
 /// ////////////////////////////////////////////////
 
@@ -40,7 +40,7 @@ const choices = [{option_id: "1", height: "170", width: "190", margin_top: "405"
 /// ////////// TO DO: EDIT PAGES HERE ////////////
 
 const pages = [{comp: ImageClickArrow, args:{img_name: "threepoints.png"}},
-{comp: VidClickImage, args:{vid_name: "soundcheck", clickOptions: choices, correct: "2"}}]
+{comp: VidClickImage, args:{vid_name: "soundcheck", clickOptions: choices, correct: "bird"}}]
 
 /// /////////////////////////////////////////////
 
