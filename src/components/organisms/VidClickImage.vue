@@ -66,7 +66,7 @@ function showButtons(){
     }
 
     if(props.hideArrow){
-        document.getElementById("finishp").style.visibility = ""
+        // document.getElementById("finishp").style.visibility = ""
     }
 }
 
