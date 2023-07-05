@@ -76,7 +76,6 @@ export default defineStore('smilestore', {
       code_hash: appconfig.github.last_commit_hash,
       progress: 0,
       questions_asked: 0,
-      conditions: {},
       smile_config: appconfig, //  adding config info to firebase document
     },
     private_data: {
@@ -123,7 +122,7 @@ export default defineStore('smilestore', {
     },
     setWithdraw(forminfo) {
       this.data.withdraw = true
-      this.data.withdraw_data = forminfo
+      this.private_data.withdraw_data = forminfo
       this.data.endtime = fsnow()
     },
     setDone() {
@@ -203,7 +202,7 @@ export default defineStore('smilestore', {
     },
     setRecruitmentService(service, info) {
       this.data.recruitment_service = service
-      this.data.recruitment_info = info
+      this.private_data.recruitment_info = info
     },
     autofill() {
       if (this.dev.page_provides_autofill) {
