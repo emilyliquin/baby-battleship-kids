@@ -4,10 +4,12 @@
 import inquirer from 'inquirer'
 import chalk from 'chalk'
 import figlet from 'figlet'
+import { execSync } from 'child_process'
 // import shell from 'shelljs'
-import { initializeApp } from 'firebase/app'
+// import { initializeApp } from 'firebase/app'
+import { initializeApp, cert } from 'firebase-admin/app';
+import { getFirestore } from "firebase-admin/firestore"
 import {
-  getFirestore,
   collection,
   getDocs,
   query,
@@ -50,6 +52,12 @@ const askQuestions = () => {
       message: 'What is the name of the file without extension?',
       default: 'data',
     },
+    {
+      type: 'input',
+      name: 'KEY_PATH',
+      message: 'What is the path to your service account key?',
+      default:'',
+    },
   ]
   return inquirer.prompt(questions)
 }
@@ -62,25 +70,13 @@ const storeData = async (data, path) => {
   }
 }
 
-const getData = async (path, completeOnly, filename) => {
-  const localenv = dotenv.config({ path: 'env/.env.local' })
-  const firebaseConfig = {
-    apiKey: localenv.parsed.VITE_FIREBASE_APIKEY,
-    authDomain: localenv.parsed.VITE_FIREBASE_AUTHDOMAIN,
-    projectId: localenv.parsed.VITE_FIREBASE_PROJECTID,
-    storageBucket: localenv.parsed.VITE_FIREBASE_STORAGEBUCKET,
-    messagingSenderId: localenv.parsed.VITE_FIREBASE_MESSAGINGSENDERID,
-    appId: localenv.parsed.VITE_FIREBASE_APPID,
-  }
-  const app = initializeApp(firebaseConfig)
-  const db = getFirestore(app)
+const getData = async (path, completeOnly, db, filename) => {
   let querySnapshot = null
 
   if (completeOnly == 'all') {
-    querySnapshot = await getDocs(collection(db, path))
+    querySnapshot = await db.collection(path).get()
   } else {
-    const q = query(collection(db, path), where('done', '==', true))
-    querySnapshot = await getDocs(q)
+    querySnapshot = await db.collection(path).where("done", "==", true).get();
   }
   const data = []
   querySnapshot.forEach((doc) => {
@@ -96,6 +92,7 @@ const success = (filename) => {
   )
 }
 
+
 const run = async () => {
   // show script introduction
   init()
@@ -104,11 +101,26 @@ const run = async () => {
 
   // ask questions
   const answers = await askQuestions()
-  const { TYPE, COMPLETE_ONLY, FILENAME } = answers
+  const { TYPE, COMPLETE_ONLY, FILENAME, KEY_PATH } = answers
+
+  // connect to database
+  const localenv = dotenv.config({ path: 'env/.env.local' })
+  const firebaseConfig = {
+    apiKey: localenv.parsed.VITE_FIREBASE_APIKEY,
+    authDomain: localenv.parsed.VITE_FIREBASE_AUTHDOMAIN,
+    projectId: localenv.parsed.VITE_FIREBASE_PROJECTID,
+    storageBucket: localenv.parsed.VITE_FIREBASE_STORAGEBUCKET,
+    messagingSenderId: localenv.parsed.VITE_FIREBASE_MESSAGINGSENDERID,
+    appId: localenv.parsed.VITE_FIREBASE_APPID,
+    credential: cert(KEY_PATH)
+  }
+  const app = initializeApp(firebaseConfig)
+  const db = getFirestore(app)
+
 
   // create the file
   const path = `${TYPE}/${project_ref}/data`
-  await getData(path, COMPLETE_ONLY, `${TYPE}-${COMPLETE_ONLY}-${FILENAME}`)
+  await getData(path, COMPLETE_ONLY, db, `${TYPE}-${COMPLETE_ONLY}-${FILENAME}`)
 
   // show success message
   success(`${TYPE}-${COMPLETE_ONLY}-${FILENAME}`)
