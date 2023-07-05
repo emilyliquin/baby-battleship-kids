@@ -61,7 +61,7 @@ export function processQuery(query, service) {
     })
   } else if (
     service === 'panda' &&
-    urlParams.ID,
+    urlParams.ID &&
     urlParams.STARTTIME
   ) {
     console.log('Panda mode')
