@@ -59,7 +59,7 @@ function next_trial() {
 
         <div class="wrapper" v-if="img_name == 'consent8.jpeg'">
             <img class="imgsign" :src="'./signbox.jpeg'" width=400 height=150 />
-            <VueSignaturePad  class="sigpad" width="400px" height="150px" ref="signaturePad" />
+            <VueSignaturePad  class="sigpad" id="sigpad" width="400px" height="150px" ref="signaturePad" />
         </div>            
         <button v-if="img_name == 'consent8.jpeg'" class="button is-warning is-small" @click="clear" >Clear Signature</button>
 

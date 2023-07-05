@@ -73,9 +73,7 @@ if(questionCondition === "legs" && qualityCondition === "good"){
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/hint_legs_good"}})
 } else if(questionCondition === "legs" && qualityCondition === "bad"){
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/hint_legs_bad"}})
-} // ADD CONDITIONS FOR HEADS GOOD/BAD
-
-if(questionCondition === "heads" && qualityCondition === "good"){
+} else if(questionCondition === "heads" && qualityCondition === "good"){
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/hint_heads_good"}})
 } else if(questionCondition === "heads" && qualityCondition === "bad"){
     pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/hint_heads_bad"}})
@@ -103,26 +101,22 @@ pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/question_examp
 // ADD EXPOSURE TRIALS HERE
 if(exposureCondition === "exposure"){
     if(questionCondition === "legs" && qualityCondition === "good"){
-        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_good_qa", correct: "3", attempt: 1, clickOptions: legsClickOptions, hideOptions: true }})
+        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_good_qa", correct: "3", attempt: 1, clickOptions: legsClickOptions, hideOptions: true, hideArrow:true }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_answerincorrect", skip: true }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_answercorrect" }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_good_guess" }})
-    }
-    // do this for all the conditions
-    if(questionCondition === "legs" && qualityCondition === "bad"){
-        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_bad_qa", correct: "6", attempt: 1, clickOptions: legsClickOptions, hideOptions: true }})
+    } else if(questionCondition === "legs" && qualityCondition === "bad"){
+        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_legs_bad_qa", correct: "6", attempt: 1, clickOptions: legsClickOptions, hideOptions: true, hideArrow:true }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_answerincorrect", skip: true }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_answercorrect" }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_legs_bad_guess" }})
-    }
-    if(questionCondition === "heads" && qualityCondition === "good"){
-        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_good_qa", correct: "3", attempt: 1, clickOptions: headsClickOptions, hideOptions: true }})
+    } else if(questionCondition === "heads" && qualityCondition === "good"){
+        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_good_qa", correct: "3", attempt: 1, clickOptions: headsClickOptions, hideOptions: true, hideArrow:true }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_answerincorrect", skip: true }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_answercorrect" }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_good_guess" }})
-    }
-    if(questionCondition === "heads" && qualityCondition === "bad"){
-        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_bad_qa", correct: "2", attempt: 1, clickOptions: headsClickOptions, hideOptions: true }})
+    } else if(questionCondition === "heads" && qualityCondition === "bad"){
+        pages.push({comp: VidClickImage, args:{vid_name: "exposure_study/practice_heads_bad_qa", correct: "2", attempt: 1, clickOptions: headsClickOptions, hideOptions: true, hideArrow:true }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_answerincorrect", skip: true }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_answercorrect" }})
         pages.push({comp: VidAutoAdvance, args:{vid_name: "exposure_study/practice_heads_bad_guess" }})
@@ -141,7 +135,7 @@ const currentTab = shallowRef(pages[page_indx])
 
 let start_time
 onMounted(() => {
-    start_time = Date.now()
+    start_time = Date.now();
 })
 
 

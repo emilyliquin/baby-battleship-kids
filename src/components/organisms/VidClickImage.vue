@@ -17,7 +17,7 @@ const { next, prev } = useTimelineStepper()
 
 // if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
-const props = defineProps(["vid_name", "attempt", "correct", "clickOptions", "hideOptions"])
+const props = defineProps(["vid_name", "attempt", "correct", "clickOptions", "hideOptions", "hideArrow"])
 
 const emit = defineEmits(["nextVid"])
 
@@ -53,6 +53,9 @@ onMounted(() => {
             opts[i].style.visibility = "hidden"
         }
     }
+    if(props.hideArrow){
+        document.getElementById("finishp").style.visibility = "hidden"
+    }
   })
 
 function showButtons(){
@@ -60,6 +63,10 @@ function showButtons(){
     const collection = document.getElementsByClassName("overlay");
     for (let i = 0; i < collection.length; i++) {
         collection[i].style.visibility = ("")
+    }
+
+    if(props.hideArrow){
+        document.getElementById("finishp").style.visibility = ""
     }
 }
 

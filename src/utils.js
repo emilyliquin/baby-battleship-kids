@@ -59,7 +59,17 @@ export function processQuery(query, service) {
       study_id: urlParams.CITIZEN_STUDY_ID,
       session_id: urlParams.CITIZEN_SESSION_ID,
     })
-  } else {
+  } else if (
+    service === 'panda' &&
+    urlParams.ID &&
+    urlParams.STARTTIME
+  ) {
+    console.log('Panda mode')
+    smilestore.setRecruitmentService(service, {
+      panda_id: urlParams.ID,
+      start_time: urlParams.STARTTIME
+    })
+    } else {
     // console.log('const { next, prev } = useTimelineStepper() mode')
   }
 }

@@ -124,7 +124,7 @@ export default defineStore('smilestore', {
     },
     setWithdraw(forminfo) {
       this.data.withdraw = true
-      this.data.withdraw_data = forminfo
+      this.private_data.withdraw_data = forminfo
       this.data.endtime = fsnow()
     },
     setDone() {
@@ -204,7 +204,7 @@ export default defineStore('smilestore', {
     },
     setRecruitmentService(service, info) {
       this.data.recruitment_service = service
-      this.data.recruitment_info = info
+      this.private_data.recruitment_info = info
     },
     autofill() {
       if (this.dev.page_provides_autofill) {
