@@ -76,8 +76,14 @@ timeline.pushSeqRoute({
   component: Advertisement,
   meta: { next: 'consent', allowDirectEntry: true }, // override what is next
   beforeEnter: (to) => {
-    processQuery(to.query, to.params.service)
-  },
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const queryDict = {}
+    for (const [key, value] of urlParams.entries()) {
+      queryDict[key] = value
+    }
+    processQuery(queryDict, to.params.service)
+},
 })
 
 
