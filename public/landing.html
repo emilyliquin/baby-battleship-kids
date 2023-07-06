@@ -22,7 +22,18 @@
 
     const currentloc = window.location.href
     let newloc = currentloc.replace('landing.html','#/welcome/panda/')
-    newloc = newloc + '&STARTTIME=' + Date.now()
+
+    // is ID in the URL?
+    const currentID = urlParams.get('ID');
+
+    // if currentID exists
+    if(currentID){        
+        newloc = newloc + '&STARTTIME=' + Date.now()
+    } else {
+        newloc = newloc + '?STARTTIME=' + Date.now()
+    }
+
+
     function startStudy(){
         window.location.href=newloc
     }
