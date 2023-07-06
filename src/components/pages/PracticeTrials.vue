@@ -139,7 +139,6 @@ onMounted(() => {
 })
 
 
-
 function next_trial(success, attempt_num) {
     smilestore.local.page_visited = -1
     // const newpage = smilestore.incrementPage("prac_page", 1)
