@@ -92,6 +92,8 @@ function skipTo(section) {
             </p>
             <p class="subtitle">
             <h1 class="title is-1">Reuse and Remixing in Question Asking Across Development</h1>
+
+            <h2 class="title is-3">Question Exposure Manipulation, Child Version</h2>
             </p>
         </div>
         </section>
