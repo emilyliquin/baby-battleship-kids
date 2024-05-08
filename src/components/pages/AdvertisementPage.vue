@@ -22,10 +22,12 @@ const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.data.progress = route.meta.progress
 
-if (!smilestore.isKnownUser) {
-        // console.log('not known')
-        smilestore.setKnown() // set new user and add document
-    }
+console.log(smilestore.data.conditions.condNum)
+
+// if (!smilestore.isKnownUser) {
+//         // console.log('not known')
+//         smilestore.setKnown() // set new user and add document
+//     }
     
 /// ////////// TO DO: EDIT CHOICES HERE ////////////
 

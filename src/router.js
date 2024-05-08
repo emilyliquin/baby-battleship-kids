@@ -28,7 +28,7 @@ import WindowSizer from '@/components/pages/WindowSizerPage.vue'
 import EndTask from '@/components/pages/EndTask.vue'
 import ParentForm from '@/components/pages/ParentForm.vue'
 import UploadVideo from '@/components/pages/UploadVideo.vue'
-
+import PresentationModeHomePage from '@/components/pages/PresentationModeHomePage.vue'
 // add new routes here.  generally these will be things in components/pages/[something].vue
 
 // 2. Define some routes to the timeline
@@ -46,6 +46,13 @@ if (appconfig.mode === 'development') {
     path: '/',
     name: 'recruit',
     component: RecruitmentChooser,
+    meta: { allowDirectEntry: true },
+  })
+} else if (appconfig.mode === 'presentation') {
+  timeline.pushRoute({
+    path: '/',
+    name: 'presentation_home',
+    component: PresentationModeHomePage,
     meta: { allowDirectEntry: true },
   })
 } else {
@@ -122,7 +129,7 @@ timeline.pushSeqRoute({
 
 timeline.pushSeqRoute({
   path: '/practice',
-  name: 'practice',
+  name: 'instructions+practice',
   component: PracticeTrials,
   beforeEnter: (to) => {
     const smilestore = useSmileStore()
@@ -175,12 +182,14 @@ timeline.pushRoute({
 })
 
 // this is a special route with config/debugging information
-timeline.pushRoute({
-  path: '/config',
-  name: 'config',
-  component: Config,
-  meta: { allowDirectEntry: true },
-})
+if (appconfig.mode !== 'presentation') {
+  timeline.pushRoute({
+    path: '/config',
+    name: 'config',
+    component: Config,
+    meta: { allowDirectEntry: true },
+  })
+}
 
 // 3. add navigation guards
 //    currently these check if user is known
@@ -220,6 +229,24 @@ function addGuards(r) {
       smilestore.recordRoute(to.name)
       return true
     }
+
+        // if you're in jumping mode
+    // or you're in presentation mode allow the new route
+    if (
+      (smilestore.config.mode === 'development' && smilestore.local.allowJumps) ||
+      smilestore.config.mode === 'presentation'
+    ) {
+      console.warn(
+        'WARNING: allowing direct, out-of-order navigation to',
+        to.name,
+        to.meta.allowDirectEntry,
+        '.  This is allowed in development/presentation mode but not in production.'
+      )
+      smilestore.setLastRoute(to.name)
+      smilestore.recordRoute(to.name)
+      return true
+    }
+
     // if the next route is a subtimeline and you're trying to go to a subtimeline route, allow it
     // this is necessary because from.meta.next won't immediately get the subroute as next when the subtimeline is randomized
     if (from.meta.next.type === 'randomized_sub_timeline' && to.meta.subroute) {

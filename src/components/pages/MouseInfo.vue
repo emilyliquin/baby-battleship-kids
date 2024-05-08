@@ -45,7 +45,7 @@ function next_trial(goto) {
     if (newpage >= pages.length) {
         if (!smilestore.isKnownUser) {
         // console.log('not known')
-        smilestore.setKnown() // set new user and add document
+        // smilestore.setKnown() // set new user and add document
     }
     smilestore.setConsented()
       smilestore.saveTiming('mouseinfo', Date.now() - start_time)

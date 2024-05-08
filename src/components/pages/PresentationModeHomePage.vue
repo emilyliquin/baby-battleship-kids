@@ -1,4 +1,87 @@
 <script setup>
+import {ref} from 'vue'
+import { useRouter } from 'vue-router'
+import * as random from '@/randomization'
+import useSmileStore from '@/stores/smiledata'
+
+const smilestore = useSmileStore()
+
+const router = useRouter()
+
+const expCond = ref(random.sampleWithoutReplacement(['Exposure', 'No Exposure'], 1)[0])
+const questionCond = ref(random.sampleWithoutReplacement(['Heads', 'Legs'], 1)[0])
+const qualityCond = ref(random.sampleWithoutReplacement(['Good', 'Bad'], 1)[0])
+
+// if smilestore.data.conditions.condNum is either 3, 4, 7, 8, 11, or 12, then questionCondition is "legs"
+// if smilestore.data.conditions.condNum is either 1, 2, 3, 4, 9, or 11 then qualityCondition is "good"
+// if smilestore.data.conditions.condNum is either 9, 10, 11, or 12, then exposureCondition is "baseline"
+
+// use the above to assign conditions from expCond, questionCond, and qualityCond
+
+function assignConds(expCond, questionCond, qualityCond){
+  if(expCond == "Exposure"){
+  if(questionCond == "Legs"){
+    if(qualityCond == "Good"){
+// exposure/legs/good
+      smilestore.data.conditions.condNum = "3"
+    } else {
+// exposure/legs/bad
+      smilestore.data.conditions.condNum = "8"
+    }
+  } else {
+    if(qualityCond == "Good"){
+// exposure/heads/good
+      smilestore.data.conditions.condNum = "1"
+    } else {
+// exposure/heads/bad
+      smilestore.data.conditions.condNum = "6"
+    }
+  }
+} else {
+  if(questionCond == "Legs"){
+    if(qualityCond == "Good"){
+// no exposure/legs/good
+      smilestore.data.conditions.condNum = "11"
+    } else {
+// no exposure/legs/bad
+      smilestore.data.conditions.condNum = "12"
+    }
+  } else {
+    if(qualityCond == "Good"){
+// no exposure/heads/good
+      smilestore.data.conditions.condNum = "9"
+    } else {
+// no exposure/heads/bad
+      smilestore.data.conditions.condNum = "10"
+    }
+  }
+}
+}
+
+
+function startExperiment() {
+    console.log('Starting experiment with conditions:', expCond.value, questionCond.value, qualityCond.value)
+
+    // do something with the conditions
+    // e.g., save them to a store, or pass them to the next page
+    assignConds(expCond.value, questionCond.value, qualityCond.value)
+
+    console.log(smilestore.data.conditions.condNum)
+    // for now, just navigate to the next page
+    router.push('/welcome')
+}
+
+function skipTo(section) {
+    console.log('Skipping to', section)
+    // do something to skip to the section
+    // e.g., navigate to a specific page or section
+    assignConds(expCond.value, questionCond.value, qualityCond.value)
+
+    
+    // for now, just navigate to the next page
+    router.push('/' + section)
+}
+
 </script>
 
 <template>
@@ -8,54 +91,57 @@
             <span id="bigsmile">🤠</span>
             </p>
             <p class="subtitle">
-            <h1 class="title is-1">Welcome to presentation 👩‍🏫 mode !</h1>
+            <h1 class="title is-1">Reuse and Remixing in Question Asking Across Development</h1>
             </p>
         </div>
         </section>
         <div class="content">
             <p class="is-size-5 has-text-left">
-                Use the links below to navigate to different parts of the experiment, or use the navigation bar at the top of the page.
+                Select what conditions you'd like to see:
                 <br>
-                <p class="is-size-6">
-                  This website is set up for you to explore the experiment design for a project exploring how people help one another in real time. 
-                  If you have questions or comments, please contact the project lead <a href="https://pamop.com">Pam Osborn Popp</a>.
-                </p>
-                <hr>
-                <h3 class="title is-5">Play farm game (single-player)</h3>
-                  <p class="is-size-6">
-                    Try out the experimental task in a single-player format where you control both players.
-                  </p>
-                  <a href="#/expgame" class="button is-pink is-small" id='citizen_tester'>Farm game &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
-                <hr>
-                <h3 class="title is-5">View real gameplay from data</h3>
-                  <p class="is-size-6">
-                    Watch a replay of a game that was played by two real participants.
-                  </p>
-                  <a href="#/replayselectpage" class="button is-pink is-small" id='citizen_tester'>Replay game &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
-                <hr>
-                <h3 class="title is-5">Show game environments (stimuli)</h3>
-                  <p class="is-size-6">
-                    See the twelve different game environments that participants play in. 
-                  </p>
-                  <a href="#/stimulipage" class="button is-pink is-small" id='citizen_tester'>Environments &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
+                <div class="is-size-6 is-underlined" >Exposure Condition:</div>
+                  <input type="radio" id="exposure" value="Exposure" v-model="expCond" />
+                  <label class="is-size-6" for="exposure">Exposure</label> <br>
+                  <input type="radio" id="no-exposure" value="No Exposure" v-model="expCond" />
+                  <label class="is-size-6" for="no-exposure">No Exposure</label>
+
+                  <div class="is-size-6 is-underlined">Target Question Condition:</div>
+                  <input type="radio" id="heads" value="Heads" v-model="questionCond" />
+                  <label class="is-size-6" for="heads">How many monsters have a square head?</label> <br>
+                  <input type="radio" id="legs" value="Legs" v-model="questionCond" />
+                  <label class="is-size-6" for="legs">How many legs do all the monsters have combined together?</label>
+
+                  <div class="is-size-6 is-underlined">Previous Quality Condition:</div>
+                  <input type="radio" id="good" value="Good" v-model="qualityCond" />
+                  <label class="is-size-6" for="good">Previously Informative</label> <br>
+                  <input type="radio" id="bad" value="Bad" v-model="qualityCond" />
+                  <label class="is-size-6" for="bad">Previously Uninformative</label>
+
+                  <br><br>
+
+                  Use the links below to navigate to different parts of the experiment, or use the navigation bar at the top of the page.
+                <br>
+                  
                 <hr>
                 <h3 class="title is-5">Start from beginning</h3>
                 <p class="is-size-6">
                     Start the experiment from the very beginning as if you were a real participant. Your data will not be saved, though some local storage may be used while you are on the page.
                   </p>
-                  <a href="#/welcome" class="button is-yellow is-small" id="citizen_tester">Start &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
+
+                  <a @click="startExperiment()" class="button is-yellow is-small" id="citizen_tester">Start &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
                 <hr>
-                <h3 class="title is-5">Instructions</h3>
+                <h3 class="title is-5">Skip to game instructions & practice trial (exposure manipulation)</h3>
                   <p class="is-size-6">
-                    Go to the task instructions to learn about how to play the game. After several pages of instructions, you can try out the comprehension quiz that real participants must pass to continue.
+                    Go to the game instructions and practice trial. All conditions see the game instructions, but only the exposure condition has a practice trial.
                   </p>
-                  <a href="#/instructions" class="button is-yellow is-small" id='citizen_tester'>Instructions &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
-                <hr>
-                <h3 class="title is-5">Play captcha game</h3>
+                  <a @click="skipTo('practice')" class="button is-yellow is-small" id='citizen_tester'>Instructions & Practice &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
+                  <hr>
+                  <h3 class="title is-5">Skip to question asking task</h3>
                   <p class="is-size-6">
-                    Try out the captcha game participants play to ensure that they are human (and that the required software loads properly in their browser).
+                    Go to the first trial of the question asking task.
                   </p>
-                  <a href="#/captchagame" class="button is-yellow is-small" id='citizen_tester'>Captcha Game &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
+                  <a @click="skipTo('main')"  class="button is-yellow is-small" id='citizen_tester'>Question Asking Task &nbsp;<FAIcon icon="fa-solid fa-arrow-right" /></a>
+                
               </p>        
         </div>
 

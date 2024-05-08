@@ -17,6 +17,8 @@ const router = useRouter()
 const route = useRoute()
 const smilestore = useSmileStore()
 
+console.log(smilestore.data.conditions.condNum)
+
 const { next, prev } = useTimelineStepper()
 
 if(route.meta.progress) smilestore.data.progress = route.meta.progress
@@ -61,7 +63,7 @@ if(baselineConds.includes(smilestore.data.conditions.condNum)){
     exposureCondition = "exposure"
 }
 
-
+console.log(questionCondition, qualityCondition, exposureCondition)
 
 const pages = []
 

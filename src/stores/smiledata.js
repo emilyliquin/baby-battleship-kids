@@ -21,7 +21,7 @@ export default defineStore('smilestore', {
       // syncs with local storage
       knownUser: false,
       lastRoute: appconfig.mode === 'development' ? 'recruit' : 'landing',
-      allowJumps: appconfig.mode === 'development',
+      allowJumps: appconfig.mode === 'development' || appconfig.mode === 'presentation',
       docRef: null,
       partNum: null,
       completionCode: '',
@@ -127,7 +127,7 @@ export default defineStore('smilestore', {
     },
     setDone() {
       this.data.done = true
-      processFinishedData()
+      // processFinishedData()
     },
     setCompletionCode(code) {
       this.local.completionCode = code

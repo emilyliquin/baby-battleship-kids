@@ -8,6 +8,7 @@
     "test-ui": "cypress open --project tests",
     "dev": "vite",
     "dev-live": "vite --mode production",
+    "dev:present": "vite --mode presentation",
     "build": "vite build",
     "preview": "vite preview",
     "getdata": "node scripts/download_data.mjs",
